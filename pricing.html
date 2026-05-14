@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pricing — Revenue Holdings</title>
+  <meta name="description" content="Choose individual developer CLI tools or the full suite. Free tier available. $39/mo for all 4 tools.">
+  <meta name="keywords" content="CLI tools pricing, developer tools, OpenAPI, SQL, infrastructure, config drift, subscription">
+  <meta property="og:title" content="Revenue Holdings — Pricing">
+  <meta property="og:description" content="Per-tool or suite pricing for autonomous developer CLI tools.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://coding-dev-tools.github.io/revenueholdings.dev/pricing.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Revenue Holdings — Pricing">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', -apple-system, sans-serif; background: #0a0a0b; color: #e1e1e3; line-height: 1.6; min-height: 100vh; }
+
+    /* Navigation */
+    nav { position: fixed; top: 0; width: 100%; z-index: 100; background: rgba(10,10,11,0.85); backdrop-filter: blur(12px); border-bottom: 1px solid #1e1e20; }
+    nav .inner { max-width: 1100px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; }
+    nav .logo { font-weight: 700; font-size: 1.15rem; color: #fff; letter-spacing: -0.02em; }
+    nav .logo span { color: #6366f1; }
+    nav .links a { color: #888; text-decoration: none; font-size: 0.85rem; margin-left: 28px; transition: color .15s; }
+    nav .links a:hover { color: #fff; }
+    nav .links a.active { color: #fff; }
+
+    /* Hero */
+    .hero { max-width: 1100px; margin: 0 auto; padding: 140px 24px 60px; text-align: center; }
+    .hero h1 { font-size: 3rem; font-weight: 800; line-height: 1.15; letter-spacing: -0.04em; color: #fff; }
+    .hero h1 span { background: linear-gradient(135deg, #6366f1, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .hero p { font-size: 1.05rem; color: #888; max-width: 600px; margin: 16px auto 0; }
+    .hero .badge { display: inline-block; padding: 6px 16px; border-radius: 32px; font-size: 0.75rem; font-weight: 600; background: rgba(99,102,241,0.12); color: #a78bfa; border: 1px solid rgba(99,102,241,0.2); margin-bottom: 20px; letter-spacing: 0.3px; text-transform: uppercase; }
+
+    /* Tab Switcher */
+    .tabs { display: flex; justify-content: center; gap: 4px; margin: 48px auto 0; background: #121213; border: 1px solid #1e1e20; border-radius: 12px; padding: 4px; width: fit-content; }
+    .tab-btn { padding: 10px 28px; border: none; border-radius: 8px; font-family: 'Inter', sans-serif; font-size: 0.85rem; font-weight: 600; cursor: pointer; background: transparent; color: #888; transition: all .15s; }
+    .tab-btn:hover { color: #ccc; }
+    .tab-btn.active { background: #6366f1; color: #fff; }
+
+    /* Pricing Sections */
+    .pricing-section { display: none; max-width: 1100px; margin: 0 auto; padding: 40px 24px; }
+    .pricing-section.active { display: block; }
+
+    /* Individual Tools Grid */
+    .tool-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
+    .tool-card { background: #121213; border: 1px solid #1e1e20; border-radius: 14px; padding: 28px; display: flex; flex-direction: column; transition: border-color .15s, transform .15s; }
+    .tool-card:hover { border-color: #2a2a2d; transform: translateY(-2px); }
+    .tool-card .icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; margin-bottom: 14px; }
+    .tool-card h3 { font-size: 1rem; font-weight: 600; color: #fff; margin-bottom: 4px; }
+    .tool-card .price { font-size: 2rem; font-weight: 800; color: #fff; margin: 12px 0 4px; letter-spacing: -0.03em; }
+    .tool-card .price span { font-size: 0.9rem; font-weight: 400; color: #666; }
+    .tool-card .annual { font-size: 0.8rem; color: #34d399; margin-bottom: 16px; }
+    .tool-card .desc { font-size: 0.82rem; color: #888; line-height: 1.5; margin-bottom: 16px; flex: 1; }
+    .tool-card ul { list-style: none; margin-bottom: 20px; }
+    .tool-card li { font-size: 0.78rem; color: #aaa; padding: 5px 0; display: flex; align-items: center; gap: 8px; }
+    .tool-card li::before { content: '✓'; color: #34d399; font-weight: 700; }
+    .tool-card .btn { display: block; text-align: center; padding: 10px; border-radius: 10px; font-weight: 600; font-size: 0.85rem; text-decoration: none; transition: all .15s; background: #1a1a1c; color: #ccc; border: 1px solid #2a2a2d; }
+    .tool-card .btn:hover { border-color: #6366f1; color: #fff; }
+
+    .icon-acg { background: rgba(99,102,241,0.15); }
+    .icon-j2s { background: rgba(16,185,129,0.15); }
+    .icon-dd { background: rgba(245,158,11,0.15); }
+    .icon-cd { background: rgba(239,68,68,0.15); }
+
+    /* Suite Bundle */
+    .suite-hero { text-align: center; margin-bottom: 48px; }
+    .suite-hero h2 { font-size: 1.8rem; font-weight: 700; color: #fff; letter-spacing: -0.03em; }
+    .suite-hero p { color: #888; max-width: 500px; margin: 10px auto 0; font-size: 0.9rem; }
+    .suite-card { max-width: 500px; margin: 0 auto; background: #121213; border: 1px solid #6366f1; border-radius: 14px; padding: 36px; text-align: center; position: relative; }
+    .suite-card.featured::before { content: 'Best Value'; position: absolute; top: -12px; left: 50%; transform: translateX(-50%); padding: 4px 20px; border-radius: 24px; background: #6366f1; color: #fff; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.3px; text-transform: uppercase; }
+    .suite-card .name { font-size: 1.1rem; font-weight: 600; color: #fff; }
+    .suite-card .price { font-size: 3rem; font-weight: 800; color: #fff; margin: 16px 0 4px; letter-spacing: -0.03em; }
+    .suite-card .price span { font-size: 1rem; font-weight: 400; color: #666; }
+    .suite-card .savings { font-size: 0.85rem; color: #34d399; font-weight: 600; margin-bottom: 4px; }
+    .suite-card .annual { font-size: 0.8rem; color: #34d399; margin-bottom: 20px; }
+    .suite-card .desc { font-size: 0.85rem; color: #888; max-width: 380px; margin: 0 auto 24px; }
+    .suite-card ul { list-style: none; display: inline-block; text-align: left; }
+    .suite-card li { font-size: 0.82rem; color: #aaa; padding: 6px 0; display: flex; align-items: center; gap: 10px; }
+    .suite-card li::before { content: '✓'; color: #34d399; font-weight: 700; }
+    .suite-card .btn { display: inline-block; padding: 14px 48px; border-radius: 10px; font-weight: 600; font-size: 0.95rem; text-decoration: none; transition: all .15s; background: #6366f1; color: #fff; margin-top: 24px; }
+    .suite-card .btn:hover { background: #5558e6; transform: translateY(-1px); }
+    .suite-card .compare-link { display: block; margin-top: 16px; font-size: 0.8rem; color: #6366f1; text-decoration: none; }
+    .suite-card .compare-link:hover { text-decoration: underline; }
+
+    /* Comparison Table */
+    .comparison { max-width: 1100px; margin: 0 auto; padding: 60px 24px 40px; }
+    .comparison h2 { font-size: 1.5rem; font-weight: 700; color: #fff; letter-spacing: -0.03em; margin-bottom: 8px; }
+    .comparison > p { color: #888; font-size: 0.9rem; margin-bottom: 32px; }
+    .comparison table { width: 100%; border-collapse: collapse; }
+    .comparison th, .comparison td { padding: 12px 16px; text-align: left; border-bottom: 1px solid #1e1e20; font-size: 0.82rem; }
+    .comparison th { font-weight: 600; color: #fff; background: #121213; position: sticky; top: 60px; }
+    .comparison th:first-child { border-radius: 10px 0 0 0; }
+    .comparison th:last-child { border-radius: 0 10px 0 0; }
+    .comparison td:first-child { color: #ccc; font-weight: 500; }
+    .comparison td { color: #888; text-align: center; }
+    .comparison td:first-child { text-align: left; }
+    .comparison td.yes { color: #34d399; }
+    .comparison td.no { color: #444; }
+    .comparison .highlight { background: rgba(99,102,241,0.05); }
+    .comparison .row-label { display: flex; align-items: center; gap: 8px; }
+    .comparison .row-label .icon { width: 28px; height: 28px; border-radius: 6px; display: inline-flex; align-items: center; justify-content: center; font-size: 0.85rem; flex-shrink: 0; }
+
+    /* FAQ */
+    .faq { max-width: 800px; margin: 0 auto; padding: 40px 24px 80px; }
+    .faq h2 { font-size: 1.5rem; font-weight: 700; color: #fff; letter-spacing: -0.03em; margin-bottom: 28px; text-align: center; }
+    .faq-item { background: #121213; border: 1px solid #1e1e20; border-radius: 12px; padding: 20px 24px; margin-bottom: 12px; }
+    .faq-item h3 { font-size: 0.95rem; font-weight: 600; color: #fff; margin-bottom: 6px; }
+    .faq-item p { font-size: 0.85rem; color: #888; line-height: 1.5; }
+
+    /* Footer */
+    footer { max-width: 1100px; margin: 0 auto; padding: 40px 24px; border-top: 1px solid #1e1e20; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    footer span { font-size: 0.8rem; color: #555; }
+    footer a { color: #888; text-decoration: none; font-size: 0.8rem; }
+    footer a:hover { color: #fff; }
+
+    @media (max-width: 640px) {
+      .hero h1 { font-size: 2rem; }
+      .tabs { flex-direction: column; width: 100%; }
+      .tool-grid { grid-template-columns: 1fr; }
+      .comparison th, .comparison td { padding: 8px 10px; font-size: 0.75rem; }
+      nav .links a { margin-left: 12px; font-size: 0.75rem; }
+    }
+
+    @media (max-width: 768px) {
+      .comparison { overflow-x: auto; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="inner">
+    <div class="logo"><span>⛁</span> Revenue Holdings</div>
+    <div class="links">
+      <a href="index.html">Home</a>
+      <a href="pricing.html" class="active">Pricing</a>
+      <a href="https://github.com/paperclip-dev" target="_blank">GitHub</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="badge">Transparent Pricing</div>
+  <h1>Pick a tool or <span>grab the suite</span></h1>
+  <p>Every tool has a generous free tier. Upgrade when you need CI/CD, rate limits, or team features. No credit card required to start.</p>
+</section>
+
+<!-- Tab Switcher -->
+<div class="tabs">
+  <button class="tab-btn active" onclick="switchTab('individual')">Individual Tools</button>
+  <button class="tab-btn" onclick="switchTab('suite')">Suite Bundle</button>
+</div>
+
+<!-- Individual Tools Pricing -->
+<section class="pricing-section active" id="tab-individual">
+  <div class="tool-grid">
+    <div class="tool-card">
+      <div class="icon icon-acg">⚡</div>
+      <h3>API Contract Guardian</h3>
+      <div class="price">$19 <span>/ mo</span></div>
+      <div class="annual">$189 / yr (save ~17%)</div>
+      <div class="desc">Monitor OpenAPI schema diffs, detect breaking changes, gate CI pipelines on contract violations.</div>
+      <ul>
+        <li>Unlimited checks & diffs</li>
+        <li>CI/CD pipeline gating</li>
+        <li>Custom rules & policies</li>
+        <li>Migration guide generation</li>
+      </ul>
+      <a href="#" class="btn">Coming Soon</a>
+    </div>
+
+    <div class="tool-card">
+      <div class="icon icon-j2s">↻</div>
+      <h3>json2sql</h3>
+      <div class="price">$9 <span>/ mo</span></div>
+      <div class="annual">$89 / yr (save ~17%)</div>
+      <div class="desc">Convert JSON datasets to SQL statements with smart type inference across PostgreSQL, MySQL, SQLite.</div>
+      <ul>
+        <li>Unlimited row conversion</li>
+        <li>Multi-dialect support</li>
+        <li>Custom column mapping</li>
+        <li>Batch & streaming modes</li>
+      </ul>
+      <a href="#" class="btn">Coming Soon</a>
+    </div>
+
+    <div class="tool-card">
+      <div class="icon icon-dd">☁</div>
+      <h3>DeployDiff</h3>
+      <div class="price">$15 <span>/ mo</span></div>
+      <div class="annual">$149 / yr (save ~17%)</div>
+      <div class="desc">Preview infrastructure changes with cost impact estimates and auto-generated rollback commands.</div>
+      <ul>
+        <li>Unlimited stack comparisons</li>
+        <li>Cost impact estimates</li>
+        <li>Terraform / CloudFormation / Pulumi</li>
+        <li>Auto-rollback command gen</li>
+      </ul>
+      <a href="#" class="btn">Coming Soon</a>
+    </div>
+
+    <div class="tool-card">
+      <div class="icon icon-cd">⌘</div>
+      <h3>ConfigDrift</h3>
+      <div class="price">$15 <span>/ mo</span></div>
+      <div class="annual">$149 / yr (save ~17%)</div>
+      <div class="desc">Detect and fix configuration file drift across environments. Compare local vs declared state.</div>
+      <ul>
+        <li>Unlimited config comparisons</li>
+        <li>Multi-environment tracking</li>
+        <li>Compliance rule engine</li>
+        <li>Auto-remediation mode</li>
+      </ul>
+      <a href="#" class="btn">Coming Soon</a>
+    </div>
+  </div>
+</section>
+
+<!-- Suite Bundle Pricing -->
+<section class="pricing-section" id="tab-suite">
+  <div class="suite-hero">
+    <h2>The Revenue Holdings Suite</h2>
+    <p>All four tools. One subscription. Maximum savings for professionals who need the full toolkit.</p>
+  </div>
+
+  <div class="suite-card featured">
+    <div class="name">Suite Bundle</div>
+    <div class="price">$39 <span>/ mo</span></div>
+    <div class="savings">Save 33% vs buying individually ($58/mo separately)</div>
+    <div class="annual">$399 / yr — save another ~17%</div>
+    <div class="desc">Everything you need: API contracts, SQL generation, infra diffs, and config drift — all under one license key.</div>
+    <ul>
+      <li>API Contract Guardian — unlimited</li>
+      <li>json2sql — unlimited</li>
+      <li>DeployDiff — unlimited</li>
+      <li>ConfigDrift — unlimited</li>
+      <li>Single license key for all tools</li>
+      <li>CI/CD integration across all tools</li>
+    </ul>
+    <a href="#" class="btn">Coming Soon</a>
+    <a href="#comparison" class="compare-link">Compare features across tiers →</a>
+  </div>
+</section>
+
+<!-- Feature Comparison Table -->
+<section class="comparison" id="comparison">
+  <h2>Feature Comparison</h2>
+  <p>All tools included in every tier. Upgrade for CI/CD, team features, and enterprise controls.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Feature</th>
+        <th>Free</th>
+        <th>Pro</th>
+        <th>Team</th>
+        <th>Enterprise</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Price</td>
+        <td>$0</td>
+        <td>$29/mo ($23 annual)</td>
+        <td>$79/mo ($63 annual)</td>
+        <td>Custom</td>
+      </tr>
+      <tr>
+        <td><span class="row-label"><span class="icon" style="background:rgba(99,102,241,0.12);">⚡</span> API Contract Guardian</span></td>
+        <td class="yes">✓</td>
+        <td class="yes">✓</td>
+        <td class="yes">✓</td>
+        <td class="yes">✓</td>
+      </tr>
+      <tr>
+        <td><span class="row-label"><span class="icon" style="background:rgba(16,185,129,0.12);">↻</span> json2sql</span></td>
+        <td class="yes">✓</td>
+        <td class="yes">✓</td>
+        <td class="yes">✓</td>
+        <td class="yes">✓</td>
+      </tr>
+      <tr>
+        <td><span class="row-label"><span class="icon" style="background:rgba(245,158,11,0.12);">☁</span> DeployDiff</span></td>
+        <td class="yes">✓</td>
+        <td class="yes">✓</td>
+        <td class="yes">✓</td>
+        <td class="yes">✓</td>
+      </tr>
+      <tr>
+        <td><span class="row-label"><span class="icon" style="background:rgba(239,68,68,0.12);">⌘</span> ConfigDrift</span></td>
+        <td class="yes">✓</td>
+        <td class="yes">✓</td>
+        <td class="yes">✓</td>
+        <td class="yes">✓</td>
+      </tr>
+      <tr>
+        <td>Monthly checks/tool</td>
+        <td>50/day (1,500/mo)</td>
+        <td class="yes">Unlimited</td>
+        <td class="yes">Unlimited</td>
+        <td class="yes">Unlimited</td>
+      </tr>
+      <tr>
+        <td>CI/CD pipeline gating</td>
+        <td class="no">—</td>
+        <td class="yes">✓</td>
+        <td class="yes">✓</td>
+        <td class="yes">✓</td>
+      </tr>
+      <tr>
+        <td>Custom rules & policies</td>
+        <td class="no">—</td>
+        <td class="yes">✓</td>
+        <td class="yes">✓</td>
+        <td class="yes">✓</td>
+      </tr>
+      <tr>
+        <td>GitHub Actions orb</td>
+        <td class="no">—</td>
+        <td class="yes">✓</td>
+        <td class="yes">✓</td>
+        <td class="yes">✓</td>
+      </tr>
+      <tr>
+        <td>MCP server mode</td>
+        <td class="no">—</td>
+        <td class="yes">✓</td>
+        <td class="yes">✓</td>
+        <td class="yes">✓</td>
+      </tr>
+      <tr>
+        <td>Team seats</td>
+        <td>1</td>
+        <td>1</td>
+        <td>Up to 5</td>
+        <td>Unlimited</td>
+      </tr>
+      <tr>
+        <td>Multi-repo monitoring</td>
+        <td class="no">—</td>
+        <td>5 repos</td>
+        <td class="yes">Unlimited</td>
+        <td class="yes">Unlimited</td>
+      </tr>
+      <tr>
+        <td>Slack / webhook alerts</td>
+        <td class="no">—</td>
+        <td class="no">—</td>
+        <td class="yes">✓</td>
+        <td class="yes">✓</td>
+      </tr>
+      <tr>
+        <td>Drift history & audit trail</td>
+        <td class="no">—</td>
+        <td class="no">—</td>
+        <td>30 days</td>
+        <td>Unlimited</td>
+      </tr>
+      <tr>
+        <td>Usage analytics dashboard</td>
+        <td class="no">—</td>
+        <td class="no">—</td>
+        <td class="yes">✓</td>
+        <td class="yes">✓</td>
+      </tr>
+      <tr>
+        <td>SSO / SAML / OIDC</td>
+        <td class="no">—</td>
+        <td class="no">—</td>
+        <td class="no">—</td>
+        <td class="yes">✓</td>
+      </tr>
+      <tr>
+        <td>RBAC & compliance reports</td>
+        <td class="no">—</td>
+        <td class="no">—</td>
+        <td class="no">—</td>
+        <td class="yes">✓</td>
+      </tr>
+      <tr>
+        <td>On-prem deployment</td>
+        <td class="no">—</td>
+        <td class="no">—</td>
+        <td class="no">—</td>
+        <td class="yes">✓</td>
+      </tr>
+      <tr>
+        <td>Support</td>
+        <td>Community</td>
+        <td>24h email</td>
+        <td>8h priority</td>
+        <td>Dedicated + SLA</td>
+      </tr>
+      <tr class="highlight">
+        <td><strong>Best for</strong></td>
+        <td>Hobbyists & OSS</td>
+        <td>Professional devs</td>
+        <td>Small teams</td>
+        <td>Organizations</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- FAQ -->
+<section class="faq">
+  <h2>Frequently Asked Questions</h2>
+
+  <div class="faq-item">
+    <h3>Is there really a free tier?</h3>
+    <p>Yes. Every tool works with a free license key — no credit card needed. Free tier gives you 50 checks/day per tool (1,500/month), which covers most local development and hobby use.</p>
+  </div>
+
+  <div class="faq-item">
+    <h3>Can I buy just one tool instead of the suite?</h3>
+    <p>Absolutely. If you only need API Contract Guardian, pay $19/mo. Need both API checking and SQL conversion? Buy both for $28/mo — or grab the suite at $39/mo and save on the rest. License keys are per-tool or all-tools.</p>
+  </div>
+
+  <div class="faq-item">
+    <h3>How does licensing work?</h3>
+    <p>Set the <code>REVENUEHOLDINGS_LICENSE_KEY</code> environment variable. The key is a JWT that encodes your tier and tool access. Works offline for up to 7 days between automatic verifications. No account or login required.</p>
+  </div>
+
+  <div class="faq-item">
+    <h3>What payment methods do you accept?</h3>
+    <p>Credit/debit cards via Stripe. Annual billing available at ~17% discount. Enterprise invoices and purchase orders supported.</p>
+  </div>
+
+  <div class="faq-item">
+    <h3>Can I cancel anytime?</h3>
+    <p>Yes — no lock-in contracts. Your Pro access continues until the end of the billing period. After that you revert to the free tier with no data loss.</p>
+  </div>
+
+  <div class="faq-item">
+    <h3>Do you offer student or open-source discounts?</h3>
+    <p>Yes. The free tier covers open-source projects with 50 checks/day per tool. For active open-source maintainers, we offer free Pro access — email us at <a href="mailto:oss@revenueholdings.dev" style="color:#6366f1;text-decoration:none;">oss@revenueholdings.dev</a>.</p>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 Revenue Holdings. Built autonomously.</span>
+  <a href="index.html">Home</a>
+  <a href="https://github.com/paperclip-dev">GitHub</a>
+</footer>
+
+<script>
+function switchTab(tab) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.pricing-section').forEach(s => s.classList.remove('active'));
+  if (tab === 'individual') {
+    document.querySelectorAll('.tab-btn')[0].classList.add('active');
+    document.getElementById('tab-individual').classList.add('active');
+  } else {
+    document.querySelectorAll('.tab-btn')[1].classList.add('active');
+    document.getElementById('tab-suite').classList.add('active');
+  }
+}
+</script>
+
+</body>
+</html>
