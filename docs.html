@@ -56,6 +56,10 @@
     .icon-j2s { background: rgba(16,185,129,0.15); }
     .icon-dd { background: rgba(245,158,11,0.15); }
     .icon-cd { background: rgba(239,68,68,0.15); }
+    .icon-aa { background: rgba(236,72,153,0.15); }
+    .icon-ag { background: rgba(6,182,212,0.15); }
+    .icon-ev { background: rgba(34,197,94,0.15); }
+    .icon-sf { background: rgba(251,146,60,0.15); }
     .icon-rh { background: rgba(139,92,246,0.15); }
 
     /* Install Block */
@@ -127,6 +131,10 @@
   <a href="#json2sql">↻ json2sql</a>
   <a href="#deploydiff">☁ DeployDiff</a>
   <a href="#configdrift">⌘ ConfigDrift</a>
+  <a href="#apighost">👻 APIGhost</a>
+  <a href="#apiauth">🔑 APIAuth</a>
+  <a href="#envault">🛡 Envault</a>
+  <a href="#schemaforge">⚗ SchemaForge</a>
   <a href="#meta-package">⛁ Revenue Holdings Suite</a>
   <a href="#ci-pipeline">🔁 CI Pipeline</a>
 </div>
@@ -275,16 +283,144 @@ json2sql convert data.json --dialect sqlite</code></pre>
     </div>
   </div>
 
+  <div class="tool-section" id="apighost">
+    <h2><span class="icon icon-ag">👻</span> APIGhost</h2>
+    <div class="subtitle">v0.1.0 — OpenAPI mock server with VCR recording</div>
+    <p class="desc">Turn any OpenAPI 3.0/3.1 spec into a running mock API server with realistic fake data, scenario-based response overrides, and VCR-style cassette recording/replay. Perfect for frontend teams, integration testing, and contract-first development.</p>
+    <a href="https://github.com/Coding-Dev-Tools/apighost" class="gh-link" target="_blank">View on GitHub →</a>
+
+    <div class="install-block">
+      <code>pip install apighost</code>
+      <span class="note">Requires Python 3.9+</span>
+    </div>
+
+    <ul class="features">
+      <li>OpenAPI 3.0/3.1 spec → mock server in one command</li>
+      <li>Realistic fake data generation from schemas</li>
+      <li>Scenario-based response overrides (success, error, timeout)</li>
+      <li>VCR cassette record &amp; replay for deterministic tests</li>
+      <li>Remote spec support (URLs, not just local files)</li>
+    </ul>
+
+    <p style="font-size:0.82rem;color:#888;font-weight:600;margin-bottom:8px;">Start a mock server from a spec</p>
+    <pre><code class="language-bash">apighost serve petstore.yaml</code></pre>
+
+    <p style="font-size:0.82rem;color:#888;font-weight:600;margin-bottom:8px;">Record real interactions &amp; replay deterministically</p>
+    <pre><code class="language-bash">apighost record petstore.yaml --output my-cassette
+apighost replay my-cassette</code></pre>
+
+    <div class="insight">
+      <p><strong>Why you need it:</strong> Frontend teams shouldn't wait for backend APIs. APIGhost spins up a working mock from your OpenAPI spec instantly — with realistic data, error scenarios, and record/replay for integration tests. Ship UI against a stable mock, swap in the real API when ready.</p>
+    </div>
+  </div>
+
+  <div class="tool-section" id="apiauth">
+    <h2><span class="icon icon-aa">🔑</span> APIAuth</h2>
+    <div class="subtitle">v0.1.0 — API key &amp; JWT lifecycle management</div>
+    <p class="desc">Generate, import, verify, rotate, and revoke API keys and JWTs from the terminal. Encrypted local keystore with AES-256-GCM, CI/CD export formats, and audit trail for compliance. No more secrets scattered in .env files.</p>
+    <a href="https://github.com/Coding-Dev-Tools/apiauth" class="gh-link" target="_blank">View on GitHub →</a>
+
+    <div class="install-block">
+      <code>pip install apiauth</code>
+      <span class="note">Requires Python 3.9+</span>
+    </div>
+
+    <ul class="features">
+      <li>Generate API keys &amp; JWTs with expiry &amp; custom claims</li>
+      <li>Encrypted keystore (AES-256-GCM, master key in ~/.apiauth/)</li>
+      <li>Verify keys against stored hashes — no plaintext stored</li>
+      <li>Safe rotation — previous values hashed out</li>
+      <li>Instant revocation for compromised keys</li>
+      <li>Export as env, dotenv, JSON, or GitHub Actions format</li>
+      <li>Audit trail: expired, expiring, revoked key detection</li>
+    </ul>
+
+    <p style="font-size:0.82rem;color:#888;font-weight:600;margin-bottom:8px;">Generate and manage keys</p>
+    <pre><code class="language-bash">apiauth generate api-key --name "Gateway Key" --service api-gateway --expiry-days 90
+apiauth list --service api-gateway
+apiauth rotate &lt;key-id&gt;</code></pre>
+
+    <p style="font-size:0.82rem;color:#888;font-weight:600;margin-bottom:8px;">Export for CI/CD pipelines</p>
+    <pre><code class="language-bash">apiauth export --format github-actions --service api-gateway</code></pre>
+
+    <div class="insight">
+      <p><strong>Why you need it:</strong> API keys in .env files are a security incident waiting to happen. APIAuth gives you a proper keystore — encrypted, auditable, rotatable — with one-command CI/CD export. Stop copying secrets into config files and start managing them like infrastructure.</p>
+    </div>
+  </div>
+
+  <div class="tool-section" id="envault">
+    <h2><span class="icon icon-ev">🛡</span> Envault</h2>
+    <div class="subtitle">v0.1.0 — Environment variable syncing, diffing &amp; secret rotation</div>
+    <p class="desc">Compare .env files across environments, sync variables with conflict resolution, and rotate secrets with auto-generated cryptographically secure values. Integrates with AWS SSM, HashiCorp Vault, Doppler, and 1Password — one tool for all your secret stores.</p>
+    <a href="https://github.com/Coding-Dev-Tools/envault" class="gh-link" target="_blank">View on GitHub →</a>
+
+    <div class="install-block">
+      <code>pip install envault</code>
+      <span class="note">Requires Python 3.10+</span>
+    </div>
+
+    <ul class="features">
+      <li>Diff .env files across dev, staging, prod</li>
+      <li>Sync with conflict resolution strategies (source wins, target wins)</li>
+      <li>Smart secret rotation (DB passwords, API keys, JWT secrets, webhook keys)</li>
+      <li>AWS SSM, Vault, Doppler, 1Password integrations</li>
+      <li>Audit trail for all operations</li>
+      <li>Dry-run mode for safe previews</li>
+    </ul>
+
+    <p style="font-size:0.82rem;color:#888;font-weight:600;margin-bottom:8px;">Diff environments</p>
+    <pre><code class="language-bash">envault diff dev prod</code></pre>
+
+    <p style="font-size:0.82rem;color:#888;font-weight:600;margin-bottom:8px;">Rotate a secret (smart type inference)</p>
+    <pre><code class="language-bash">envault rotate DB_PASSWORD        # → database-safe password
+envault rotate API_KEY            # → prefixed API key
+envault rotate JWT_SECRET         # → 256-bit base64 secret</code></pre>
+
+    <div class="insight">
+      <p><strong>Why you need it:</strong> .env drift is how staging works but prod doesn't — a missing variable, a different value, a stale secret. Envault catches the diff, syncs safely, and rotates secrets with one command. Connect it to your secret store and stop managing .env files by hand.</p>
+    </div>
+  </div>
+
+  <div class="tool-section" id="schemaforge">
+    <h2><span class="icon icon-sf">⚗</span> SchemaForge</h2>
+    <div class="subtitle">v0.1.0 — Bidirectional ORM schema converter</div>
+    <p class="desc">Convert between SQL DDL, Prisma, Drizzle, TypeORM, and Django models with zero-loss roundtripping. The only tool that does bidirectional, lossless conversion between 5+ ORM formats — no more manual rewrites when switching ORMs.</p>
+    <a href="https://github.com/Coding-Dev-Tools/schemaforge" class="gh-link" target="_blank">View on GitHub →</a>
+
+    <div class="install-block">
+      <code>pip install schemaforge</code>
+      <span class="note">Requires Python 3.9+</span>
+    </div>
+
+    <ul class="features">
+      <li>SQL DDL ↔ Prisma ↔ Drizzle ↔ TypeORM ↔ Django</li>
+      <li>Zero-loss roundtripping — convert back and forth without data loss</li>
+      <li>Schema diff between any two formats</li>
+      <li>Batch directory conversion</li>
+      <li>Custom type mappings for edge cases</li>
+    </ul>
+
+    <p style="font-size:0.82rem;color:#888;font-weight:600;margin-bottom:8px;">Convert Prisma → Drizzle</p>
+    <pre><code class="language-bash">schemaforge convert --from prisma --to drizzle --input schema.prisma</code></pre>
+
+    <p style="font-size:0.82rem;color:#888;font-weight:600;margin-bottom:8px;">Diff two schemas</p>
+    <pre><code class="language-bash">schemaforge diff schema.prisma schema.drizzle.ts</code></pre>
+
+    <div class="insight">
+      <p><strong>Why you need it:</strong> Every ORM migration is a one-way street — Prisma introspects SQL but can't export back, Drizzle users manually rewrite schemas when switching. SchemaForge is the only tool that goes both ways across 5 ORM formats. Stop rewriting schemas by hand and start converting them.</p>
+    </div>
+  </div>
+
   <!-- ==================== META PACKAGE ==================== -->
   <div class="tool-section" id="meta-package">
     <h2><span class="icon icon-rh">⛁</span> Revenue Holdings Suite</h2>
-    <div class="subtitle">One install. All four tools.</div>
-    <p class="desc">Install every tool in the Revenue Holdings ecosystem with a single command. Perfect for CI/CD pipelines, dev workstations, or teams that want the full safety net across API contracts, SQL, infrastructure, and configs.</p>
+    <div class="subtitle">One install. All eight tools.</div>
+    <p class="desc">Install every tool in the Revenue Holdings ecosystem with a single command. Perfect for CI/CD pipelines, dev workstations, or teams that want the full safety net across API contracts, SQL, infrastructure, configs, API mocking, key management, env syncing, and schema conversion.</p>
     <a href="https://github.com/Coding-Dev-Tools/revenueholdings" class="gh-link" target="_blank">View on GitHub →</a>
 
     <div class="install-block">
       <code>pip install revenueholdings</code>
-      <span class="note">Installs all 4 tools as dependencies</span>
+      <span class="note">Installs all 8 tools as dependencies</span>
     </div>
 
     <div class="workflow">
@@ -326,14 +462,18 @@ jobs:
     <h2>🔁 CI &amp; Integration Guide</h2>
     <div class="subtitle">Adding safety checks to your existing pipeline</div>
 
-    <p class="desc">All four tools are designed as stateless CLI commands that fit naturally into CI pipelines. Each returns a non-zero exit code on failure, so they integrate with any CI system that supports shell commands — GitHub Actions, GitLab CI, CircleCI, Jenkins, or raw bash scripts.</p>
+    <p class="desc">All eight tools are designed as stateless CLI commands that fit naturally into CI pipelines. Each returns a non-zero exit code on failure, so they integrate with any CI system that supports shell commands — GitHub Actions, GitLab CI, CircleCI, Jenkins, or raw bash scripts.</p>
 
     <p style="font-size:0.82rem;color:#888;font-weight:600;margin-bottom:8px;">Per-tool install for minimal dependencies</p>
     <pre><code class="language-bash"># Install only what you need
 pip install api-contract-guardian  # API contract checks
 pip install deploydiff             # Infra change previews
 pip install json2sql              # SQL validation
-pip install configdrift           # Config drift detection</code></pre>
+pip install configdrift           # Config drift detection
+pip install apighost             # OpenAPI mock server
+pip install apiauth              # API key &amp; JWT management
+pip install envault               # .env syncing &amp; secret rotation
+pip install schemaforge          # ORM schema converter</code></pre>
 
     <p style="font-size:0.82rem;color:#888;font-weight:600;margin-bottom:8px;">Exit codes (all tools)</p>
     <pre><code class="language-text">0 — Success (no issues found)
@@ -359,3 +499,4 @@ pip install configdrift           # Config drift detection</code></pre>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/prism.min.js"></script>
 </body>
 </html>
+
