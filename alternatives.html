@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Alternatives — Revenue Holdings CLI Tools Compared</title>
-<meta name="description" content="Honest feature-by-feature comparisons: API Contract Guardian vs Spectral vs OAS Diff, DeployDiff vs Terraform Plan, ConfigDrift vs Steampipe, json2sql vs csvsql, DeadCode vs knip, click-to-mcp vs FastMCP, APIGhost vs Prism, Envault vs dotenv-vault. Find the right tool for your workflow.">
-  <meta name="keywords" content="api contract guardian vs spectral, openapi diff tool comparison, deploydiff vs terraform, config drift detection tools, json to sql converter alternatives, deadcode vs knip, click-to-mcp vs fastmcp, apighost vs prism, envault vs dotenv-vault, mcp server alternatives, mock server comparison, env management tools, spectral alternatives, oas diff alternatives">
+<meta name="description" content="Honest feature-by-feature comparisons: API Contract Guardian vs Spectral vs OAS Diff, DeployDiff vs Terraform Plan, ConfigDrift vs Steampipe, json2sql vs csvsql, DeadCode vs knip, click-to-mcp vs FastMCP, APIGhost vs Prism, Envault vs dotenv-vault, APIAuth vs Vault, SchemaForge vs sqlacodegen. Find the right tool for your workflow.">
+  <meta name="keywords" content="api contract guardian vs spectral, openapi diff tool comparison, deploydiff vs terraform, config drift detection tools, json to sql converter alternatives, deadcode vs knip, click-to-mcp vs fastmcp, apighost vs prism, envault vs dotenv-vault, apiauth vs vault, schemaforge vs sqlacodegen, mcp server alternatives, mock server comparison, env management tools, api key management, orm schema converter, spectral alternatives, oas diff alternatives">
   <meta property="og:title" content="Alternatives — Revenue Holdings CLI Tools Compared">
   <meta property="og:description" content="Feature-by-feature comparisons of Revenue Holdings CLI tools vs popular alternatives. Make an informed choice.">
   <meta property="og:type" content="website">
@@ -134,6 +134,8 @@
   <a href="#clicktomcp-vs-fastmcp">click-to-mcp vs FastMCP</a>
   <a href="#apighost-vs-prism">APIGhost vs Prism</a>
   <a href="#envault-vs-dotenv-vault">Envault vs dotenv-vault</a>
+  <a href="#apiauth-vs-vault">APIAuth vs Vault</a>
+  <a href="#schemaforge-vs-sqlacodegen">SchemaForge vs sqlacodegen</a>
 </div>
 
 <div class="comparisons">
@@ -788,6 +790,162 @@
     </div>
     <div class="cta-row">
       <a href="docs.html#envault">Read Envault Docs</a>
+    </div>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- APIAuth vs HashiCorp Vault -->
+  <!-- ============================================ -->
+  <div class="comparison" id="apiauth-vs-vault">
+    <h2>APIAuth <span class="vs">vs</span> HashiCorp Vault</h2>
+    <p class="subtitle">API key management — CLI-first lifecycle management vs enterprise secrets platform.</p>
+
+    <table class="feat-table">
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th class="rh-col">APIAuth</th>
+          <th>HashiCorp Vault</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>API key generation</td>
+          <td class="yes">Yes — CLI one-liner with expiry</td>
+          <td class="yes">Yes — API + policy required</td>
+        </tr>
+        <tr>
+          <td>JWT generation &amp; verification</td>
+          <td class="yes">Yes — built-in</td>
+          <td class="yes">Yes — via transit engine</td>
+        </tr>
+        <tr>
+          <td>Key rotation</td>
+          <td class="yes">Yes — safe in-place rotation</td>
+          <td class="yes">Yes — via API</td>
+        </tr>
+        <tr>
+          <td>Encrypted local keystore</td>
+          <td class="yes">Yes — AES-256-GCM, no server needed</td>
+          <td class="no">No — requires Vault server</td>
+        </tr>
+        <tr>
+          <td>CI/CD export</td>
+          <td class="yes">Yes — GitHub Actions, GitLab CI, dotenv</td>
+          <td class="partial">Partial — requires Vault agent</td>
+        </tr>
+        <tr>
+          <td>Expiry tracking &amp; audit</td>
+          <td class="yes">Yes — list with expiry status</td>
+          <td class="yes">Yes — lease management</td>
+        </tr>
+        <tr>
+          <td>Zero-config setup</td>
+          <td class="yes">Yes — single pip install</td>
+          <td class="no">No — server, config, policies</td>
+        </tr>
+        <tr>
+          <td>Multi-service key isolation</td>
+          <td class="yes">Yes — service scoping</td>
+          <td class="yes">Yes — secret paths</td>
+        </tr>
+        <tr>
+          <td>Revocation with hash verification</td>
+          <td class="yes">Yes — verify against hashes</td>
+          <td class="yes">Yes — lease revocation</td>
+        </tr>
+        <tr>
+          <td>Price</td>
+          <td class="rh-col">Free (OSS, Apache 2.0)</td>
+          <td>Free (OSS) + Enterprise</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="verdict">
+      <div class="label">Verdict</div>
+      <p><strong>HashiCorp Vault</strong> is a full enterprise secrets platform — server-based, policy-driven, and designed for large organizations with dedicated ops teams. <strong>APIAuth</strong> is a focused CLI tool that handles API key and JWT lifecycle management without server setup or operational overhead. If you need a zero-config, encrypted local keystore for API keys and JWTs that fits in a CI pipeline, APIAuth delivers the same core capabilities without standing up a Vault cluster.</p>
+    </div>
+    <div class="cta-row">
+      <a href="docs.html#apiauth">Read APIAuth Docs</a>
+    </div>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- SchemaForge vs sqlacodegen -->
+  <!-- ============================================ -->
+  <div class="comparison" id="schemaforge-vs-sqlacodegen">
+    <h2>SchemaForge <span class="vs">vs</span> sqlacodegen</h2>
+    <p class="subtitle">ORM schema conversion — bidirectional multi-format conversion vs one-way SQLAlchemy model generation.</p>
+
+    <table class="feat-table">
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th class="rh-col">SchemaForge</th>
+          <th>sqlacodegen</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Bidirectional conversion</td>
+          <td class="yes">Yes — any format to any format</td>
+          <td class="no">No — SQL DDL → SQLAlchemy only</td>
+        </tr>
+        <tr>
+          <td>ORM formats supported</td>
+          <td class="yes">Prisma, Drizzle, TypeORM, Django, SQLAlchemy</td>
+          <td class="yes">SQLAlchemy only</td>
+        </tr>
+        <tr>
+          <td>SQL DDL roundtripping</td>
+          <td class="yes">Yes — lossless roundtrip</td>
+          <td class="yes">Yes — one direction</td>
+        </tr>
+        <tr>
+          <td>Zero-loss roundtrip verification</td>
+          <td class="yes">Yes — built-in diff command</td>
+          <td class="no">No</td>
+        </tr>
+        <tr>
+          <td>Dialect-aware output</td>
+          <td class="yes">Yes — pg, mysql, sqlite dialects</td>
+          <td class="partial">Partial — driver-dependent</td>
+        </tr>
+        <tr>
+          <td>JSON Schema conversion</td>
+          <td class="yes">Yes</td>
+          <td class="no">No</td>
+        </tr>
+        <tr>
+          <td>Batch directory processing</td>
+          <td class="yes">Yes — convert whole directories</td>
+          <td class="no">No — single file only</td>
+        </tr>
+        <tr>
+          <td>Relationship inference</td>
+          <td class="yes">Yes — foreign key detection</td>
+          <td class="yes">Yes</td>
+        </tr>
+        <tr>
+          <td>Type mapping accuracy</td>
+          <td class="yes">Full — enums, JSONB, UUID, custom types</td>
+          <td class="partial">Basic — common types only</td>
+        </tr>
+        <tr>
+          <td>Price</td>
+          <td class="rh-col">Free (OSS, Apache 2.0)</td>
+          <td>Free (OSS, MIT)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="verdict">
+      <div class="label">Verdict</div>
+      <p><strong>sqlacodegen</strong> is a mature, focused tool for generating SQLAlchemy models from SQL DDL — it does one thing well. <strong>SchemaForge</strong> is a multi-format bidirectional converter that spans Prisma, Drizzle, TypeORM, Django, and SQLAlchemy with lossless roundtrip verification. If you work across multiple ORMs, need bidirectional conversion, or migrate between frameworks, SchemaForge covers ground no single tool matches.</p>
+    </div>
+    <div class="cta-row">
+      <a href="docs.html#schemaforge">Read SchemaForge Docs</a>
     </div>
   </div>
 
