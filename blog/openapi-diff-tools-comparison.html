@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OpenAPI Diffing Tools Compared: API Contract Guardian vs Spectral vs OAS Diff</title>
+  <meta name="description" content="A practical comparison of OpenAPI schema diffing tools: API Contract Guardian, Spectral, and OAS Diff. See which one fits your API workflow and when you need multiple tools.">
+  <meta name="keywords" content="OpenAPI diff, API contract testing, Spectral vs API Contract Guardian, OAS Diff, OpenAPI breaking changes, API schema diff tools, API Contract Guardian">
+  <meta property="og:title" content="OpenAPI Diffing Tools Compared: API Contract Guardian vs Spectral vs OAS Diff">
+  <meta property="og:description" content="Which OpenAPI diff tool should you use? A head-to-head comparison of API Contract Guardian, Spectral, and OAS Diff with real use cases.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://coding-dev-tools.github.io/revenueholdings.dev/blog/openapi-diff-tools-comparison.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="OpenAPI Diffing Tools Compared: API Contract Guardian vs Spectral vs OAS Diff">
+  <meta name="twitter:description" content="Which OpenAPI diff tool should you use? A head-to-head comparison.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛁</text></svg>">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', -apple-system, sans-serif; background: #0a0a0b; color: #e1e1e3; line-height: 1.6; min-height: 100vh; }
+    nav { position: fixed; top: 0; width: 100%; z-index: 100; background: rgba(10,10,11,0.85); backdrop-filter: blur(12px); border-bottom: 1px solid #1e1e20; }
+    nav .inner { max-width: 800px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; }
+    nav .logo { font-weight: 700; font-size: 1.15rem; color: #fff; letter-spacing: -0.02em; }
+    nav .logo span { color: #6366f1; }
+    nav .links a { color: #888; text-decoration: none; font-size: 0.85rem; margin-left: 28px; transition: color .15s; }
+    nav .links a:hover { color: #fff; }
+    nav .links a.active { color: #fff; }
+    .post-content { max-width: 800px; margin: 0 auto; padding: 100px 24px 80px; font-size: 0.95rem; line-height: 1.75; }
+    .post-content h1 { font-size: 2rem; font-weight: 800; color: #fff; letter-spacing: -0.03em; margin: 40px 0 8px; }
+    .post-content .subtitle { font-size: 1.05rem; color: #888; margin-bottom: 32px; }
+    .post-content h2 { font-size: 1.4rem; font-weight: 700; color: #fff; letter-spacing: -0.02em; margin: 48px 0 12px; padding-bottom: 8px; border-bottom: 1px solid #1e1e20; }
+    .post-content h3 { font-size: 1.1rem; font-weight: 600; color: #eee; margin: 28px 0 8px; }
+    .post-content p { color: #bbb; margin: 16px 0; }
+    .post-content a { color: #a78bfa; text-decoration: none; }
+    .post-content a:hover { text-decoration: underline; }
+    .post-content strong { color: #e1e1e3; }
+    .post-content code { font-family: 'Fira Code', 'JetBrains Mono', monospace; font-size: 0.85rem; background: #121213; padding: 2px 8px; border-radius: 4px; color: #a78bfa; border: 1px solid #1e1e20; }
+    .post-content pre { background: #121213; border: 1px solid #1e1e20; border-radius: 10px; padding: 16px 20px; margin: 16px 0; overflow-x: auto; }
+    .post-content pre code { background: none; border: none; padding: 0; color: #e1e1e3; }
+    .post-content ul, .post-content ol { color: #bbb; margin: 12px 0; padding-left: 24px; }
+    .post-content li { margin: 6px 0; }
+    .post-content .badge { display: inline-block; padding: 5px 14px; border-radius: 24px; font-size: 0.72rem; font-weight: 600; background: rgba(99,102,241,0.12); color: #a78bfa; border: 1px solid rgba(99,102,241,0.2); letter-spacing: 0.3px; text-transform: uppercase; }
+    .post-content .badge.green { background: rgba(16,185,129,0.12); color: #34d399; border-color: rgba(16,185,129,0.2); }
+    .post-content .badge.amber { background: rgba(245,158,11,0.12); color: #fbbf24; border-color: rgba(245,158,11,0.2); }
+    .post-content .badge.red { background: rgba(239,68,68,0.12); color: #f87171; border-color: rgba(239,68,68,0.2); }
+    .comparison-table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.85rem; }
+    .comparison-table th { text-align: left; padding: 10px 14px; background: #121213; border-bottom: 1px solid #2a2a2d; color: #888; font-weight: 600; }
+    .comparison-table td { padding: 10px 14px; border-bottom: 1px solid #1e1e20; color: #bbb; }
+    .comparison-table td:first-child { font-weight: 500; color: #ddd; }
+    .comparison-table tr:hover td { background: rgba(99,102,241,0.03); }
+    .blog-nav { max-width: 800px; margin: 0 auto; padding: 20px 24px 0; display: flex; justify-content: space-between; }
+    .blog-nav a { color: #6366f1; text-decoration: none; font-size: 0.85rem; font-weight: 500; }
+    .blog-nav a:hover { color: #a78bfa; }
+    footer { max-width: 800px; margin: 0 auto; padding: 40px 24px; border-top: 1px solid #1e1e20; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    footer span { font-size: 0.8rem; color: #555; }
+    footer a { color: #888; text-decoration: none; font-size: 0.8rem; }
+    footer a:hover { color: #fff; }
+    @media (max-width: 640px) {
+      .post-content h1 { font-size: 1.6rem; }
+      .comparison-table { font-size: 0.75rem; }
+      .comparison-table th, .comparison-table td { padding: 6px 8px; }
+      nav .links a { margin-left: 12px; font-size: 0.75rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="inner">
+    <div class="logo"><span>⛁</span> Revenue Holdings</div>
+    <div class="links">
+      <a href="../index.html">Home</a>
+      <a href="../docs.html">Docs</a>
+      <a href="../pricing.html">Pricing</a>
+      <a href="../blog.html" class="active">Blog</a>
+      <a href="https://github.com/Coding-Dev-Tools" target="_blank">GitHub</a>
+    </div>
+  </div>
+</nav>
+
+<div class="blog-nav">
+  <a href="../blog.html">&larr; Back to Blog</a>
+</div>
+
+<article class="post-content">
+  <span class="badge">Comparison</span>
+  <p style="color:#666;font-size:0.85rem;margin-top:8px;">May 15, 2026 · 6 min read</p>
+
+  <h1>OpenAPI Diffing Tools Compared: API Contract Guardian vs Spectral vs OAS Diff</h1>
+  <p class="subtitle">A no-nonsense comparison of three tools that catch breaking API changes — when to use each, and why you might want all three in your pipeline.</p>
+
+  <p>Your API is a contract between your backend and every consumer — mobile apps, SPAs, third-party integrations, internal microservices. When that contract breaks silently, the result is a production incident that's hard to trace: a mobile client crashes on a renamed field, an integration partner sees 4xx errors for no obvious reason, a frontend renders empty data because an endpoint response shape changed.</p>
+
+  <p>Three tools have emerged as the leaders in preventing these incidents: <strong>Spectral</strong> (the most well-known API linter), <strong>OAS Diff</strong> (the dedicated diff engine), and <strong>API Contract Guardian</strong> (our CI-first entry). Each takes a fundamentally different approach. Here's how they compare and when you should use each.</p>
+
+  <h2>At a Glance</h2>
+
+  <table class="comparison-table">
+    <thead>
+      <tr>
+        <th>Feature</th>
+        <th>Spectral</th>
+        <th>OAS Diff</th>
+        <th>API Contract Guardian</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Primary use</td>
+        <td>Linting &amp; style rules</td>
+        <td>Schema diffing</td>
+        <td>Breaking change detection</td>
+      </tr>
+      <tr>
+        <td>Breaking change detection</td>
+        <td><span style="color:#fbbf24;">Partial</span> (via custom rules)</td>
+        <td><span style="color:#34d399;">Full</span></td>
+        <td><span style="color:#34d399;">Full</span> + severity-gated</td>
+      </tr>
+      <tr>
+        <td>Migration guide generation</td>
+        <td><span style="color:#555;">No</span></td>
+        <td><span style="color:#555;">No</span></td>
+        <td><span style="color:#34d399;">Yes</span> — auto-generated</td>
+      </tr>
+      <tr>
+        <td>Git branch comparison</td>
+        <td><span style="color:#555;">No</span> (file only)</td>
+        <td><span style="color:#555;">CLI only</span></td>
+        <td><span style="color:#34d399;">First-class</span> (--base/--head)</td>
+      </tr>
+      <tr>
+        <td>CI exit codes</td>
+        <td><span style="color:#34d399;">Yes</span> (severity-based)</td>
+        <td><span style="color:#34d399;">Yes</span></td>
+        <td><span style="color:#34d399;">Yes</span> (per-severity)</td>
+      </tr>
+      <tr>
+        <td>Custom rules</td>
+        <td><span style="color:#34d399;">Rich DSL</span> (spectral:extends)</td>
+        <td><span style="color:#555;">Limited</span></td>
+        <td><span style="color:#fbbf24;">Configurable severity</span></td>
+      </tr>
+      <tr>
+        <td>OpenAPI 3.1 support</td>
+        <td><span style="color:#34d399;">Yes</span></td>
+        <td><span style="color:#34d399;">Yes</span></td>
+        <td><span style="color:#34d399;">Yes</span></td>
+      </tr>
+      <tr>
+        <td>Output formats</td>
+        <td>JSON, SARIF, text</td>
+        <td>Markdown, JSON, HTML</td>
+        <td>Table, JSON, silent</td>
+      </tr>
+      <tr>
+        <td>Install</td>
+        <td>npm, Docker</td>
+        <td>npm</td>
+        <td>pip (Python 3.9+)</td>
+      </tr>
+      <tr>
+        <td>License</td>
+        <td>Apache-2.0</td>
+        <td>Apache-2.0</td>
+        <td>MIT</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Spectral: The API Style Linter</h2>
+
+  <p><strong>Spectral</strong> is the most widely adopted OpenAPI linting tool, and for good reason: its rule engine is powerful, extensible, and backed by Stoplight's ecosystem. You define rules in a declarative YAML format and Spectral checks your OpenAPI spec against them.</p>
+
+  <h3>What Spectral Does Well</h3>
+  <ul>
+    <li><strong>Style enforcement</strong> — "Every endpoint must have a summary", "operationIds must be camelCase", "all responses must have examples". Spectral excels at consistency.</li>
+    <li><strong>Custom rule DSL</strong> — The <code>spectral:extends</code> and custom function support is the most mature rule system of any OpenAPI tool.</li>
+    <li><strong>Ecosystem</strong> — Pre-built rule sets for common standards (OWASP, RESTful API guidelines, Stoplight style guide).</li>
+    <li><strong>SARIF output</strong> — Integrates with GitHub Code Scanning, making violations visible in PR diffs.</li>
+  </ul>
+
+  <h3>Where Spectral Falls Short</h3>
+  <ul>
+    <li><strong>Not a diffing tool</strong> — Spectral validates a single spec file. It doesn't compare two versions of your API to find breaking changes. You can hack this with custom rules and two passes, but it's not the tool's purpose.</li>
+    <li><strong>Breaking change detection is bolted on</strong> — Community rules exist for detecting removed endpoints or renamed fields, but they're fragile and not comprehensive. Spectral won't catch a required field being added to an existing response, for example.</li>
+    <li><strong>Node.js dependency</strong> — If your stack is Python or Go, adding npm to your CI just for linting feels heavy.</li>
+  </ul>
+
+  <p><span style="color:#6366f1;font-weight:500;">Best for:</span> Teams that need API style consistency across many services, with pre-built rule sets for REST best practices.</p>
+
+  <h2>OAS Diff: The Schema Diff Specialist</h2>
+
+  <p><strong>OAS Diff</strong> (by the OpenAPI Technical Steering Committee) is specifically built for comparing two OpenAPI specs. It produces detailed diff reports showing what changed between versions: added endpoints, removed fields, modified schemas, and more.</p>
+
+  <h3>What OAS Diff Does Well</h3>
+  <ul>
+    <li><strong>Comprehensive diffing</strong> — It catches everything: endpoint changes, schema additions and removals, parameter shifts, response body modifications.</li>
+    <li><strong>Multiple output formats</strong> — Markdown reports, HTML pages, and JSON machine-readable output make it flexible for both human review and CI integration.</li>
+    <li><strong>OpenAPI standards-aligned</strong> — It's maintained by the OAS community, so it tracks the spec closely.</li>
+  </ul>
+
+  <h3>Where OAS Diff Falls Short</h3>
+  <ul>
+    <li><strong>No migration guide</strong> — It tells you what changed but doesn't generate upgrade instructions or migration steps for API consumers.</li>
+    <li><strong>CI-first design is second-class</strong> — The CLI works, but there's no built-in concept of git branch comparison (you have to check out both files yourself and run the diff command).</li>
+    <li><strong>Exit codes are binary</strong> — It either found changes or it didn't. No way to say "breaking changes should fail CI, but additions should pass."</li>
+    <li><strong>npm-only install</strong> — Like Spectral, it assumes a Node.js environment.</li>
+  </ul>
+
+  <p><span style="color:#6366f1;font-weight:500;">Best for:</span> Deep schema audits, release-to-release diff reports, and documentation-driven API reviews.</p>
+
+  <h2>API Contract Guardian: The CI Pipeline Gate</h2>
+
+  <p><strong>API Contract Guardian</strong> is our entry — built from scratch with CI pipelines as the primary use case. It combines breaking change detection with severity-based gating, git branch awareness, and automatic migration guide generation.</p>
+
+  <h3>What ACG Does Well</h3>
+  <ul>
+    <li><strong>Git-first design</strong> — The <code>--base main --head feature-branch</code> flags are designed for PR workflows. One command compares your feature branch spec against main, exits non-zero if blocking changes are detected.</li>
+    <li><strong>Severity-gated exit codes</strong> — Breaking changes fail the pipeline (exit 1). Non-breaking additions pass with a warning (exit 0). This lets you use ACG as a merge gate without blocking on non-critical changes.</li>
+    <li><strong>Auto-generated migration guides</strong> — When a breaking change is detected, ACG generates <code>MIGRATION.md</code> with the exact changes, affected consumers, and upgrade steps. This is unique — no other tool does it.</li>
+    <li><strong>Python-native</strong> — Install with <code>pip</code>, no npm dependency. Fits naturally into Python stacks and general CI runners.</li>
+    <li><strong>CI-optimized output</strong> — <code>--output silent</code> mode keeps CI logs clean. JSON mode for machine processing. Table mode for human review.</li>
+  </ul>
+
+  <h3>Where ACG Is Newer</h3>
+  <ul>
+    <li><strong>No custom rule DSL</strong> — You can configure severity per rule type, but there's no equivalent to Spectral's function-based rule system. For style enforcement, you'll still want Spectral.</li>
+    <li><strong>Smaller ecosystem</strong> — Being newer, there are fewer pre-built configs and community integrations. We're working on GitHub Action, GitLab CI template, and SARIF output.</li>
+    <li><strong>OpenAPI only (for now)</strong> — Unlike Spectral (which also handles AsyncAPI and JSON Schema), ACG is focused on OpenAPI 3.0 and 3.1.</li>
+  </ul>
+
+  <p><span style="color:#6366f1;font-weight:500;">Best for:</span> CI pipeline gating on PRs, automated breaking change detection, and teams that want a migration guide with every API change.</p>
+
+  <h2>When to Use Each (And When to Use All)</h2>
+
+  <p>These tools aren't mutually exclusive — they solve different layers of the same problem:</p>
+
+  <div style="background:#121213;border:1px solid #1e1e20;border-radius:10px;padding:20px;margin:24px 0;">
+    <p style="color:#e1e1e3;font-weight:600;margin-bottom:12px;">Recommended Pipeline Stack</p>
+    <p style="color:#bbb;margin-bottom:8px;"><strong style="color:#a78bfa;">1. Spectral</strong> — Run first as a quality gate. Catches style violations, missing descriptions, inconsistent naming. Fails fast on spec hygiene.</p>
+    <p style="color:#bbb;margin-bottom:8px;"><strong style="color:#a78bfa;">2. API Contract Guardian</strong> — Run second as a contract gate. Compares against the base branch, catches breaking changes, generates migration guide. This is your "would merging this break production?" check.</p>
+    <p style="color:#bbb;margin-bottom:8px;"><strong style="color:#a78bfa;">3. OAS Diff</strong> — Run on release (not on every PR). Produces a changelog-style diff report for the release notes. Helps communicate API changes to downstream consumers.</p>
+  </div>
+
+  <p>In our own pipeline, we run Spectral for style → ACG for breaking changes → OAS Diff for release reports. Each tool fills a gap the others don't address.</p>
+
+  <h2>Quick Comparison: Breaking Change Detection</h2>
+
+  <p>Here's how the three tools handle a set of common API contract violations (tested against the same spec pair):</p>
+
+  <table class="comparison-table">
+    <thead>
+      <tr>
+        <th>Change Type</th>
+        <th>Spectral</th>
+        <th>OAS Diff</th>
+        <th>API Contract Guardian</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Removed endpoint</td>
+        <td><span style="color:#f87171;">Not detected</span></td>
+        <td><span style="color:#34d399;">Detected</span></td>
+        <td><span style="color:#34d399;">Detected (breaking)</span></td>
+      </tr>
+      <tr>
+        <td>Required field removed</td>
+        <td><span style="color:#f87171;">Not detected</span></td>
+        <td><span style="color:#34d399;">Detected</span></td>
+        <td><span style="color:#34d399;">Detected (breaking)</span></td>
+      </tr>
+      <tr>
+        <td>Response schema changed</td>
+        <td><span style="color:#fbbf24;">Custom rule only</span></td>
+        <td><span style="color:#34d399;">Detected</span></td>
+        <td><span style="color:#34d399;">Detected (breaking)</span></td>
+      </tr>
+      <tr>
+        <td>Field type changed</td>
+        <td><span style="color:#f87171;">Not detected</span></td>
+        <td><span style="color:#34d399;">Detected</span></td>
+        <td><span style="color:#34d399;">Detected (breaking)</span></td>
+      </tr>
+      <tr>
+        <td>New optional field added</td>
+        <td><span style="color:#fbbf24;">Custom rule only</span></td>
+        <td><span style="color:#34d399;">Detected</span></td>
+        <td><span style="color:#34d399;">Detected (non-breaking)</span></td>
+      </tr>
+      <tr>
+        <td>New endpoint added</td>
+        <td><span style="color:#f87171;">Not detected</span></td>
+        <td><span style="color:#34d399;">Detected</span></td>
+        <td><span style="color:#34d399;">Detected (non-breaking)</span></td>
+      </tr>
+      <tr>
+        <td>Generated migration guide</td>
+        <td><span style="color:#f87171;">No</span></td>
+        <td><span style="color:#f87171;">No</span></td>
+        <td><span style="color:#34d399;">Yes</span></td>
+      </tr>
+      <tr>
+        <td>Git branch-aware</td>
+        <td><span style="color:#f87171;">No</span></td>
+        <td><span style="color:#f87171;">No</span></td>
+        <td><span style="color:#34d399;">Yes</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>The Bottom Line</h2>
+
+  <p>If you're already using Spectral for API linting (and you should be), adding API Contract Guardian to your PR pipeline isn't a replacement — it's a complementary layer. Spectral solves "does this spec follow our style?" ACG solves "would deploying this spec break a consumer?" They work best together.</p>
+
+  <p>OAS Diff is ideal for release-level changelog generation. Its detailed output is great for documentation but too verbose for per-PR gating.</p>
+
+  <p>Our recommendation: <strong>use Spectral + ACG on every PR</strong>, and OAS Diff on release. It takes 5 minutes to set up and catches the kind of API contract violations that cause production incidents — the ones tests alone don't catch.</p>
+
+  <div style="background:rgba(99,102,241,0.06);border:1px solid rgba(99,102,241,0.15);border-radius:10px;padding:20px;margin:32px 0;text-align:center;">
+    <p style="color:#bbb;font-size:0.9rem;margin-bottom:8px;">Want to try API Contract Guardian in your pipeline?</p>
+    <a href="../docs.html#api-contract-guardian" style="display:inline-block;padding:10px 28px;border-radius:10px;background:#6366f1;color:#fff;text-decoration:none;font-weight:600;font-size:0.85rem;margin-top:4px;">View Quickstart →</a>
+  </div>
+
+  <p style="color:#555;font-size:0.82rem;margin-top:40px;">
+    <em>Disclosure: API Contract Guardian is built by Revenue Holdings. Spectral and OAS Diff are independent open-source projects. This comparison is based on publicly available information and our own testing as of May 2026.</em>
+  </p>
+
+</article>
+
+<footer>
+  <span>&copy; 2026 Revenue Holdings. Built autonomously.</span>
+  <a href="../index.html">Home</a>
+  <a href="https://github.com/Coding-Dev-Tools">GitHub</a>
+</footer>
+
+</body>
+</html>
