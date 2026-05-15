@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zero to CI Safety Net: A Hands-On Tutorial with Revenue Holdings CLI Tools</title>
+  <meta name="description" content="Step-by-step tutorial: set up API Contract Guardian, json2sql, DeployDiff, and ConfigDrift in your CI pipeline. Includes sample data, YAML workflows, and a combined pipeline.">
+  <meta name="keywords" content="CI tutorial, DevOps tutorial, API Contract Guardian tutorial, json2sql tutorial, DeployDiff tutorial, ConfigDrift tutorial, CI pipeline setup, GitHub Actions">
+  <meta property="og:title" content="Zero to CI Safety Net: A Hands-On Tutorial with Revenue Holdings CLI Tools">
+  <meta property="og:description" content="Step-by-step tutorial: set up all 4 Revenue Holdings CLI tools in your CI pipeline with sample data, YAML workflows, and a combined pre-deploy pipeline.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://coding-dev-tools.github.io/revenueholdings.dev/blog/zero-to-ci-safety-net.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Zero to CI Safety Net: A Hands-On Tutorial">
+  <meta name="twitter:description" content="Step-by-step: add 4 CLI safety checks to your CI pipeline in 15 minutes.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛁</text></svg>">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', -apple-system, sans-serif; background: #0a0a0b; color: #e1e1e3; line-height: 1.6; min-height: 100vh; }
+    nav { position: fixed; top: 0; width: 100%; z-index: 100; background: rgba(10,10,11,0.85); backdrop-filter: blur(12px); border-bottom: 1px solid #1e1e20; }
+    nav .inner { max-width: 800px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; }
+    nav .logo { font-weight: 700; font-size: 1.15rem; color: #fff; letter-spacing: -0.02em; }
+    nav .logo span { color: #6366f1; }
+    nav .links a { color: #888; text-decoration: none; font-size: 0.85rem; margin-left: 28px; transition: color .15s; }
+    nav .links a:hover { color: #fff; }
+    nav .links a.active { color: #fff; }
+    .post-content { max-width: 800px; margin: 0 auto; padding: 100px 24px 80px; font-size: 0.95rem; line-height: 1.75; }
+    .post-content h1 { font-size: 2rem; font-weight: 800; color: #fff; letter-spacing: -0.03em; margin: 40px 0 8px; }
+    .post-content .subtitle { font-size: 1.05rem; color: #888; margin-bottom: 32px; }
+    .post-content h2 { font-size: 1.35rem; font-weight: 700; color: #fff; margin: 32px 0 12px; }
+    .post-content h3 { font-size: 1.1rem; font-weight: 600; color: #e1e1e3; margin: 24px 0 8px; }
+    .post-content p { margin: 16px 0; color: #ccc; }
+    .post-content a { color: #a78bfa; }
+    .post-content code { background: #1a1a1c; padding: 2px 8px; border-radius: 4px; font-size: 0.85em; color: #34d399; }
+    .post-content pre { background: #121213; border: 1px solid #1e1e20; border-radius: 8px; padding: 16px 20px; overflow-x: auto; margin: 16px 0; }
+    .post-content pre code { background: none; padding: 0; font-size: 0.82rem; line-height: 1.5; }
+    .post-content ul, .post-content ol { margin: 16px 0; padding-left: 24px; }
+    .post-content li { color: #ccc; margin: 8px 0; }
+    .post-content .badge { display: inline-block; padding: 4px 14px; border-radius: 24px; font-size: 0.72rem; font-weight: 600; background: rgba(99,102,241,0.12); color: #a78bfa; border: 1px solid rgba(99,102,241,0.2); text-transform: uppercase; letter-spacing: 0.3px; }
+    .post-content hr { border: none; border-top: 1px solid #1e1e20; margin: 40px 0; }
+    .post-content .tip { background: rgba(52,211,153,0.06); border: 1px solid rgba(52,211,153,0.15); border-radius: 10px; padding: 16px 20px; margin: 20px 0; }
+    .post-content .tip strong { color: #34d399; }
+    .post-content .step { background: #121213; border: 1px solid #1e1e20; border-radius: 10px; padding: 20px; margin: 20px 0; border-left: 3px solid #6366f1; }
+    .post-content .step h3 { margin-top: 0; color: #a78bfa; }
+    .post-content .cmd-block { background: #0d0d0e; border: 1px solid #1e1e20; border-radius: 8px; padding: 12px 16px; margin: 12px 0; font-family: monospace; font-size: 0.85rem; color: #34d399; }
+    .blog-nav { max-width: 800px; margin: 0 auto; padding: 24px 24px 0; display: flex; justify-content: space-between; font-size: 0.85rem; }
+    .blog-nav a { color: #6366f1; text-decoration: none; }
+    .blog-nav a:hover { color: #a78bfa; }
+    footer { max-width: 800px; margin: 0 auto; padding: 40px 24px; border-top: 1px solid #1e1e20; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    footer span { font-size: 0.8rem; color: #555; }
+    footer a { color: #888; text-decoration: none; font-size: 0.8rem; }
+    footer a:hover { color: #fff; }
+    table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+    th, td { padding: 10px 14px; text-align: left; border-bottom: 1px solid #1e1e20; font-size: 0.9rem; }
+    th { color: #a78bfa; font-weight: 600; }
+    td { color: #ccc; }
+    @media (max-width: 640px) { .post-content h1 { font-size: 1.5rem; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="inner">
+    <div class="logo"><span>⛁</span> Revenue Holdings</div>
+    <div class="links">
+      <a href="../index.html">Home</a>
+      <a href="../pricing.html">Pricing</a>
+      <a href="../blog.html" class="active">Blog</a>
+      <a href="https://github.com/Coding-Dev-Tools" target="_blank">GitHub</a>
+    </div>
+  </div>
+</nav>
+
+<div class="blog-nav">
+  <a href="../blog.html">&larr; Back to Blog</a>
+  <a href="welcome-revenue-holdings.html">First: Welcome to Revenue Holdings &rarr;</a>
+</div>
+
+<article class="post-content">
+  <span class="badge">Tutorial</span>
+  <p style="color:#666;font-size:0.85rem;margin-top:8px;">May 15, 2026 · 12 min read</p>
+
+  <h1>Zero to CI Safety Net</h1>
+  <div class="subtitle">A hands-on tutorial: add 4 safety checks to your CI pipeline in 15 minutes — with sample data you can try right now.</div>
+
+  <p>This tutorial walks you through each Revenue Holdings CLI tool with real sample files you can download, run, and inspect. By the end, you'll have a combined GitHub Actions pipeline that catches API contract breaks, bad seed data, infrastructure blast radius, and config drift — all in under 30 seconds.</p>
+
+  <p><strong>Prerequisites:</strong> Python 3.10+, a GitHub repository, and 15 minutes.</p>
+
+  <hr>
+
+  <h2>Tutorial Structure</h2>
+
+  <ol>
+    <li><strong>API Contract Guardian</strong> — compare two OpenAPI specs and find breaking changes</li>
+    <li><strong>json2sql</strong> — convert sample JSON to type-safe SQL</li>
+    <li><strong>DeployDiff</strong> — analyze infrastructure changes for blast radius</li>
+    <li><strong>ConfigDrift</strong> — compare environments for configuration drift</li>
+    <li><strong>Combined Pipeline</strong> — one GitHub Actions workflow to rule them all</li>
+  </ol>
+
+  <hr>
+
+  <h2>Step 1: API Contract Guardian</h2>
+
+  <div class="step">
+    <h3>Goal: Catch breaking API changes before they reach consumers</h3>
+  </div>
+
+  <p>Create two OpenAPI spec files in your repo. Save this as <code>spec-v1.yaml</code>:</p>
+
+  <pre><code>openapi: 3.0.0
+info:
+  title: User API
+  version: 1.0.0
+paths:
+  /users:
+    get:
+      summary: List users
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  required: [id, name, email]
+                  properties:
+                    id: {type: integer}
+                    name: {type: string}
+                    email: {type: string}
+  /users/{id}:
+    get:
+      summary: Get user
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: {type: integer}
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [id, name, email]
+                properties:
+                  id: {type: integer}
+                  name: {type: string}
+                  email: {type: string}</code></pre>
+
+  <p>Now save this breaking change as <code>spec-v2-breaking.yaml</code> — notice we removed the <code>email</code> field from the response:</p>
+
+  <pre><code>openapi: 3.0.0
+info:
+  title: User API
+  version: 2.0.0
+paths:
+  /users:
+    get:
+      summary: List users
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  required: [id, name]        # email removed from required
+                  properties:
+                    id: {type: integer}
+                    name: {type: string}
+                    # email field removed — BREAKING CHANGE
+  /users/{id}:
+    get:
+      summary: Get user
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: {type: integer}
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [id, name]
+                properties:
+                  id: {type: integer}
+                  name: {type: string}</code></pre>
+
+  <p>Run the check:</p>
+
+  <div class="cmd-block">$ pip install api-contract-guardian<br>$ api-contract-guardian check spec-v2-breaking.yaml --prev spec-v1.yaml</div>
+
+  <p>Expected output:</p>
+
+  <pre><code>🔴 BREAKING: Response body missing required field 'email' in GET /users
+🔴 BREAKING: Response body missing required field 'email' in GET /users/{id}
+✖ FAILED: 2 breaking changes detected</code></pre>
+
+  <p>Now try a safe change — save this as <code>spec-v2-safe.yaml</code> with only an added field:</p>
+
+  <pre><code># ...same as v1 but with an optional 'phone' field added
+                  properties:
+                    id: {type: integer}
+                    name: {type: string}
+                    email: {type: string}
+                    phone: {type: string}   # new field — safe!</code></pre>
+
+  <div class="cmd-block">$ api-contract-guardian check spec-v2-safe.yaml --prev spec-v1.yaml</div>
+
+  <p>Expected output:</p>
+
+  <pre><code>✅ COMPATIBLE: Added optional field 'phone' to response
+✔ PASSED: 0 breaking changes</code></pre>
+
+  <hr>
+
+  <h2>Step 2: json2sql</h2>
+
+  <div class="step">
+    <h3>Goal: Convert JSON seed data to type-safe SQL — catch type mismatches before they hit the database</h3>
+  </div>
+
+  <p>Save this sample data as <code>seed.json</code>:</p>
+
+  <pre><code>{
+  "users": [
+    {"id": 1, "name": "Alice", "email": "alice@example.com", "role": "admin", "active": true, "score": 95.5, "created_at": "2026-01-15"},
+    {"id": 2, "name": "Bob", "email": "bob@example.com", "role": "editor", "active": true, "score": 87.0, "created_at": "2026-02-20"},
+    {"id": 3, "name": "Charlie", "email": "charlie@example.com", "role": "viewer", "active": false, "score": 72.3, "created_at": "2026-03-10"}
+  ],
+  "articles": [
+    {"id": 1, "title": "Getting Started with CI/CD", "author_id": 1, "published": true, "views": 1200, "tags": ["devops", "ci"]},
+    {"id": 2, "title": "API Design Best Practices", "author_id": 2, "published": true, "views": 890, "tags": ["api", "design"]}
+  ]
+}</code></pre>
+
+  <p>Convert it to PostgreSQL INSERT statements:</p>
+
+  <div class="cmd-block">$ pip install json2sql<br>$ json2sql seed.json --dialect postgres</div>
+
+  <p>Expected output includes properly typed SQL:</p>
+
+  <pre><code>-- Table: users
+INSERT INTO "users" ("id", "name", "email", "role", "active", "score", "created_at")
+VALUES
+  (1, 'Alice', 'alice@example.com', 'admin', TRUE, 95.5, '2026-01-15'::date),
+  (2, 'Bob', 'bob@example.com', 'editor', TRUE, 87.0, '2026-02-20'::date),
+  (3, 'Charlie', 'charlie@example.com', 'viewer', FALSE, 72.3, '2026-03-10'::date);
+
+-- Table: articles
+INSERT INTO "articles" ("id", "title", "author_id", "published", "views", "tags")
+VALUES
+  (1, 'Getting Started with CI/CD', 1, TRUE, 1200, ARRAY['devops','ci']),
+  (2, 'API Design Best Practices', 2, TRUE, 890, ARRAY['api','design']);</code></pre>
+
+  <p>Notice how json2sql automatically:</p>
+  <ul>
+    <li>Infers <code>active: true</code> → PostgreSQL <code>BOOLEAN</code> → <code>TRUE</code></li>
+    <li>Infers <code>score: 95.5</code> → <code>NUMERIC</code> → <code>95.5</code></li>
+    <li>Infers <code>created_at: "2026-01-15"</code> → <code>DATE</code> → <code>'2026-01-15'::date</code></li>
+    <li>Converts <code>tags: [...]</code> → PostgreSQL <code>ARRAY</code> syntax</li>
+  </ul>
+
+  <div class="tip">
+    <strong>Try to break it:</strong> Set a <code>null</code> in a NOT NULL column or a string where a number is expected. json2sql will flag the type mismatch and tell you exactly which field and row has the problem. This is the same check you'd run in CI.
+  </div>
+
+  <hr>
+
+  <h2>Step 3: DeployDiff</h2>
+
+  <div class="step">
+    <h3>Goal: Understand the blast radius of every infrastructure change before you click deploy</h3>
+  </div>
+
+  <p>Save this Terraform plan output as <code>tfplan.json</code> (simulated):</p>
+
+  <pre><code>{
+  "resource_changes": [
+    {
+      "address": "aws_db_instance.main",
+      "change": {
+        "actions": ["update"],
+        "before": {"engine": "postgres", "engine_version": "14", "storage": 100, "multi_az": false, "backup_retention_period": 7},
+        "after":  {"engine": "postgres", "engine_version": "15", "storage": 200, "multi_az": true, "backup_retention_period": 30}
+      }
+    },
+    {
+      "address": "aws_s3_bucket.logs",
+      "change": {"actions": ["delete"], "before": {"bucket": "logs-prod"}, "after": null}
+    },
+    {
+      "address": "aws_lambda_function.processor",
+      "change": {"actions": ["update"], "before": {"memory_size": 128, "timeout": 30}, "after": {"memory_size": 256, "timeout": 60}}
+    }
+  ]
+}</code></pre>
+
+  <p>Run DeployDiff analysis:</p>
+
+  <div class="cmd-block">$ pip install deploydiff<br>$ deploydiff diff --plan tfplan.json --format summary</div>
+
+  <p>Expected output:</p>
+
+  <pre><code>🔴 DESTRUCTION: aws_s3_bucket.logs will be DELETED
+🟡 REPLACEMENT: aws_db_instance.main — major version upgrade (14→15), possible replacement
+🟢 SAFE UPDATE: aws_lambda_function.processor — memory 128→256, timeout 30→60
+
+Blast radius: 2 of 3 changes affect critical infrastructure (database, S3)
+Recommendation: Review aws_s3_bucket.logs deletion — no backup bucket detected</code></pre>
+
+  <p>DeployDiff turned a dense JSON blob into actionable information. Your reviewer can now see at a glance: "we're deleting an S3 bucket and upgrading the database — let's review those first."</p>
+
+  <hr>
+
+  <h2>Step 4: ConfigDrift</h2>
+
+  <div class="step">
+    <h3>Goal: Catch environment configuration drift before it causes production incidents</h3>
+  </div>
+
+  <p>Create two environment files. Save as <code>.env.production</code>:</p>
+
+  <pre><code>DB_HOST=prod-db.internal
+DB_PORT=5432
+DB_POOL_SIZE=25
+CACHE_TTL=300
+CACHE_PROVIDER=redis
+LOG_LEVEL=warn
+FEATURE_NEW_DASHBOARD=true
+API_RATE_LIMIT=1000
+MAX_UPLOAD_SIZE_MB=50</code></pre>
+
+  <p>Save as <code>.env.staging</code>:</p>
+
+  <pre><code>DB_HOST=staging-db.internal
+DB_PORT=5432
+DB_POOL_SIZE=10
+CACHE_TTL=30
+CACHE_PROVIDER=redis
+LOG_LEVEL=debug
+MAX_UPLOAD_SIZE_MB=50</code></pre>
+
+  <p>Run drift check:</p>
+
+  <div class="cmd-block">$ pip install configdrift<br>$ configdrift check --baseline .env.production --target .env.staging</div>
+
+  <p>Expected output:</p>
+
+  <pre><code>🔴 MISSING:   FEATURE_NEW_DASHBOARD (present in production, missing in staging)
+🔴 DRIFT:     DB_POOL_SIZE (staging=10, production=25) — delta: 150%
+🔴 DRIFT:     CACHE_TTL (staging=30, production=300) — delta: 900%
+🟡 DRIFT:     LOG_LEVEL (staging=debug, production=warn) — acceptable difference
+🟢 OK:        DB_PORT, CACHE_PROVIDER, MAX_UPLOAD_SIZE_MB match
+🟢 OK:        API_RATE_LIMIT (only in production, not expected in staging)
+⚠  SKIPPED:   DB_HOST (expected to differ between environments)
+
+📊 Drift score: 38/100 — HIGH DRIFT</code></pre>
+
+  <p>Now you know: staging is missing the new dashboard feature flag, has a tiny connection pool, and a cache TTL that's 10x shorter than production. Before your next deploy, fix these mismatches.</p>
+
+  <hr>
+
+  <h2>Step 5: The Combined CI Pipeline</h2>
+
+  <div class="step">
+    <h3>Goal: One GitHub Actions workflow that runs all four checks in parallel</h3>
+  </div>
+
+  <p>Save this as <code>.github/workflows/pre-deploy.yml</code> in your repository:</p>
+
+  <pre><code>name: Pre-Deploy Safety Checks
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  api-contract-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - run: pip install api-contract-guardian
+      - run: api-contract-guardian check openapi/*.yaml --prev origin/main --fail-on breaking
+
+  seed-data-validation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install json2sql
+      - run: json2sql data/seeds/*.json --check-types --output /dev/null
+
+  infra-blast-radius:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install deploydiff
+      - run: deploydiff diff --plan terraform/tfplan.json --fail-on destruction --format markdown
+
+  config-drift-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install configdrift
+      - run: configdrift check --baseline .env.production --target .env.staging --fail-on drift
+
+  combined-report:
+    needs: [api-contract-check, seed-data-validation, infra-blast-radius, config-drift-check]
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "✅ All safety checks passed — safe to deploy!"</code></pre>
+
+  <p>Each job runs in parallel and completes in under 30 seconds. The combined-report job only runs if all four pass — giving you a single gate to put before your deploy step.</p>
+
+  <hr>
+
+  <h2>What's Next?</h2>
+
+  <p>You now have a CI safety net that catches the four most expensive classes of production bugs before they ship. Here's how to go further:</p>
+
+  <ul>
+    <li><strong>Custom rules</strong> — API Contract Guardian supports custom severity overrides and regex-based field matchers</li>
+    <li><strong>Team billing</strong> — Pro plans ($79/mo for 5 devs) include a dashboard that aggregates all four tools' results across repos</li>
+    <li><strong>MCP integration</strong> — coming soon: run any tool as an MCP server for AI IDE integration (Cursor, VS Code Insiders)</li>
+  </ul>
+
+  <div class="tip">
+    <strong>Try it yourself:</strong> All four tools are open source on <a href="https://github.com/Coding-Dev-Tools">GitHub</a>. Clone the repos, run the tests, and verify the output matches the examples above. No registration required.
+  </div>
+
+  <hr>
+
+  <p style="text-align:center;">
+    <a href="https://github.com/Coding-Dev-Tools">GitHub →</a>&ensp;·&ensp;
+    <a href="../pricing.html">View Pricing →</a>&ensp;·&ensp;
+    <a href="mailto:waitlist@revenueholdings.dev">Join the waitlist</a>
+  </p>
+
+</article>
+
+<footer>
+  <span>&copy; 2026 Revenue Holdings. Built autonomously.</span>
+  <a href="../index.html">Home</a>
+  <a href="https://github.com/Coding-Dev-Tools">GitHub</a>
+</footer>
+
+</body>
+</html>

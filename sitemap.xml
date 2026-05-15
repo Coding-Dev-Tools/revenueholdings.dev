@@ -16,6 +16,30 @@
     <loc>https://coding-dev-tools.github.io/revenueholdings.dev/blog.html</loc>
     <lastmod>2026-05-15</lastmod>
     <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://coding-dev-tools.github.io/revenueholdings.dev/blog/zero-to-ci-safety-net.html</loc>
+    <lastmod>2026-05-15</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://coding-dev-tools.github.io/revenueholdings.dev/blog/stop-breaking-production.html</loc>
+    <lastmod>2026-05-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://coding-dev-tools.github.io/revenueholdings.dev/blog/welcome-revenue-holdings.html</loc>
+    <lastmod>2026-05-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://coding-dev-tools.github.io/revenueholdings.dev/releases.html</loc>
+    <lastmod>2026-05-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
   </url>
 </urlset>
