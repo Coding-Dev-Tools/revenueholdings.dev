@@ -138,8 +138,10 @@
   <a href="#configdrift">⌘ ConfigDrift</a>
   <a href="#apighost">👻 APIGhost</a>
   <a href="#apiauth">🔑 APIAuth</a>
-  <a href="#envault">🛡 Envault</a>
+<a href="#envault">🛡 Envault</a>
   <a href="#schemaforge">⚗ SchemaForge</a>
+  <a href="#click-to-mcp">🔌 click-to-mcp</a>
+  <a href="#deadcode">🧹 DeadCode</a>
   <a href="#meta-package">⛁ Revenue Holdings Suite</a>
   <a href="#ci-pipeline">🔁 CI Pipeline</a>
 </div>
@@ -413,14 +415,76 @@ envault rotate JWT_SECRET         # → 256-bit base64 secret</code></pre>
 
     <div class="insight">
       <p><strong>Why you need it:</strong> Every ORM migration is a one-way street — Prisma introspects SQL but can't export back, Drizzle users manually rewrite schemas when switching. SchemaForge is the only tool that goes both ways across 5 ORM formats. Stop rewriting schemas by hand and start converting them.</p>
+</div>
+  </div>
+
+  <!-- ==================== CLICK-TO-MCP ==================== -->
+  <div class="tool-section" id="click-to-mcp">
+    <h2><span class="icon" style="background:rgba(139,92,246,.15)">🔌</span> click-to-mcp</h2>
+    <div class="subtitle">v0.2.1 — Auto-wrap Click/Typer CLIs as MCP servers</div>
+    <p class="desc">Turn any Click or Typer CLI into an MCP server with a single command. Expose your tools to Claude, GPT, Cursor, and any MCP-compatible AI — no code changes needed. Auto-discovers commands, generates tool schemas, and handles stdio/SSE transport.</p>
+    <a href="https://github.com/Coding-Dev-Tools/click-to-mcp" class="gh-link" target="_blank">View on GitHub →</a>
+
+    <div class="install-block">
+      <code>pip install click-to-mcp</code>
+      <span class="note">Requires Python 3.9+</span>
+    </div>
+
+    <ul class="features">
+      <li>Auto-discovery of Click/Typer commands and options</li>
+      <li>One-command MCP server generation</li>
+      <li>Stdio & SSE transport support</li>
+      <li>Multi-server orchestration</li>
+      <li>Zero code changes to existing CLIs</li>
+    </ul>
+
+    <p style="font-size:0.82rem;color:#888;font-weight:600;margin-bottom:8px;">Wrap a CLI as MCP server</p>
+    <pre><code class="language-bash">click-to-mcp wrap mycli --transport stdio</code></pre>
+
+    <p style="font-size:0.82rem;color:#888;font-weight:600;margin-bottom:8px;">Auto-discover Click apps</p>
+    <pre><code class="language-bash">click-to-mcp discover --dir ./src</code></pre>
+
+    <div class="insight">
+      <p><strong>Why you need it:</strong> MCP is the standard for AI-tool integration, but wrapping CLIs as MCP servers is manual boilerplate. click-to-mcp eliminates that — point it at any Click/Typer app and get a fully compatible MCP server in seconds. The only tool that does Click→MCP conversion (mcp2cli does the reverse).</p>
+    </div>
+  </div>
+
+  <!-- ==================== DEADCODE ==================== -->
+  <div class="tool-section" id="deadcode">
+    <h2><span class="icon" style="background:rgba(239,68,68,.15)">🧹</span> DeadCode</h2>
+    <div class="subtitle">v0.1.0 — Unused export & dead route detector for TypeScript/React</div>
+    <p class="desc">Detect and remove unused exports, dead routes, orphaned CSS, and unreferenced components in TypeScript/React/Next.js projects. Uses the full TypeScript compiler API for accurate analysis — ESLint catches unused variables but misses the structural decay that bloats bundles.</p>
+    <a href="https://github.com/Coding-Dev-Tools/deadcode" class="gh-link" target="_blank">View on GitHub →</a>
+
+    <div class="install-block">
+      <code>pip install deadcode</code>
+      <span class="note">Requires Python 3.9+ & Node.js 18+</span>
+    </div>
+
+    <ul class="features">
+      <li>Unused export detection across entire project</li>
+      <li>Dead route identification (React Router, Next.js)</li>
+      <li>Orphaned CSS class scanning</li>
+      <li>Unreferenced component detection</li>
+      <li>Dry-run removal preview — never delete something you need</li>
+    </ul>
+
+    <p style="font-size:0.82rem;color:#888;font-weight:600;margin-bottom:8px;">Scan current project</p>
+    <pre><code class="language-bash">deadcode scan</code></pre>
+
+    <p style="font-size:0.82rem;color:#888;font-weight:600;margin-bottom:8px;">Preview what can be removed</p>
+    <pre><code class="language-bash">deadcode remove --dry-run</code></pre>
+
+    <div class="insight">
+      <p><strong>Why you need it:</strong> ESLint catches unused variables but misses structural decay — orphaned exports bloat bundles, stale routes confuse teammates, orphaned CSS silently accumulates. DeadCode uses the TypeScript compiler API for whole-project analysis that linters can't match. Scan, preview, then clean with confidence.</p>
     </div>
   </div>
 
   <!-- ==================== META PACKAGE ==================== -->
   <div class="tool-section" id="meta-package">
     <h2><span class="icon icon-rh">⛁</span> Revenue Holdings Suite</h2>
-    <div class="subtitle">One install. All eight tools.</div>
-    <p class="desc">Install every tool in the Revenue Holdings ecosystem with a single command. Perfect for CI/CD pipelines, dev workstations, or teams that want the full safety net across API contracts, SQL, infrastructure, configs, API mocking, key management, env syncing, and schema conversion.</p>
+    <div class="subtitle">One install. All ten tools.</div>
+    <p class="desc">Install every tool in the Revenue Holdings ecosystem with a single command. Perfect for CI/CD pipelines, dev workstations, or teams that want the full safety net across API contracts, SQL, infrastructure, configs, API mocking, key management, env syncing, schema conversion, MCP wrapping, and dead code cleanup.</p>
     <a href="https://github.com/Coding-Dev-Tools/revenueholdings" class="gh-link" target="_blank">View on GitHub →</a>
 
     <div class="install-block">

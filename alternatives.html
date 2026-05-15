@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Alternatives — Revenue Holdings CLI Tools Compared</title>
-  <meta name="description" content="Honest feature-by-feature comparisons: API Contract Guardian vs Spectral vs OAS Diff, DeployDiff vs Terraform Plan, ConfigDrift vs Steampipe, json2sql vs csvsql. Find the right tool for your workflow.">
+  <meta name="description" content="Honest feature-by-feature comparisons: API Contract Guardian vs Spectral vs OAS Diff, DeployDiff vs Terraform Plan, ConfigDrift vs Steampipe, json2sql vs csvsql, DeadCode vs knip. Find the right tool for your workflow.">
   <meta name="keywords" content="api contract guardian vs spectral, openapi diff tool comparison, deploydiff vs terraform, config drift detection tools, json to sql converter alternatives, spectral alternatives, oas diff alternatives">
   <meta property="og:title" content="Alternatives — Revenue Holdings CLI Tools Compared">
   <meta property="og:description" content="Feature-by-feature comparisons of Revenue Holdings CLI tools vs popular alternatives. Make an informed choice.">
@@ -129,6 +129,7 @@
   <a href="#deploydiff-vs-terraform">DeployDiff vs Terraform Plan</a>
   <a href="#configdrift-vs-steampipe">ConfigDrift vs Steampipe</a>
   <a href="#json2sql-vs-csvsql">json2sql vs csvsql</a>
+  <a href="#deadcode-vs-knip">DeadCode vs knip</a>
 </div>
 
 <div class="comparisons">
@@ -470,6 +471,79 @@
     </div>
     <div class="cta-row">
       <a href="docs.html#json2sql">Read json2sql Docs</a>
+    </div>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- DeadCode vs knip -->
+  <!-- ============================================ -->
+  <div class="comparison" id="deadcode-vs-knip">
+    <h2>DeadCode <span class="vs">vs</span> knip</h2>
+    <p class="subtitle">Dead code removal — TypeScript compiler API analysis vs AST-based export tracking.</p>
+
+    <table class="feat-table">
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th class="rh-col">DeadCode</th>
+          <th>knip</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Unused export detection</td>
+          <td class="yes">Yes — compiler API</td>
+          <td class="yes">Yes — AST analysis</td>
+        </tr>
+        <tr>
+          <td>Dead route identification</td>
+          <td class="yes">Yes — React Router, Next.js</td>
+          <td class="partial">Partial — Next.js only</td>
+        </tr>
+        <tr>
+          <td>Orphaned CSS scanning</td>
+          <td class="yes">Yes</td>
+          <td class="no">No</td>
+        </tr>
+        <tr>
+          <td>Dry-run removal preview</td>
+          <td class="yes">Yes — interactive</td>
+          <td class="yes">Yes</td>
+        </tr>
+        <tr>
+          <td>Auto-removal</td>
+          <td class="yes">Yes — deadcode remove</td>
+          <td class="partial">Partial — flags only</td>
+        </tr>
+        <tr>
+          <td>Unreferenced component detection</td>
+          <td class="yes">Yes</td>
+          <td class="yes">Yes</td>
+        </tr>
+        <tr>
+          <td>CI/CD exit codes</td>
+          <td class="yes">Yes</td>
+          <td class="yes">Yes</td>
+        </tr>
+        <tr>
+          <td>Plugin ecosystem</td>
+          <td class="no">No</td>
+          <td class="yes">Yes — reporters, custom finders</td>
+        </tr>
+        <tr>
+          <td>Price</td>
+          <td class="rh-col">$12/mo</td>
+          <td>Free (OSS)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="verdict">
+      <div class="label">Verdict</div>
+      <p><strong>knip</strong> is a mature open-source tool with a plugin ecosystem and broad framework support. <strong>DeadCode</strong> differentiates with orphaned CSS scanning, dead route identification beyond Next.js, and an interactive auto-removal command. If you need CSS cleanup and route detection alongside export pruning, DeadCode covers more ground in a single pass.</p>
+    </div>
+    <div class="cta-row">
+      <a href="docs.html#deadcode">Read DeadCode Docs</a>
     </div>
   </div>
 
