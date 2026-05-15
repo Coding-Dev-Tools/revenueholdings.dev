@@ -635,7 +635,7 @@ function submitWaitlist(e) {
 }
 
 async function loadStars() {
-  const repos = ['api-contract-guardian', 'json2sql', 'deploydiff', 'configdrift', 'apiauth', 'apighost', 'envault', 'schemaforge'];
+  const repos = ['api-contract-guardian', 'json2sql', 'deploydiff', 'configdrift', 'apiauth', 'apighost', 'envault', 'schemaforge', 'click-to-mcp'];
   try {
     const results = await Promise.allSettled(
       repos.map(r => fetch('https://api.github.com/repos/Coding-Dev-Tools/' + r).then(res => res.json()))
