@@ -412,8 +412,8 @@ envault rotate JWT_SECRET         # → 256-bit base64 secret</code></pre>
 
   <div class="tool-section" id="schemaforge">
     <h2><span class="icon icon-sf">⚗</span> SchemaForge</h2>
-    <div class="subtitle">v0.1.0 — Bidirectional ORM schema converter</div>
-    <p class="desc">Convert between SQL DDL, Prisma, Drizzle, TypeORM, and Django models with zero-loss roundtripping. The only tool that does bidirectional, lossless conversion between 5+ ORM formats — no more manual rewrites when switching ORMs.</p>
+    <div class="subtitle">v0.5.0 — Bidirectional ORM schema converter (6 formats)</div>
+    <p class="desc">Convert between SQL DDL, Prisma, Drizzle, TypeORM, Django, and SQLAlchemy models with zero-loss roundtripping. The only tool that does bidirectional, lossless conversion between 6 ORM formats — no more manual rewrites when switching ORMs.</p>
     <a href="https://github.com/Coding-Dev-Tools/schemaforge" class="gh-link" target="_blank">View on GitHub →</a>
 
     <div class="install-block">
@@ -422,7 +422,7 @@ envault rotate JWT_SECRET         # → 256-bit base64 secret</code></pre>
     </div>
 
     <ul class="features">
-      <li>SQL DDL ↔ Prisma ↔ Drizzle ↔ TypeORM ↔ Django</li>
+      <li>SQL DDL ↔ Prisma ↔ Drizzle ↔ TypeORM ↔ Django ↔ SQLAlchemy</li>
       <li>Zero-loss roundtripping — convert back and forth without data loss</li>
       <li>Schema diff between any two formats</li>
       <li>Batch directory conversion</li>
@@ -436,8 +436,9 @@ envault rotate JWT_SECRET         # → 256-bit base64 secret</code></pre>
     <pre><code class="language-bash">schemaforge diff schema.prisma schema.drizzle.ts</code></pre>
 
     <div class="insight">
-      <p><strong>Why you need it:</strong> Every ORM migration is a one-way street — Prisma introspects SQL but can't export back, Drizzle users manually rewrite schemas when switching. SchemaForge is the only tool that goes both ways across 5 ORM formats. Stop rewriting schemas by hand and start converting them.</p>
-</div>
+      <p><strong>Why you need it:</strong> Every ORM migration is a one-way street — Prisma introspects SQL but can't export back, Drizzle users manually rewrite schemas when switching. SchemaForge is the only tool that goes both ways across 6 ORM formats. Stop rewriting schemas by hand and start converting them.</p>
+    </div>
+    <a href="blog/schemaforge-v0-5-0-sqlalchemy.html" style="display:inline-block;margin-top:12px;color:#a78bfa;font-size:0.85rem;font-weight:500;text-decoration:none;">📖 Read the v0.5.0 release →</a>
   </div>
 
   <!-- ==================== CLICK-TO-MCP ==================== -->
