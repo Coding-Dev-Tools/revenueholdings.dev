@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://coding-dev-tools.github.io/revenueholdings.dev/sitemap.xml
