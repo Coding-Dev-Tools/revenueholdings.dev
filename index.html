@@ -175,6 +175,7 @@
       <a href="#products">Products</a>
       <a href="docs.html">Docs</a>
       <a href="#pricing">Pricing</a>
+      <a href="alternatives.html">Alternatives</a>
       <a href="releases.html">Changelog</a>
       <a href="blog.html">Blog</a>
       <a href="about.html">About</a>
@@ -196,7 +197,7 @@
   <!-- GitHub Install Banner -->
   <div class="install-banner" style="margin-top:32px;padding:16px 24px;background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.2);border-radius:10px;max-width:620px;margin-left:auto;margin-right:auto;">
     <p style="color:#10b981;font-weight:600;font-size:0.85rem;margin:0 0 8px;">✓ Available now via GitHub — PyPI coming soon</p>
-    <code style="color:#d1d5db;font-size:0.82rem;background:#0d0d0e;padding:8px 14px;border-radius:6px;display:block;overflow-x:auto;">pip install git+https://github.com/Coding-Dev-Tools/revenueholdings.git</code>
+    <code style="color:#d1d5db;font-size:0.82rem;background:#0d0d0e;padding:8px 14px;border-radius:6px;display:block;overflow-x:auto;cursor:pointer;" title="Click to copy">pip install git+https://github.com/Coding-Dev-Tools/revenueholdings.git</code>
     <p style="color:#666;font-size:0.72rem;margin:6px 0 0;">Installs all 8 tools. Individual tool installs below.</p>
   </div>
   <div class="stats">
@@ -349,7 +350,7 @@
       <h3>click-to-mcp</h3>
       <p>Auto-wrap any Click or Typer CLI as an MCP server. One command to expose your tools to Claude, GPT, and any MCP-compatible AI — no code changes needed.</p>
       <div class="tags">
-        <span class="tag prod">v0.2.0</span>
+        <span class="tag prod">v0.2.1</span>
         <span class="tag revenue">Free + Pro</span>
         <span class="tag">mcp</span>
         <span class="tag">ai-agent</span>
@@ -646,6 +647,20 @@ async function loadStars() {
   } catch(e) { /* stats gracefully degrade */ }
 }
 loadStars();
+
+// Add click-to-copy to all code blocks in the install section
+document.querySelectorAll('#install code, .install-banner code').forEach(function(el) {
+  el.style.cursor = 'pointer';
+  el.title = 'Click to copy';
+  el.addEventListener('click', function() {
+    navigator.clipboard.writeText(el.textContent.trim()).then(function() {
+      const orig = el.textContent;
+      el.textContent = '✓ Copied!';
+      el.style.color = '#34d399';
+      setTimeout(function() { el.textContent = orig; el.style.color = ''; }, 1500);
+    });
+  });
+});
 </script>
 
 </body>

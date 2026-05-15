@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alternatives — Revenue Holdings CLI Tools Compared</title>
+  <meta name="description" content="Honest feature-by-feature comparisons: API Contract Guardian vs Spectral vs OAS Diff, DeployDiff vs Terraform Plan, ConfigDrift vs Steampipe, json2sql vs csvsql. Find the right tool for your workflow.">
+  <meta name="keywords" content="api contract guardian vs spectral, openapi diff tool comparison, deploydiff vs terraform, config drift detection tools, json to sql converter alternatives, spectral alternatives, oas diff alternatives">
+  <meta property="og:title" content="Alternatives — Revenue Holdings CLI Tools Compared">
+  <meta property="og:description" content="Feature-by-feature comparisons of Revenue Holdings CLI tools vs popular alternatives. Make an informed choice.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://coding-dev-tools.github.io/revenueholdings.dev/alternatives.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Alternatives — Revenue Holdings CLI Tools Compared">
+  <meta name="twitter:description" content="Feature-by-feature comparisons of CLI dev tools. Pick the right one.">
+  <meta name="twitter:image" content="https://coding-dev-tools.github.io/revenueholdings.dev/og-image.svg">
+  <meta property="og:image" content="https://coding-dev-tools.github.io/revenueholdings.dev/og-image.svg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛁</text></svg>">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "Revenue Holdings CLI Tools — Alternatives Comparison",
+    "description": "Feature-by-feature comparisons of Revenue Holdings CLI tools vs popular alternatives",
+    "url": "https://coding-dev-tools.github.io/revenueholdings.dev/alternatives.html",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "Revenue Holdings",
+      "url": "https://coding-dev-tools.github.io/revenueholdings.dev"
+    }
+  }
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', -apple-system, sans-serif; background: #0a0a0b; color: #e1e1e3; line-height: 1.6; min-height: 100vh; }
+
+    /* Navigation */
+    nav { position: fixed; top: 0; width: 100%; z-index: 100; background: rgba(10,10,11,0.85); backdrop-filter: blur(12px); border-bottom: 1px solid #1e1e20; }
+    nav .inner { max-width: 1100px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; }
+    nav .logo { font-weight: 700; font-size: 1.15rem; color: #fff; letter-spacing: -0.02em; }
+    nav .logo span { color: #6366f1; }
+    nav .links a { color: #888; text-decoration: none; font-size: 0.85rem; margin-left: 28px; transition: color .15s; }
+    nav .links a:hover { color: #fff; }
+    nav .links a.active { color: #fff; }
+
+    /* Hero */
+    .hero { max-width: 1100px; margin: 0 auto; padding: 140px 24px 48px; text-align: center; }
+    .hero h1 { font-size: 2.6rem; font-weight: 800; line-height: 1.15; letter-spacing: -0.04em; color: #fff; }
+    .hero h1 span { background: linear-gradient(135deg, #6366f1, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .hero p { font-size: 1.05rem; color: #888; max-width: 600px; margin: 16px auto 0; }
+
+    /* Jump nav */
+    .jump-nav { max-width: 800px; margin: 0 auto 40px; padding: 0 24px; display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+    .jump-nav a { font-size: 0.82rem; padding: 6px 16px; border: 1px solid #2a2a2e; border-radius: 20px; color: #aaa; text-decoration: none; transition: all .15s; }
+    .jump-nav a:hover { border-color: #6366f1; color: #fff; background: rgba(99,102,241,0.1); }
+
+    /* Comparison sections */
+    .comparisons { max-width: 860px; margin: 0 auto; padding: 0 24px 100px; }
+    .comparison { margin-bottom: 64px; }
+    .comparison h2 { font-size: 1.6rem; font-weight: 700; color: #fff; margin-bottom: 6px; letter-spacing: -0.02em; }
+    .comparison h2 .vs { color: #6366f1; }
+    .comparison .subtitle { color: #888; font-size: 0.9rem; margin-bottom: 24px; }
+
+    /* Feature table */
+    .feat-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+    .feat-table th { text-align: left; padding: 10px 14px; border-bottom: 2px solid #2a2a2e; color: #666; font-weight: 600; text-transform: uppercase; font-size: 0.72rem; letter-spacing: 0.5px; }
+    .feat-table td { padding: 10px 14px; border-bottom: 1px solid #1a1a1d; color: #bbb; }
+    .feat-table td:first-child { color: #ddd; font-weight: 500; width: 40%; }
+    .feat-table .yes { color: #34d399; font-weight: 600; }
+    .feat-table .no { color: #555; }
+    .feat-table .partial { color: #f59e0b; font-weight: 500; }
+    .feat-table tr:hover td { background: rgba(99,102,241,0.03); }
+    .feat-table .rh-col { color: #a78bfa; font-weight: 600; }
+
+    /* Verdict box */
+    .verdict { background: #121213; border: 1px solid #1e1e20; border-radius: 12px; padding: 20px 24px; margin-top: 20px; }
+    .verdict .label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.8px; color: #6366f1; font-weight: 700; margin-bottom: 8px; }
+    .verdict p { font-size: 0.88rem; color: #bbb; line-height: 1.55; }
+    .verdict p strong { color: #e1e1e3; }
+
+    /* CTA */
+    .cta-row { text-align: center; margin-top: 28px; }
+    .cta-row a { display: inline-block; padding: 10px 28px; background: #6366f1; color: #fff; border-radius: 8px; font-size: 0.88rem; font-weight: 600; text-decoration: none; transition: background .15s; }
+    .cta-row a:hover { background: #4f46e5; }
+
+    /* Footer */
+    footer { max-width: 1100px; margin: 0 auto; padding: 40px 24px; border-top: 1px solid #1e1e20; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    footer span { font-size: 0.8rem; color: #555; }
+    footer a { color: #888; text-decoration: none; font-size: 0.8rem; }
+    footer a:hover { color: #fff; }
+
+    @media (max-width: 640px) {
+      .hero h1 { font-size: 1.8rem; }
+      nav .links a { margin-left: 12px; font-size: 0.75rem; }
+      .feat-table { font-size: 0.75rem; }
+      .feat-table td, .feat-table th { padding: 8px 8px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="inner">
+    <div class="logo"><span>⛁</span> Revenue Holdings</div>
+    <div class="links">
+      <a href="index.html">Products</a>
+      <a href="docs.html">Docs</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="alternatives.html" class="active">Alternatives</a>
+      <a href="releases.html">Changelog</a>
+      <a href="blog.html">Blog</a>
+      <a href="about.html">About</a>
+      <a href="https://github.com/Coding-Dev-Tools" target="_blank">GitHub</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <h1>Choose the <span>Right Tool</span></h1>
+  <p>Honest, feature-by-feature comparisons. We show where we win and where alternatives shine — so you pick what actually fits your workflow.</p>
+</section>
+
+<div class="jump-nav">
+  <a href="#acg-vs-spectral">API Contract Guardian vs Spectral</a>
+  <a href="#acg-vs-oasdiff">API Contract Guardian vs Oasdiff</a>
+  <a href="#deploydiff-vs-terraform">DeployDiff vs Terraform Plan</a>
+  <a href="#configdrift-vs-steampipe">ConfigDrift vs Steampipe</a>
+  <a href="#json2sql-vs-csvsql">json2sql vs csvsql</a>
+</div>
+
+<div class="comparisons">
+
+  <!-- ============================================ -->
+  <!-- ACG vs Spectral -->
+  <!-- ============================================ -->
+  <div class="comparison" id="acg-vs-spectral">
+    <h2>API Contract Guardian <span class="vs">vs</span> Spectral</h2>
+    <p class="subtitle">OpenAPI contract testing vs general-purpose linting — different jobs, often confused.</p>
+
+    <table class="feat-table">
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th class="rh-col">API Contract Guardian</th>
+          <th>Spectral</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Breaking-change detection</td>
+          <td class="yes">Yes — diff-based</td>
+          <td class="no">No — lint only</td>
+        </tr>
+        <tr>
+          <td>Custom rules engine</td>
+          <td class="yes">Yes — YAML rule files</td>
+          <td class="yes">Yes — YAML rule files</td>
+        </tr>
+        <tr>
+          <td>CI/CD exit codes</td>
+          <td class="yes">Yes — exit 1 on breaking</td>
+          <td class="partial">Partial — lint errors only</td>
+        </tr>
+        <tr>
+          <td>Semver-aware gating</td>
+          <td class="yes">Yes — patch/minor/major</td>
+          <td class="no">No</td>
+        </tr>
+        <tr>
+          <td>Contract drift tracking</td>
+          <td class="yes">Yes — baseline snapshots</td>
+          <td class="no">No</td>
+        </tr>
+        <tr>
+          <td>General OpenAPI linting</td>
+          <td class="no">No — contract focused</td>
+          <td class="yes">Yes — built-in rulesets</td>
+        </tr>
+        <tr>
+          <td>AsyncAPI support</td>
+          <td class="no">No</td>
+          <td class="yes">Yes</td>
+        </tr>
+        <tr>
+          <td>CLI install size</td>
+          <td>~8 MB</td>
+          <td>~12 MB</td>
+        </tr>
+        <tr>
+          <td>Price</td>
+          <td class="rh-col">$19/mo</td>
+          <td>Free (OSS)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="verdict">
+      <div class="label">Verdict</div>
+      <p><strong>Spectral</strong> is the better choice for general OpenAPI/AsyncAPI linting with its rich built-in rulesets. <strong>API Contract Guardian</strong> is for teams who need to <em>detect breaking changes before they ship</em> — something Spectral fundamentally cannot do. If your CI pipeline needs semver-aware gates and contract drift alerts, ACG fills a gap Spectral leaves open.</p>
+    </div>
+    <div class="cta-row">
+      <a href="docs.html#acg">Read ACG Docs</a>
+    </div>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- ACG vs Oasdiff -->
+  <!-- ============================================ -->
+  <div class="comparison" id="acg-vs-oasdiff">
+    <h2>API Contract Guardian <span class="vs">vs</span> Oasdiff</h2>
+    <p class="subtitle">Both detect breaking changes — but differ on rule flexibility and CI integration.</p>
+
+    <table class="feat-table">
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th class="rh-col">API Contract Guardian</th>
+          <th>Oasdiff</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Breaking-change detection</td>
+          <td class="yes">Yes</td>
+          <td class="yes">Yes</td>
+        </tr>
+        <tr>
+          <td>Custom rules engine</td>
+          <td class="yes">Yes — YAML rules</td>
+          <td class="partial">Partial — Go flag toggles</td>
+        </tr>
+        <tr>
+          <td>Semver-aware gating</td>
+          <td class="yes">Yes — patch/minor/major</td>
+          <td class="no">No</td>
+        </tr>
+        <tr>
+          <td>Contract baseline snapshots</td>
+          <td class="yes">Yes</td>
+          <td class="no">No</td>
+        </tr>
+        <tr>
+          <td>Change classification</td>
+          <td class="yes">Breaking / compatible / info</td>
+          <td class="yes">Breaking / non-breaking</td>
+        </tr>
+        <tr>
+          <td>Output formats</td>
+          <td>JSON, text, JUnit</td>
+          <td>JSON, text, HTML</td>
+        </tr>
+        <tr>
+          <td>Language</td>
+          <td>Python</td>
+          <td>Go</td>
+        </tr>
+        <tr>
+          <td>Price</td>
+          <td class="rh-col">$19/mo</td>
+          <td>Free (OSS)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="verdict">
+      <div class="label">Verdict</div>
+      <p><strong>Oasdiff</strong> is a solid free option for pure breaking-change detection in Go-based pipelines. <strong>API Contract Guardian</strong> adds custom YAML rules, semver-aware gating (fail differently for patch vs major), and baseline contract snapshots for tracking drift over time. If you need rule customization beyond flag toggles, ACG is the stronger fit.</p>
+    </div>
+    <div class="cta-row">
+      <a href="docs.html#acg">Read ACG Docs</a>
+    </div>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- DeployDiff vs Terraform Plan -->
+  <!-- ============================================ -->
+  <div class="comparison" id="deploydiff-vs-terraform">
+    <h2>DeployDiff <span class="vs">vs</span> Terraform Plan</h2>
+    <p class="subtitle">Infrastructure change preview — general-purpose diff vs IaC-specific planning.</p>
+
+    <table class="feat-table">
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th class="rh-col">DeployDiff</th>
+          <th>Terraform Plan</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Works with any config format</td>
+          <td class="yes">Yes — YAML, JSON, TOML, env</td>
+          <td class="no">HCL only</td>
+        </tr>
+        <tr>
+          <td>State-aware change preview</td>
+          <td class="partial">Partial — file diff based</td>
+          <td class="yes">Yes — full state tracking</td>
+        </tr>
+        <tr>
+          <td>CI/CD integration</td>
+          <td class="yes">Yes — exit codes, PR comments</td>
+          <td class="yes">Yes</td>
+        </tr>
+        <tr>
+          <td>Docker/K8s manifest diff</td>
+          <td class="yes">Yes</td>
+          <td class="no">No — Terraform resources only</td>
+        </tr>
+        <tr>
+          <td>Cost estimation</td>
+          <td class="no">No</td>
+          <td class="partial">Via Infracost plugin</td>
+        </tr>
+        <tr>
+          <td>Requires state file</td>
+          <td class="yes">No — stateless</td>
+          <td class="no">Yes — tfstate required</td>
+        </tr>
+        <tr>
+          <td>Language/Platform</td>
+          <td>Python — any OS</td>
+          <td>Go — any OS</td>
+        </tr>
+        <tr>
+          <td>Price</td>
+          <td class="rh-col">$15/mo</td>
+          <td>Free (OSS)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="verdict">
+      <div class="label">Verdict</div>
+      <p><strong>Terraform Plan</strong> is unmatched for IaC change preview when you're fully in the Terraform ecosystem. <strong>DeployDiff</strong> shines when your deployment configs live outside Terraform — Docker Compose, K8s manifests, env files, or any YAML/JSON config. It's stateless and format-agnostic, making it the right pick for polyglot infrastructure teams.</p>
+    </div>
+    <div class="cta-row">
+      <a href="docs.html#deploydiff">Read DeployDiff Docs</a>
+    </div>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- ConfigDrift vs Steampipe -->
+  <!-- ============================================ -->
+  <div class="comparison" id="configdrift-vs-steampipe">
+    <h2>ConfigDrift <span class="vs">vs</span> Steampipe</h2>
+    <p class="subtitle">Config drift detection — file-based snapshots vs cloud API queries.</p>
+
+    <table class="feat-table">
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th class="rh-col">ConfigDrift</th>
+          <th>Steampipe</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Drift detection</td>
+          <td class="yes">Yes — snapshot diff</td>
+          <td class="partial">Partial — via SQL queries</td>
+        </tr>
+        <tr>
+          <td>Works with local files</td>
+          <td class="yes">Yes</td>
+          <td class="no">No — cloud API only</td>
+        </tr>
+        <tr>
+          <td>Cloud provider queries</td>
+          <td class="no">No</td>
+          <td class="yes">Yes — AWS, GCP, Azure</td>
+        </tr>
+        <tr>
+          <td>CI/CD native</td>
+          <td class="yes">Yes — exit codes</td>
+          <td class="partial">Partial — needs plugin setup</td>
+        </tr>
+        <tr>
+          <td>Snapshot baselines</td>
+          <td class="yes">Yes — git-trackable</td>
+          <td class="no">No</td>
+        </tr>
+        <tr>
+          <td>SQL interface</td>
+          <td class="no">No</td>
+          <td class="yes">Yes — Postgres-compatible</td>
+        </tr>
+        <tr>
+          <td>Price</td>
+          <td class="rh-col">$15/mo</td>
+          <td>Free (OSS)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="verdict">
+      <div class="label">Verdict</div>
+      <p><strong>Steampipe</strong> excels at querying live cloud infrastructure via SQL — it's a cloud audit power tool. <strong>ConfigDrift</strong> solves a different problem: detecting when your local config files (YAML, JSON, env) drift from their baselines. If your drift concerns are file-based and CI-native, ConfigDrift is purpose-built. For cloud resource auditing, Steampipe is the better fit.</p>
+    </div>
+    <div class="cta-row">
+      <a href="docs.html#configdrift">Read ConfigDrift Docs</a>
+    </div>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- json2sql vs csvsql -->
+  <!-- ============================================ -->
+  <div class="comparison" id="json2sql-vs-csvsql">
+    <h2>json2sql <span class="vs">vs</span> csvsql (csvkit)</h2>
+    <p class="subtitle">JSON-to-SQL conversion vs CSV-to-SQL — different inputs, similar goals.</p>
+
+    <table class="feat-table">
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th class="rh-col">json2sql</th>
+          <th>csvsql (csvkit)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>JSON input</td>
+          <td class="yes">Yes — nested + flat</td>
+          <td class="no">No — CSV only</td>
+        </tr>
+        <tr>
+          <td>CSV input</td>
+          <td class="no">No — JSON only</td>
+          <td class="yes">Yes</td>
+        </tr>
+        <tr>
+          <td>Nested object flattening</td>
+          <td class="yes">Yes — auto-dot-notation</td>
+          <td class="no">No — flat rows only</td>
+        </tr>
+        <tr>
+          <td>Schema inference</td>
+          <td class="yes">Yes</td>
+          <td class="yes">Yes</td>
+        </tr>
+        <tr>
+          <td>Multiple SQL dialects</td>
+          <td class="yes">PostgreSQL, MySQL, SQLite</td>
+          <td class="yes">PostgreSQL, MySQL, SQLite</td>
+        </tr>
+        <tr>
+          <td>INSERT statement generation</td>
+          <td class="yes">Yes — batch mode</td>
+          <td class="yes">Yes</td>
+        </tr>
+        <tr>
+          <td>Array-of-objects handling</td>
+          <td class="yes">Yes — auto-table creation</td>
+          <td class="no">No</td>
+        </tr>
+        <tr>
+          <td>Price</td>
+          <td class="rh-col">$9/mo</td>
+          <td>Free (OSS)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="verdict">
+      <div class="label">Verdict</div>
+      <p><strong>csvsql</strong> is the go-to for CSV-to-SQL workflows and is part of the mature csvkit suite. <strong>json2sql</strong> fills the JSON-shaped hole: nested object flattening, array-of-objects table creation, and auto-dot-notation keys. If your data arrives as JSON (APIs, logs, NoSQL exports), json2sql saves you the CSV conversion step entirely.</p>
+    </div>
+    <div class="cta-row">
+      <a href="docs.html#json2sql">Read json2sql Docs</a>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <span>&copy; 2026 Revenue Holdings</span>
+  <div>
+    <a href="https://github.com/Coding-Dev-Tools" target="_blank">GitHub</a>
+    &nbsp;&middot;&nbsp;
+    <a href="pricing.html">Pricing</a>
+    &nbsp;&middot;&nbsp;
+    <a href="about.html">About</a>
+  </div>
+</footer>
+
+</body>
+</html>
