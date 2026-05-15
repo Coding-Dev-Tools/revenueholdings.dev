@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Turn Any OpenAPI Spec into a Running Mock Server — APIGhost Tutorial</title>
+  <meta name="description" content="Learn how to spin up a mock API server from any OpenAPI 3.0/3.1 spec with one CLI command. Supports realistic fake data, VCR cassette recording for deterministic tests, and scenario-based error testing.">
+  <meta name="keywords" content="API mock server, OpenAPI mock, mock API from spec, API testing, mock server CLI, OpenAPI 3.0 testing, VCR recording, API mocking tool, apighost, mock server for developers">
+  <meta property="og:title" content="Turn Any OpenAPI Spec into a Running Mock Server — APIGhost Tutorial">
+  <meta property="og:description" content="Spin up a mock API server from any OpenAPI 3 spec in one command. Realistic fake data, VCR recording for deterministic tests, and scenario-based error responses.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://coding-dev-tools.github.io/revenueholdings.dev/blog/api-mock-server-from-openapi-spec.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="API Mock Server in One Command — APIGhost">
+  <meta name="twitter:description" content="One CLI command turns any OpenAPI spec into a running mock server with realistic data, VCR recording, and scenario-based error responses.">
+  <meta name="twitter:image" content="https://coding-dev-tools.github.io/revenueholdings.dev/og-image.svg">
+  <meta property="og:image" content="https://coding-dev-tools.github.io/revenueholdings.dev/og-image.svg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="author" content="Revenue Holdings">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛁</text></svg>">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Turn Any OpenAPI Spec into a Running Mock Server — APIGhost Tutorial",
+    "description": "Learn how to spin up a mock API server from any OpenAPI 3 spec with one CLI command.",
+    "datePublished": "2026-05-15",
+    "author": { "@type": "Organization", "name": "Revenue Holdings" },
+    "publisher": { "@type": "Organization", "name": "Revenue Holdings" },
+    "mainEntityOfPage": {"@type": "WebPage","@id": "https://coding-dev-tools.github.io/revenueholdings.dev/blog/api-mock-server-from-openapi-spec.html"}
+  }
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', -apple-system, sans-serif; background: #0a0a0b; color: #e1e1e3; line-height: 1.6; min-height: 100vh; }
+    nav { position: fixed; top: 0; width: 100%; z-index: 100; background: rgba(10,10,11,0.85); backdrop-filter: blur(12px); border-bottom: 1px solid #1e1e20; }
+    nav .inner { max-width: 800px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; }
+    nav .logo { font-weight: 700; font-size: 1.15rem; color: #fff; letter-spacing: -0.02em; }
+    nav .logo span { color: #6366f1; }
+    nav .links a { color: #888; text-decoration: none; font-size: 0.85rem; margin-left: 28px; transition: color .15s; }
+    nav .links a:hover { color: #fff; }
+    nav .links a.active { color: #fff; }
+    @media (max-width: 640px) { nav .links a { font-size: 0.72rem; margin-left: 12px; } }
+
+    .blog-nav { max-width: 800px; margin: 80px auto 0; padding: 0 24px; }
+    .blog-nav a { color: #6366f1; text-decoration: none; font-size: 0.88rem; font-weight: 500; }
+    .blog-nav a:hover { color: #a78bfa; }
+
+    .post-content { max-width: 800px; margin: 0 auto; padding: 40px 24px 80px; font-size: 0.95rem; line-height: 1.75; }
+    .post-content h1 { font-size: 2.2rem; font-weight: 800; color: #fff; letter-spacing: -0.03em; margin: 40px 0 8px; line-height: 1.2; }
+    .post-content .subtitle { font-size: 1.05rem; color: #888; margin-bottom: 32px; }
+    .post-content .meta { font-size: 0.8rem; color: #555; margin-bottom: 32px; display: flex; gap: 16px; }
+    .post-content h2 { font-size: 1.35rem; font-weight: 700; color: #fff; margin: 36px 0 12px; }
+    .post-content h3 { font-size: 1.08rem; font-weight: 600; color: #e1e1e3; margin: 24px 0 8px; }
+    .post-content p { margin: 16px 0; color: #ccc; }
+    .post-content a { color: #a78bfa; }
+    .post-content code { background: #1a1a1c; padding: 2px 8px; border-radius: 4px; font-size: 0.85em; color: #34d399; }
+    .post-content pre { background: #121213; border: 1px solid #1e1e20; border-radius: 8px; padding: 16px 20px; overflow-x: auto; margin: 16px 0; }
+    .post-content pre code { background: none; padding: 0; font-size: 0.82rem; line-height: 1.5; color: #d1d5db; }
+    .post-content ul, .post-content ol { margin: 16px 0; padding-left: 24px; }
+    .post-content li { color: #ccc; margin: 8px 0; }
+    .post-content .badge { display: inline-block; padding: 4px 14px; border-radius: 24px; font-size: 0.72rem; font-weight: 600; background: rgba(99,102,241,0.12); color: #a78bfa; border: 1px solid rgba(99,102,241,0.2); text-transform: uppercase; letter-spacing: 0.3px; }
+    .post-content .badge.tutorial { background: rgba(251,191,36,0.12); color: #fbbf24; border-color: rgba(251,191,36,0.2); }
+    .post-content hr { border: none; border-top: 1px solid #1e1e20; margin: 40px 0; }
+    .post-content .tip { background: rgba(52,211,153,0.06); border: 1px solid rgba(52,211,153,0.15); border-radius: 10px; padding: 16px 20px; margin: 20px 0; }
+    .post-content .tip strong { color: #34d399; }
+    .post-content .warning { background: rgba(251,146,60,0.08); border: 1px solid rgba(251,146,60,0.2); border-radius: 10px; padding: 16px 20px; margin: 20px 0; }
+    .post-content .warning strong { color: #fb923c; }
+    .post-content .step { background: #121213; border: 1px solid #1e1e20; border-radius: 10px; padding: 20px; margin: 20px 0; border-left: 3px solid #6366f1; }
+    .post-content .step h3 { margin-top: 0; color: #a78bfa; }
+    .post-content .cmd-block { background: #0d0d0e; border: 1px solid #1e1e20; border-radius: 8px; padding: 12px 16px; margin: 12px 0; font-family: monospace; font-size: 0.85rem; color: #34d399; }
+    .post-content .diagram { background: #121213; border: 1px solid #1e1e20; border-radius: 10px; padding: 24px; margin: 24px 0; text-align: center; font-family: monospace; font-size: 0.82rem; color: #888; line-height: 1.8; }
+    .post-content table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+    .post-content th { background: #1a1a1c; color: #fff; font-weight: 600; padding: 10px 12px; text-align: left; font-size: 0.82rem; border-bottom: 1px solid #2a2a2d; }
+    .post-content td { padding: 10px 12px; font-size: 0.85rem; color: #ccc; border-bottom: 1px solid #1e1e20; }
+
+    .article-waitlist { max-width: 560px; margin: 0 auto; padding: 40px 0 20px; text-align: center; }
+    .article-waitlist h3 { font-size: 1.2rem; font-weight: 700; color: #fff; }
+    .article-waitlist p { color: #888; font-size: 0.88rem; margin: 8px 0 20px; }
+    .article-waitlist .form-row { display: flex; gap: 10px; }
+    .article-waitlist input[type="email"] { flex: 1; padding: 10px 14px; border-radius: 8px; border: 1px solid #2a2a2d; background: #121213; color: #e1e1e3; font-family: 'Inter', sans-serif; font-size: 0.85rem; outline: none; }
+    .article-waitlist input[type="email"]:focus { border-color: #6366f1; }
+    .article-waitlist .btn { padding: 10px 20px; border-radius: 8px; border: none; background: #6366f1; color: #fff; font-weight: 600; font-size: 0.85rem; cursor: pointer; }
+    .article-waitlist .btn:hover { background: #5558e6; }
+
+    footer { max-width: 800px; margin: 0 auto; padding: 40px 24px; border-top: 1px solid #1e1e20; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    footer span { font-size: 0.8rem; color: #555; }
+    footer a { color: #888; text-decoration: none; font-size: 0.8rem; }
+    footer a:hover { color: #fff; }
+  </style>
+  <!-- Plausible Analytics -->
+  <script defer data-domain="revenueholdings.dev" src="https://plausible.io/js/script.js"></script>
+</head>
+<body>
+
+<nav>
+  <div class="inner">
+    <div class="logo"><span>⛁</span> Revenue Holdings</div>
+    <div class="links">
+      <a href="../index.html">Home</a>
+      <a href="../blog.html" class="active">Blog</a>
+      <a href="../docs.html">Docs</a>
+      <a href="../pricing.html">Pricing</a>
+    </div>
+  </div>
+</nav>
+
+<div class="blog-nav">
+  <a href="../blog.html">← Back to Blog</a>
+</div>
+
+<main class="post-content">
+
+  <span class="badge tutorial">Tutorial</span>
+
+  <h1>Turn Any OpenAPI Spec into a Running Mock Server</h1>
+
+  <div class="subtitle">
+    One CLI command spins up a mock server from any OpenAPI 3.0 or 3.1 spec — with realistic fake data, scenario-based error responses, and VCR cassette recording for deterministic test suites.
+  </div>
+
+  <div class="meta">
+    <span>May 15, 2026</span>
+    <span>·</span>
+    <span>7 min read</span>
+    <span>·</span>
+    <span>Revenue Holdings</span>
+  </div>
+
+  <hr>
+
+  <p>
+    Mocking APIs should be the easiest part of your development workflow. Instead, it's often the most frustrating: standing up a separate server, hand-crafting JSON responses, maintaining fake data that doesn't match the schema, and updating everything when the spec changes.
+  </p>
+
+  <p>
+    <strong>APIGhost</strong> eliminates all of that. Point it at any OpenAPI 3.0 or 3.1 specification — a local file or a URL — and it immediately becomes a running mock server. Responses are generated with realistic fake data (powered by Faker, using property names as hints). Need to test error handling? Switch scenarios. Need deterministic tests? Record interactions and replay them as VCR cassettes.
+  </p>
+
+  <p>
+    No Docker containers. No configuration files. No standing up a separate Express server.
+  </p>
+
+  <div class="diagram">
+    ┌──────────────┐    ┌──────────────┐    ┌─────────────────┐
+    │ OpenAPI Spec │    │  APIGhost    │    │  Mock API       │
+    │ petstore.yaml│──→│  serve       │──→│  GET /pets      │
+    │              │    │  (port 8080) │    │  → 200 + data   │
+    └──────────────┘    └──────────────┘    │  POST /pets     │
+                                           │  → 201 + data   │
+                                           │  GET /pets/1    │
+                                           │  → 200 + fake   │
+                                           └─────────────────┘
+  </div>
+
+  <h2>1. Install APIGhost</h2>
+
+  <div class="cmd-block">$ pip install apighost</div>
+
+  <p>Or from GitHub:</p>
+
+  <div class="cmd-block">$ pip install git+https://github.com/Coding-Dev-Tools/apighost.git</div>
+
+  <p>Verify it's installed:</p>
+
+  <div class="cmd-block">$ apighost --help</div>
+
+  <p>You'll see the available commands: <code>serve</code>, <code>record</code>, <code>replay</code>, <code>scenario</code>, and <code>generate</code>.</p>
+
+  <h2>2. Mock a Pet Store API from a Spec</h2>
+
+  <p>Let's use the standard Petstore example from the OpenAPI specification. APIGhost can load specs from URLs directly:</p>
+
+  <div class="cmd-block">$ apighost serve https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/examples/v3.0/petstore.yaml</div>
+
+  <p>That's it. Your mock server is running on <code>http://localhost:8080</code>. Now hit it with curl:</p>
+
+  <div class="cmd-block">$ curl http://localhost:8080/api/pets</div>
+
+  <p>You'll get a response like:</p>
+
+  <pre><code>[
+  {
+    "id": 12345,
+    "name": "Whiskers",
+    "tag": "cat"
+  },
+  {
+    "id": 67890,
+    "name": "Buddy",
+    "tag": "dog"
+  }
+]</code></pre>
+
+  <p>APIGhost parsed the schema, inferred the data types, and generated realistic values. The <code>name</code> field gets a real pet name. The <code>id</code> gets a plausible integer. The <code>tag</code> gets a category string.</p>
+
+  <p>Try a POST:</p>
+
+  <div class="cmd-block">$ curl -X POST http://localhost:8080/api/pets -H "Content-Type: application/json" -d '{"name":"Oreo","tag":"cat"}'</div>
+
+  <pre><code>{
+  "id": 54321,
+  "name": "Oreo",
+  "tag": "cat"
+}</code></pre>
+
+  <p>The server validates your input against the OpenAPI schema, generates an appropriate response, and picks the correct HTTP status code from the spec.</p>
+
+  <div class="tip">
+    <strong>💡 Serve from a local file:</strong> You can also use a local spec: <code>apighost serve ./petstore.yaml</code> or use a custom port: <code>apighost serve petstore.yaml -p 3000</code>.
+  </div>
+
+  <h2>3. Generate Sample Data</h2>
+
+  <p>Need to populate your mock with realistic data before your frontend starts developing? Use <code>generate</code> to create a full scenario of sample responses:</p>
+
+  <div class="cmd-block">$ apighost generate petstore.yaml</div>
+
+  <p>This introspects the entire spec and pre-generates plausible data for every endpoint — names, emails, IDs, timestamps, nested objects — using property name hints from the schema. The generated output is saved as a scenario that you can use immediately.</p>
+
+  <h2 id="scenarios">4. Scenarios — Switch Between Happy Path and Error States</h2>
+
+  <p>This is where APIGhost becomes a real testing tool. A <strong>scenario</strong> is a named set of response overrides. When your frontend or integration tests need to see error states, switch scenarios instead of modifying test code.</p>
+
+  <p>First, create a scenario for error testing:</p>
+
+  <div class="cmd-block">$ apighost scenario create error-test -d "API error scenarios"</div>
+
+  <p>Then configure specific endpoints to return errors:</p>
+
+  <div class="cmd-block">$ apighost scenario edit error-test "GET /api/pets/1" --status 404 --body '{"error":"Pet not found"}'</div>
+
+  <div class="cmd-block">$ apighost scenario edit error-test "GET /api/pets" --status 500 --body '{"error":"Internal server error"}'</div>
+
+  <p>Now serve with the error scenario:</p>
+
+  <div class="cmd-block">$ apighost serve petstore.yaml --scenario error-test</div>
+
+  <pre><code># Normal endpoint still works
+$ curl http://localhost:8080/api/pets/2
+→ 200 {"id": 67890, "name": "Buddy"}
+
+# Overridden endpoint returns your error
+$ curl http://localhost:8080/api/pets/1
+→ 404 {"error": "Pet not found"}
+
+# Another overridden endpoint
+$ curl http://localhost:8080/api/pets
+→ 500 {"error": "Internal server error"}</code></pre>
+
+  <p>List your available scenarios:</p>
+
+  <div class="cmd-block">$ apighost scenario list</div>
+
+  <p>Delete when you're done:</p>
+
+  <div class="cmd-block">$ apighost scenario delete error-test</div>
+
+  <div class="tip">
+    <strong>💡 Why scenarios matter:</strong> Instead of hard-coding error-handling paths in your frontend, run the same test suite against different scenarios. Your "rate limit exceeded" handler, "server error" retry logic, and "not found" fallback all get exercised without changing a single line of test code.
+  </div>
+
+  <h2 id="vcr">5. VCR Recording for Deterministic Tests</h2>
+
+  <p>Scenarios are great for manual testing. For automated test suites, you need <strong>deterministic</strong> responses — every test run must return exactly the same data. That's where VCR recording comes in.</p>
+
+  <h3>Record mode</h3>
+
+  <p>Start APIGhost in recording mode, make requests against your real API (or the mock), and it captures every interaction:</p>
+
+  <div class="cmd-block">$ apighost record petstore.yaml</div>
+
+  <div class="cmd-block"># In another terminal, make some requests
+$ curl http://localhost:8080/api/pets
+$ curl http://localhost:8080/api/pets/1</div>
+
+  <p>When you stop the server (Ctrl+C), the interactions are saved to a <strong>VCR cassette</strong> file on disk.</p>
+
+  <h3>Replay mode</h3>
+
+  <p>Now replay the exact same interactions — bit-for-bit identical responses every time:</p>
+
+  <div class="cmd-block">$ apighost replay ./recordings/my-recording</div>
+
+  <pre><code>$ curl http://localhost:8080/api/pets
+→ Same JSON, same IDs, same ordering as recorded</code></pre>
+
+  <p>This is perfect for:</p>
+  <ul>
+    <li><strong>CI/CD test suites</strong> — deterministic responses prevent flaky tests</li>
+    <li><strong>Integration tests</strong> — known state every run, no network dependency</li>
+    <li><strong>Frontend development</strong> — design against the exact data shape your API returns</li>
+    <li><strong>Demo environments</strong> — reproducible demo data without a real backend</li>
+  </ul>
+
+  <h2>6. CI/CD Integration</h2>
+
+  <p>Use APIGhost in your test pipeline to provide a deterministic mock API:</p>
+
+  <pre><code># .github/workflows/frontend-tests.yml
+name: Frontend Tests
+
+on: [push]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install APIGhost
+        run: pip install apighost
+
+      - name: Start mock API
+        run: |
+          apighost serve spec.yaml -p 8080 &
+          sleep 2  # wait for server to be ready
+
+      - name: Run frontend tests
+        run: npm test
+
+      - name: Stop mock API
+        run: kill %1</code></pre>
+
+  <p>For even faster CI, use <code>replay</code> mode with a pre-recorded cassette — no spec parsing needed on every run:</p>
+
+  <pre><code>      - name: Replay recorded API
+        run: |
+          apighost replay ./cassettes/frontend-tests -p 8080 &
+          sleep 1
+          npm test
+          kill %1</code></pre>
+
+  <h2>Command Reference</h2>
+
+  <table>
+    <tr><th>Command</th><th>Description</th></tr>
+    <tr><td><code>apighost serve &lt;spec&gt;</code></td><td>Start mock server from OpenAPI spec (local or URL)</td></tr>
+    <tr><td><code>apighost serve &lt;spec&gt; -p 3000</code></td><td>Custom port</td></tr>
+    <tr><td><code>apighost serve &lt;spec&gt; --scenario &lt;name&gt;</code></td><td>Use a named scenario for response overrides</td></tr>
+    <tr><td><code>apighost serve &lt;spec&gt; --record</code></td><td>Record interactions to a VCR cassette</td></tr>
+    <tr><td><code>apighost record &lt;spec&gt;</code></td><td>Start recorder, capture interactions, save cassette</td></tr>
+    <tr><td><code>apighost replay &lt;cassette&gt;</code></td><td>Replay a recorded cassette deterministically</td></tr>
+    <tr><td><code>apighost scenario create &lt;name&gt;</code></td><td>Create a named response scenario</td></tr>
+    <tr><td><code>apighost scenario edit &lt;name&gt; &lt;path&gt;</code></td><td>Override a specific endpoint's response</td></tr>
+    <tr><td><code>apighost generate &lt;spec&gt;</code></td><td>Generate sample data from the spec</td></tr>
+  </table>
+
+  <hr>
+
+  <h2>Real-World Use Case: Parallel Frontend and Backend Development</h2>
+
+  <p>
+    A team was building a dashboard frontend against a new GraphQL API that wouldn't be ready for three weeks. Instead of waiting, they ran APIGhost against the draft OpenAPI spec, generated realistic sample data, and started building immediately. When the backend changed the response format, updating the spec and restarting APIGhost was faster than any other mocking approach they'd tried.
+  </p>
+
+  <p>
+    The same team used the scenario system to test their error handling: the "503 maintenance mode" flow was verified weeks before the actual maintenance page was needed. By the time the real API shipped, the frontend had already handled every error condition.
+  </p>
+
+  <hr>
+
+  <h2>Next Steps</h2>
+
+  <p>APIGhost is one of <strong>10 tools</strong> in the Revenue Holdings suite. Other tools that pair well with API testing:</p>
+
+  <ul>
+    <li><strong>API Contract Guardian</strong> — Catch breaking schema changes in PRs <em>(<a href="../docs.html">docs</a>)</em></li>
+    <li><strong>ConfigDrift</strong> — Detect environment drift <em>(<a href="catch-config-drift-before-production.html">tutorial</a>)</em></li>
+    <li><strong>DeployDiff</strong> — Preview infra costs and blast radius <em>(<a href="preview-infra-cost-before-deploy.html">tutorial</a>)</em></li>
+    <li><strong>click-to-mcp</strong> — Turn CLI tools into MCP servers <em>(<a href="click-to-mcp-intro.html">introduction</a>)</em></li>
+  </ul>
+
+  <p>
+    <a href="../docs.html">Read the full docs →</a>
+  </p>
+
+  <div class="article-waitlist">
+    <h3>Get Notified About New Tutorials</h3>
+    <p>DevOps guides, API testing tips, and product updates.</p>
+    <div class="form-row">
+      <input type="email" placeholder="you@company.com">
+      <button class="btn" onclick="window.open('mailto:waitlist@revenueholdings.dev?subject=APIGhost%20Interest&body=I%20want%20updates%20on%20APIGhost', '_blank')">Notify Me →</button>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <span>© 2026 Revenue Holdings. Built autonomously.</span>
+  <a href="https://github.com/Coding-Dev-Tools">GitHub</a>
+</footer>
+
+</body>
+</html>
