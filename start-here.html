@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Start Here — Find the Right CLI Tool for Your Problem</title>
+  <meta name="description" content="Not sure which tool to use? Pick your problem: API contracts, JSON to SQL, infrastructure costs, config drift, API keys, mock servers, env sync, schema conversion, MCP, or dead code cleanup.">
+  <meta name="keywords" content="CLI tools, developer tools, start here, onboarding, OpenAPI, SQL, infrastructure, config drift, API keys, mock server, schema conversion, dead code">
+  <meta property="og:title" content="Start Here — Revenue Holdings CLI Tools">
+  <meta property="og:description" content="Find the right CLI tool for your problem in 30 seconds.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://coding-dev-tools.github.io/revenueholdings.dev/start-here.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Start Here — Revenue Holdings CLI Tools">
+  <meta name="twitter:description" content="Find the right CLI tool for your problem in 30 seconds.">
+  <meta property="og:image" content="https://coding-dev-tools.github.io/revenueholdings.dev/og-image.svg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛁</text></svg>">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Plausible Analytics -->
+  <script defer data-domain="revenueholdings.dev" src="https://plausible.io/js/script.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', -apple-system, sans-serif; background: #0a0a0b; color: #e1e1e3; line-height: 1.6; min-height: 100vh; }
+    nav { position: fixed; top: 0; width: 100%; z-index: 100; background: rgba(10,10,11,0.85); backdrop-filter: blur(12px); border-bottom: 1px solid #1e1e20; }
+    nav .inner { max-width: 1100px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; }
+    nav .logo { font-weight: 700; font-size: 1.15rem; color: #fff; letter-spacing: -0.02em; }
+    nav .logo span { color: #6366f1; }
+    nav .links a { color: #888; text-decoration: none; font-size: 0.85rem; margin-left: 28px; transition: color .15s; }
+    nav .links a:hover { color: #fff; }
+    nav .links a.active { color: #fff; }
+    .hero { max-width: 800px; margin: 0 auto; padding: 140px 24px 48px; text-align: center; }
+    .hero h1 { font-size: 2.6rem; font-weight: 800; line-height: 1.15; letter-spacing: -0.04em; color: #fff; }
+    .hero h1 span { background: linear-gradient(135deg, #6366f1, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .hero p { font-size: 1.05rem; color: #888; max-width: 550px; margin: 16px auto 0; }
+    .problems { max-width: 800px; margin: 0 auto; padding: 0 24px 80px; }
+    .problem { background: #121213; border: 1px solid #1e1e20; border-radius: 14px; padding: 24px; margin-bottom: 16px; transition: border-color .15s, transform .15s; cursor: pointer; }
+    .problem:hover { border-color: #2a2a2d; transform: translateY(-1px); }
+    .problem summary { font-size: 1.05rem; font-weight: 600; color: #fff; cursor: pointer; display: flex; align-items: center; gap: 12px; list-style: none; }
+    .problem summary::-webkit-details-marker { display: none; }
+    .problem summary::after { content: '▸'; color: #6366f1; margin-left: auto; font-size: 1.2rem; transition: transform .15s; }
+    .problem[open] summary::after { transform: rotate(90deg); }
+    .problem .solution { margin-top: 16px; padding-top: 16px; border-top: 1px solid #1e1e20; }
+    .problem .solution p { font-size: 0.9rem; color: #999; line-height: 1.6; }
+    .problem .solution .actions { display: flex; gap: 10px; margin-top: 16px; flex-wrap: wrap; }
+    .problem .solution .btn { display: inline-block; padding: 10px 20px; border-radius: 8px; font-weight: 600; font-size: 0.85rem; text-decoration: none; transition: all .15s; }
+    .problem .solution .btn.primary { background: #6366f1; color: #fff; }
+    .problem .solution .btn.primary:hover { background: #5558e6; }
+    .problem .solution .btn.secondary { background: #1a1a1c; color: #ccc; border: 1px solid #2a2a2d; }
+    .problem .solution .btn.secondary:hover { border-color: #6366f1; color: #fff; }
+    .problem .solution .btn.tutorial { background: rgba(251,191,36,0.12); color: #fbbf24; border: 1px solid rgba(251,191,36,0.2); }
+    .problem .solution .btn.tutorial:hover { background: rgba(251,191,36,0.18); }
+    .problem .solution .tags { display: flex; gap: 6px; margin-bottom: 12px; flex-wrap: wrap; }
+    .problem .solution .tag { padding: 3px 10px; border-radius: 6px; font-size: 0.7rem; font-weight: 500; background: #1e1e20; color: #999; }
+    footer { max-width: 1100px; margin: 0 auto; padding: 40px 24px; border-top: 1px solid #1e1e20; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    footer span { font-size: 0.8rem; color: #555; }
+    footer a { color: #888; text-decoration: none; font-size: 0.8rem; }
+    footer a:hover { color: #fff; }
+    @media (max-width: 640px) { .hero h1 { font-size: 1.8rem; } nav .links a { margin-left: 12px; font-size: 0.72rem; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="inner">
+    <div class="logo"><span>⛁</span> Revenue Holdings</div>
+    <div class="links">
+      <a href="start-here.html" class="active">Start Here</a>
+      <a href="index.html">Tools</a>
+      <a href="docs.html">Docs</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="blog.html">Blog</a>
+      <a href="about.html">About</a>
+    </div>
+  </div>
+</nav>
+
+<div class="hero">
+  <h1>Find the Right Tool <span>in 30 Seconds</span></h1>
+  <p>Pick your problem below and we'll point you to the right CLI tool, tutorial, and docs.</p>
+</div>
+
+<div class="problems">
+
+  <details class="problem">
+    <summary>🔌 I need to catch breaking API changes before they ship</summary>
+    <div class="solution">
+      <div class="tags">
+        <span class="tag">OpenAPI</span>
+        <span class="tag">CI/CD</span>
+        <span class="tag">contract testing</span>
+      </div>
+      <p><strong>API Contract Guardian</strong> monitors OpenAPI schema diffs across git branches, detects breaking changes, generates migration guides, and gates CI pipelines on contract violations.</p>
+      <div class="actions">
+        <a href="docs.html#api-contract-guardian" class="btn primary">Read Docs →</a>
+        <a href="https://github.com/Coding-Dev-Tools/api-contract-guardian" class="btn secondary">View on GitHub</a>
+      </div>
+    </div>
+  </details>
+
+  <details class="problem">
+    <summary>↻ I need to convert JSON data into SQL INSERT statements</summary>
+    <div class="solution">
+      <div class="tags">
+        <span class="tag">SQL</span>
+        <span class="tag">PostgreSQL</span>
+        <span class="tag">MySQL</span>
+        <span class="tag">SQLite</span>
+      </div>
+      <p><strong>json2sql</strong> converts JSON files and datasets to SQL INSERT statements in one command. Supports PostgreSQL, MySQL, and SQLite dialects with smart type inference. Handles nested objects and arrays — no configuration needed.</p>
+      <div class="actions">
+        <a href="blog/json-to-sql-one-command.html" class="btn tutorial">📖 Tutorial →</a>
+        <a href="docs.html#json2sql" class="btn primary">Read Docs →</a>
+        <a href="https://github.com/Coding-Dev-Tools/json2sql" class="btn secondary">GitHub</a>
+      </div>
+    </div>
+  </details>
+
+  <details class="problem">
+    <summary>☁️ I want to see infrastructure costs before I deploy</summary>
+    <div class="solution">
+      <div class="tags">
+        <span class="tag">Terraform</span>
+        <span class="tag">CloudFormation</span>
+        <span class="tag">Pulumi</span>
+        <span class="tag">cost</span>
+      </div>
+      <p><strong>DeployDiff</strong> reads Terraform plan JSON, CloudFormation change sets, and Pulumi previews to show resource-level diffs, cost impact estimates, and pre-generated rollback commands — all before you hit deploy.</p>
+      <div class="actions">
+        <a href="blog/preview-infra-cost-before-deploy.html" class="btn tutorial">📖 Tutorial →</a>
+        <a href="docs.html#deploydiff" class="btn primary">Read Docs →</a>
+        <a href="https://github.com/Coding-Dev-Tools/deploydiff" class="btn secondary">GitHub</a>
+      </div>
+    </div>
+  </details>
+
+  <details class="problem">
+    <summary>⌘ My dev/staging/prod configs are out of sync</summary>
+    <div class="solution">
+      <div class="tags">
+        <span class="tag">DevOps</span>
+        <span class="tag">config</span>
+        <span class="tag">CI/CD</span>
+      </div>
+      <p><strong>ConfigDrift</strong> compares configurations across environments, flags missing keys, deprecated values, and value mismatches — before they cause incidents. Supports YAML, JSON, TOML, and .env files.</p>
+      <div class="actions">
+        <a href="blog/catch-config-drift-before-production.html" class="btn tutorial">📖 Tutorial →</a>
+        <a href="docs.html#configdrift" class="btn primary">Read Docs →</a>
+        <a href="https://github.com/Coding-Dev-Tools/configdrift" class="btn secondary">GitHub</a>
+      </div>
+    </div>
+  </details>
+
+  <details class="problem">
+    <summary>🔑 I need to manage API keys and JWTs securely</summary>
+    <div class="solution">
+      <div class="tags">
+        <span class="tag">security</span>
+        <span class="tag">secrets</span>
+        <span class="tag">JWT</span>
+      </div>
+      <p><strong>APIAuth</strong> is an encrypted local keystore (AES-256-GCM) for API keys and JWTs. Generate, verify, rotate, and revoke keys with one command — plus CI/CD export for GitHub Actions.</p>
+      <div class="actions">
+        <a href="blog/api-key-management-from-terminal.html" class="btn tutorial">📖 Tutorial →</a>
+        <a href="docs.html#apiauth" class="btn primary">Read Docs →</a>
+        <a href="https://github.com/Coding-Dev-Tools/apiauth" class="btn secondary">GitHub</a>
+      </div>
+    </div>
+  </details>
+
+  <details class="problem">
+    <summary>👻 I need a mock API server from an OpenAPI spec</summary>
+    <div class="solution">
+      <div class="tags">
+        <span class="tag">OpenAPI</span>
+        <span class="tag">mock</span>
+        <span class="tag">testing</span>
+      </div>
+      <p><strong>APIGhost</strong> reads any OpenAPI 3.0/3.1 spec and starts a mock server with realistic fake data. Includes scenario-based error responses, VCR cassette recording for deterministic tests, and CI integration.</p>
+      <div class="actions">
+        <a href="blog/api-mock-server-from-openapi-spec.html" class="btn tutorial">📖 Tutorial →</a>
+        <a href="docs.html#apighost" class="btn primary">Read Docs →</a>
+        <a href="https://github.com/Coding-Dev-Tools/apighost" class="btn secondary">GitHub</a>
+      </div>
+    </div>
+  </details>
+
+  <details class="problem">
+    <summary>🛡️ My .env files are a mess across environments</summary>
+    <div class="solution">
+      <div class="tags">
+        <span class="tag">DevOps</span>
+        <span class="tag">env</span>
+        <span class="tag">secrets</span>
+      </div>
+      <p><strong>Envault</strong> diffs, syncs, and rotates environment variables across dev, staging, and prod. Smart secret type inference, conflict resolution strategies, and integrations with AWS SSM, Vault, Doppler, and 1Password.</p>
+      <div class="actions">
+        <a href="blog/sync-env-variables-across-environments.html" class="btn tutorial">📖 Tutorial →</a>
+        <a href="docs.html#envault" class="btn primary">Read Docs →</a>
+        <a href="https://github.com/Coding-Dev-Tools/envault" class="btn secondary">GitHub</a>
+      </div>
+    </div>
+  </details>
+
+  <details class="problem">
+    <summary>🔄 I need to convert between ORM schemas (Prisma, Drizzle, etc.)</summary>
+    <div class="solution">
+      <div class="tags">
+        <span class="tag">ORM</span>
+        <span class="tag">Prisma</span>
+        <span class="tag">Drizzle</span>
+        <span class="tag">SQLAlchemy</span>
+      </div>
+      <p><strong>SchemaForge</strong> converts bidirectionally between SQL DDL, Prisma, Drizzle, TypeORM, Django, and SQLAlchemy — all 30 conversion paths from one CLI. Includes schema diffing and batch directory conversion.</p>
+      <div class="actions">
+        <a href="blog/schemaforge-v0-5-0-sqlalchemy.html" class="btn tutorial">📖 v0.5.0 Release →</a>
+        <a href="docs.html#schemaforge" class="btn primary">Read Docs →</a>
+        <a href="https://github.com/Coding-Dev-Tools/schemaforge" class="btn secondary">GitHub</a>
+      </div>
+    </div>
+  </details>
+
+  <details class="problem">
+    <summary>🔌 I want to expose my CLI as an MCP server for AI agents</summary>
+    <div class="solution">
+      <div class="tags">
+        <span class="tag">MCP</span>
+        <span class="tag">AI</span>
+        <span class="tag">Claude</span>
+        <span class="tag">Codex</span>
+      </div>
+      <p><strong>click-to-mcp</strong> auto-wraps any Click or Typer CLI as an MCP server with zero code changes. One command exposes your tools to Claude Code, Codex, Cursor, and any MCP-compatible AI.</p>
+      <div class="actions">
+        <a href="blog/click-to-mcp-intro.html" class="btn tutorial">📖 Introduction →</a>
+        <a href="https://github.com/Coding-Dev-Tools/click-to-mcp" class="btn primary">View on GitHub</a>
+      </div>
+    </div>
+  </details>
+
+  <details class="problem">
+    <summary>🧹 I need to find and remove dead code from my React/Next.js project</summary>
+    <div class="solution">
+      <div class="tags">
+        <span class="tag">TypeScript</span>
+        <span class="tag">React</span>
+        <span class="tag">Next.js</span>
+      </div>
+      <p><strong>DeadCode</strong> detects unused exports, dead routes, orphaned CSS, and unreferenced components in TypeScript/React/Next.js projects. Full TypeScript compiler API with dry-run preview and CI integration.</p>
+      <div class="actions">
+        <a href="blog/clean-up-react-dead-code.html" class="btn tutorial">📖 Tutorial →</a>
+        <a href="https://github.com/Coding-Dev-Tools/deadcode" class="btn primary">View on GitHub</a>
+      </div>
+    </div>
+  </details>
+
+</div>
+
+<footer>
+  <span>© 2026 Revenue Holdings. Built autonomously.</span>
+  <a href="https://github.com/Coding-Dev-Tools">GitHub</a>
+  <a href="pricing.html">Pricing</a>
+  <a href="docs.html">Docs</a>
+  <a href="blog.html">Blog</a>
+</footer>
+
+</body>
+</html>
