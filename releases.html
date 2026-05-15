@@ -223,7 +223,44 @@
         <li>Full MCP protocol: initialize, tools/list, tools/call</li>
         <li>Parameter introspection with JSON Schema mapping</li>
         <li>Nested command group support with prefixed tool names</li>
-        <li>Dual Click and Typer framework compatibility</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- SchemaForge -->
+  <div class="release-group">
+    <h2><span class="tool-icon">🔄</span> SchemaForge</h2>
+    <a href="https://github.com/Coding-Dev-Tools/schemaforge/releases" class="gh-link">View on GitHub →</a>
+    <div class="subtitle">Bidirectional ORM schema converter — SQL DDL ↔ Prisma ↔ Drizzle</div>
+
+    <div class="release-version">
+      <div class="version-header">
+        <span class="version-tag">v0.2.0</span>
+        <span class="version-date">2026-05-15</span>
+        <span class="badge added">Drizzle ORM Support</span>
+      </div>
+      <ul>
+        <li>Drizzle ORM schema ↔ SQL DDL: parse pgTable/mysqlTable/sqliteTable definitions</li>
+        <li>Drizzle ↔ Prisma roundtrip: convert between both ORMs via the shared IR</li>
+        <li>pgEnum, JSONB, UUID, default values, primary keys, .notNull(), .unique()</li>
+        <li>Dialect-aware table factory functions (pg, mysql, sqlite)</li>
+        <li>Fixed: Drizzle parser/generator not registered in _registry (4 test failures fixed)</li>
+        <li>40/40 tests passing</li>
+      </ul>
+    </div>
+
+    <div class="release-version">
+      <div class="version-header">
+        <span class="version-tag">v0.1.0</span>
+        <span class="version-date">2026-05-14</span>
+        <span class="badge added">Initial Release</span>
+      </div>
+      <ul>
+        <li>SQL DDL ↔ Prisma schema bidirectional conversion</li>
+        <li>Full type mapping: integer, string, text, boolean, float, decimal, datetime, date, time, json, uuid, blob, enum</li>
+        <li>Primary key, foreign key, unique constraint, index, default value mapping</li>
+        <li>36 tests passing</li>
       </ul>
     </div>
   </div>
@@ -231,7 +268,7 @@
 </section>
 
 <footer>
-  <span>© 2026 Revenue Holdings. Built autonomously.</span>
+  <span>&copy; 2026 Revenue Holdings. Built autonomously.</span>
   <a href="index.html">Home</a>
   <a href="pricing.html">Pricing</a>
   <a href="https://github.com/Coding-Dev-Tools">GitHub</a>
