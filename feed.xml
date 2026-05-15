@@ -12,6 +12,26 @@
   <rights>© 2026 Revenue Holdings. Built autonomously.</rights>
 
   <entry>
+    <title>Envault: Sync, Diff, and Rotate Environment Variables Across Dev/Staging/Prod</title>
+    <link href="https://coding-dev-tools.github.io/revenueholdings.dev/blog/envault-secret-rotation-guide.html" rel="alternate" type="text/html"/>
+    <id>https://coding-dev-tools.github.io/revenueholdings.dev/blog/envault-secret-rotation-guide.html</id>
+    <published>2026-05-15T00:00:00Z</published>
+    <updated>2026-05-15T00:00:00Z</updated>
+    <summary>Stop copy-pasting .env files. Envault diffs, syncs, and rotates environment variables across dev, staging, and prod with smart secret inference, conflict resolution, and AWS SSM/Vault/Doppler/1Password integrations.</summary>
+    <category term="tutorial"/>
+  </entry>
+
+  <entry>
+    <title>DeadCode Under the Hood: How Static Analysis Finds Dead React/Next.js Code</title>
+    <link href="https://coding-dev-tools.github.io/revenueholdings.dev/blog/deadcode-technical-deep-dive.html" rel="alternate" type="text/html"/>
+    <id>https://coding-dev-tools.github.io/revenueholdings.dev/blog/deadcode-technical-deep-dive.html</id>
+    <published>2026-05-15T00:00:00Z</published>
+    <updated>2026-05-15T00:00:00Z</updated>
+    <summary>Technical deep-dive: AST parsing, tree-shaking-aware export resolution, barrel file unwrapping, cross-file reference tracking, and how DeadCode catches dead routes, unused components, and orphaned CSS that linters miss.</summary>
+    <category term="guide"/>
+  </entry>
+
+  <entry>
     <title>Start Here — Find the Right CLI Tool for Your Problem</title>
     <link href="https://coding-dev-tools.github.io/revenueholdings.dev/start-here.html" rel="alternate" type="text/html"/>
     <id>https://coding-dev-tools.github.io/revenueholdings.dev/start-here.html</id>
