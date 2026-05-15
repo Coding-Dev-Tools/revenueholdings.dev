@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Alternatives — Revenue Holdings CLI Tools Compared</title>
-  <meta name="description" content="Honest feature-by-feature comparisons: API Contract Guardian vs Spectral vs OAS Diff, DeployDiff vs Terraform Plan, ConfigDrift vs Steampipe, json2sql vs csvsql, DeadCode vs knip. Find the right tool for your workflow.">
-  <meta name="keywords" content="api contract guardian vs spectral, openapi diff tool comparison, deploydiff vs terraform, config drift detection tools, json to sql converter alternatives, spectral alternatives, oas diff alternatives">
+<meta name="description" content="Honest feature-by-feature comparisons: API Contract Guardian vs Spectral vs OAS Diff, DeployDiff vs Terraform Plan, ConfigDrift vs Steampipe, json2sql vs csvsql, DeadCode vs knip, click-to-mcp vs FastMCP. Find the right tool for your workflow.">
+  <meta name="keywords" content="api contract guardian vs spectral, openapi diff tool comparison, deploydiff vs terraform, config drift detection tools, json to sql converter alternatives, deadcode vs knip, click-to-mcp vs fastmcp, mcp server alternatives, spectral alternatives, oas diff alternatives">
   <meta property="og:title" content="Alternatives — Revenue Holdings CLI Tools Compared">
   <meta property="og:description" content="Feature-by-feature comparisons of Revenue Holdings CLI tools vs popular alternatives. Make an informed choice.">
   <meta property="og:type" content="website">
@@ -130,7 +130,8 @@
   <a href="#deploydiff-vs-terraform">DeployDiff vs Terraform Plan</a>
   <a href="#configdrift-vs-steampipe">ConfigDrift vs Steampipe</a>
   <a href="#json2sql-vs-csvsql">json2sql vs csvsql</a>
-  <a href="#deadcode-vs-knip">DeadCode vs knip</a>
+<a href="#deadcode-vs-knip">DeadCode vs knip</a>
+  <a href="#clicktomcp-vs-fastmcp">click-to-mcp vs FastMCP</a>
 </div>
 
 <div class="comparisons">
@@ -545,6 +546,90 @@
     </div>
     <div class="cta-row">
       <a href="docs.html#deadcode">Read DeadCode Docs</a>
+    </div>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- click-to-mcp vs FastMCP / mcp2cli -->
+  <!-- ============================================ -->
+  <div class="comparison" id="clicktomcp-vs-fastmcp">
+    <h2>click-to-mcp <span class="vs">vs</span> FastMCP &amp; mcp2cli</h2>
+    <p class="subtitle">Making existing CLI tools available to AI agents — a unique niche in the MCP ecosystem.</p>
+
+    <table class="feat-table">
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th class="rh-col">click-to-mcp</th>
+          <th>FastMCP</th>
+          <th>mcp2cli</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Wrap existing CLI as MCP server</td>
+          <td class="yes">Yes — auto-detect Click/Typer</td>
+          <td class="no">No — library for new servers</td>
+          <td class="no">No — reverse (MCP → CLI)</td>
+        </tr>
+        <tr>
+          <td>Zero code changes</td>
+          <td class="yes">Yes — one command</td>
+          <td class="no">No — write a server</td>
+          <td class="no">No — different direction</td>
+        </tr>
+        <tr>
+          <td>Auto-discovery of installed CLIs</td>
+          <td class="yes">Yes — click-to-mcp discover</td>
+          <td class="no">No</td>
+          <td class="no">No</td>
+        </tr>
+        <tr>
+          <td>Click/Typer introspection</td>
+          <td class="yes">Yes — full param mapping</td>
+          <td class="no">No</td>
+          <td class="no">No</td>
+        </tr>
+        <tr>
+          <td>Full MCP protocol (list + call)</td>
+          <td class="yes">Yes</td>
+          <td class="yes">Yes</td>
+          <td class="yes">Yes</td>
+        </tr>
+        <tr>
+          <td>JSON Schema parameter mapping</td>
+          <td class="yes">Yes — types, enums, defaults, help</td>
+          <td class="yes">Yes — manual definition</td>
+          <td class="no">No</td>
+        </tr>
+        <tr>
+          <td>Nested subcommand groups</td>
+          <td class="yes">Yes — prefixed tool names</td>
+          <td class="yes">Yes — manual</td>
+          <td class="partial">Partial</td>
+        </tr>
+        <tr>
+          <td>PyPI package</td>
+          <td class="yes">Yes — pip install click-to-mcp</td>
+          <td class="yes">Yes — 66M+ downloads/mo</td>
+          <td class="yes">Yes — 2K+ stars</td>
+        </tr>
+        <tr>
+          <td>License</td>
+          <td class="rh-col">Apache 2.0 (Free)</td>
+          <td>MIT (Free)</td>
+          <td>MIT (Free)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="verdict">
+      <div class="label">Verdict</div>
+      <p><strong>FastMCP</strong> is the dominant library for building MCP servers from scratch (66M monthly downloads). <strong>mcp2cli</strong> does the reverse — it turns MCP tools into a CLI interface. <strong>click-to-mcp</strong> is the only tool in the ecosystem that auto-wraps existing Click/Typer CLIs as MCP servers with zero code changes. If you have CLI tools and want AI agents to use them, click-to-mcp is the fastest path — no other tool solves this problem.</p>
+    </div>
+    <div class="cta-row">
+      <a href="https://github.com/Coding-Dev-Tools/click-to-mcp">View click-to-mcp on GitHub →</a>
+      <a href="blog/click-to-mcp-intro.html" style="background:#2a2a2e;margin-left:10px;">Read the Blog Post</a>
     </div>
   </div>
 
