@@ -246,6 +246,11 @@
     <p style="color:#bbb;margin-bottom:8px;"><strong style="color:#a78bfa;">1. Spectral</strong> — Run first as a quality gate. Catches style violations, missing descriptions, inconsistent naming. Fails fast on spec hygiene.</p>
     <p style="color:#bbb;margin-bottom:8px;"><strong style="color:#a78bfa;">2. API Contract Guardian</strong> — Run second as a contract gate. Compares against the base branch, catches breaking changes, generates migration guide. This is your "would merging this break production?" check.</p>
     <p style="color:#bbb;margin-bottom:8px;"><strong style="color:#a78bfa;">3. OAS Diff</strong> — Run on release (not on every PR). Produces a changelog-style diff report for the release notes. Helps communicate API changes to downstream consumers.</p>
+  </div>  <div class="share-bar">
+    <span>Share this article:</span>
+    <a href="https://twitter.com/intent/tweet?text=$(document.title)&url=$(location.href)" target="_blank" rel="noopener" class="share-link">X Twitter</a>
+    <a href="https://news.ycombinator.com/submitlink?u=$(location.href)&t=$(document.title)" target="_blank" rel="noopener" class="share-link">Y Hacker News</a>
+    <a href="https://www.linkedin.com/sharing/share-offsite/?url=$(location.href)" target="_blank" rel="noopener" class="share-link">in LinkedIn</a>
   </div>
 
   <p>In our own pipeline, we run Spectral for style → ACG for breaking changes → OAS Diff for release reports. Each tool fills a gap the others don't address.</p>
