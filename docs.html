@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Documentation — Revenue Holdings</title>
+  <meta name="description" content="Quickstart guides, installation instructions, and example commands for all 4 Revenue Holdings CLI tools: API Contract Guardian, json2sql, DeployDiff, and ConfigDrift.">
+  <meta name="keywords" content="CLI tools documentation, OpenAPI diff, JSON to SQL, infrastructure diff, config drift, devops CLI">
+  <meta property="og:title" content="Revenue Holdings — Documentation">
+  <meta property="og:description" content="Quickstart guides and installation for all 4 developer CLI tools.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://coding-dev-tools.github.io/revenueholdings.dev/docs.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Revenue Holdings — Documentation">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛁</text></svg>">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', -apple-system, sans-serif; background: #0a0a0b; color: #e1e1e3; line-height: 1.6; }
+
+    /* Navigation */
+    nav { position: fixed; top: 0; width: 100%; z-index: 100; background: rgba(10,10,11,0.85); backdrop-filter: blur(12px); border-bottom: 1px solid #1e1e20; }
+    nav .inner { max-width: 1100px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; }
+    nav .logo { font-weight: 700; font-size: 1.15rem; color: #fff; letter-spacing: -0.02em; }
+    nav .logo span { color: #6366f1; }
+    nav .links a { color: #888; text-decoration: none; font-size: 0.85rem; margin-left: 28px; transition: color .15s; }
+    nav .links a:hover { color: #fff; }
+    nav .links a.active { color: #fff; }
+
+    /* Hero */
+    .hero { max-width: 1100px; margin: 0 auto; padding: 140px 24px 60px; text-align: center; }
+    .hero h1 { font-size: 3rem; font-weight: 800; line-height: 1.15; letter-spacing: -0.04em; color: #fff; }
+    .hero h1 span { background: linear-gradient(135deg, #6366f1, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .hero p { font-size: 1.05rem; color: #888; max-width: 650px; margin: 16px auto 0; }
+    .hero .badge { display: inline-block; padding: 6px 16px; border-radius: 32px; font-size: 0.75rem; font-weight: 600; background: rgba(99,102,241,0.12); color: #a78bfa; border: 1px solid rgba(99,102,241,0.2); margin-bottom: 20px; letter-spacing: 0.3px; text-transform: uppercase; }
+
+    /* Quick Jump */
+    .quick-jump { max-width: 1100px; margin: 0 auto; padding: 0 24px 40px; display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+    .quick-jump a { padding: 8px 18px; border-radius: 8px; font-size: 0.82rem; font-weight: 500; text-decoration: none; background: #121213; color: #888; border: 1px solid #1e1e20; transition: all .15s; }
+    .quick-jump a:hover { border-color: #6366f1; color: #fff; }
+
+    /* Content */
+    .content { max-width: 850px; margin: 0 auto; padding: 0 24px 80px; }
+
+    /* Tool Section */
+    .tool-section { background: #121213; border: 1px solid #1e1e20; border-radius: 14px; padding: 32px; margin-bottom: 24px; scroll-margin-top: 80px; }
+    .tool-section h2 { font-size: 1.5rem; font-weight: 700; color: #fff; letter-spacing: -0.03em; margin-bottom: 4px; display: flex; align-items: center; gap: 10px; }
+    .tool-section h2 .icon { width: 32px; height: 32px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; font-size: 1rem; }
+    .tool-section .subtitle { font-size: 0.85rem; color: #888; margin-bottom: 16px; }
+    .tool-section .desc { font-size: 0.88rem; color: #999; line-height: 1.65; margin-bottom: 20px; }
+    .tool-section .gh-link { display: inline-block; font-size: 0.78rem; color: #6366f1; text-decoration: none; font-weight: 500; margin-bottom: 18px; }
+    .tool-section .gh-link:hover { color: #a78bfa; text-decoration: underline; }
+
+    .icon-acg { background: rgba(99,102,241,0.15); }
+    .icon-j2s { background: rgba(16,185,129,0.15); }
+    .icon-dd { background: rgba(245,158,11,0.15); }
+    .icon-cd { background: rgba(239,68,68,0.15); }
+    .icon-rh { background: rgba(139,92,246,0.15); }
+
+    /* Install Block */
+    .install-block { background: #0a0a0b; border: 1px solid #1e1e20; border-radius: 10px; padding: 14px 18px; margin-bottom: 18px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+    .install-block code { font-family: 'Fira Code', 'JetBrains Mono', monospace; font-size: 0.82rem; color: #a78bfa; }
+    .install-block .note { font-size: 0.75rem; color: #666; }
+
+    /* Code blocks */
+    pre { background: #0a0a0b !important; border: 1px solid #1e1e20; border-radius: 10px; padding: 16px 20px !important; margin-bottom: 18px !important; font-size: 0.8rem; }
+    pre code { font-family: 'Fira Code', 'JetBrains Mono', monospace; }
+    code { font-family: 'Fira Code', 'JetBrains Mono', monospace; }
+
+    /* Feature Lists */
+    .features { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 16px; }
+    .features li { font-size: 0.82rem; color: #aaa; padding: 4px 0; display: flex; align-items: center; gap: 8px; }
+    .features li::before { content: '→'; color: #6366f1; font-weight: 700; }
+    .features li.single-col { grid-column: 1 / -1; }
+
+    /* Insight box */
+    .insight { background: rgba(99,102,241,0.06); border: 1px solid rgba(99,102,241,0.15); border-radius: 10px; padding: 16px 20px; margin-bottom: 18px; }
+    .insight p { font-size: 0.82rem; color: #999; line-height: 1.6; }
+    .insight strong { color: #a78bfa; }
+
+    /* Workflow example */
+    .workflow { background: rgba(16,185,129,0.06); border: 1px solid rgba(16,185,129,0.15); border-radius: 10px; padding: 16px 20px; margin-bottom: 18px; }
+    .workflow p { font-size: 0.82rem; color: #999; line-height: 1.6; }
+
+    /* Footer */
+    footer { max-width: 1100px; margin: 0 auto; padding: 40px 24px; border-top: 1px solid #1e1e20; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    footer span { font-size: 0.8rem; color: #555; }
+    footer a { color: #888; text-decoration: none; font-size: 0.8rem; }
+    footer a:hover { color: #fff; }
+
+    @media (max-width: 640px) {
+      .hero h1 { font-size: 2.2rem; }
+      .features { grid-template-columns: 1fr; }
+      .tool-section { padding: 24px; }
+      nav .links a { margin-left: 12px; font-size: 0.75rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="inner">
+    <div class="logo"><span>⛁</span> Revenue Holdings</div>
+    <div class="links">
+      <a href="index.html">Home</a>
+      <a href="docs.html" class="active">Docs</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="releases.html">Changelog</a>
+      <a href="blog.html">Blog</a>
+      <a href="https://github.com/Coding-Dev-Tools" target="_blank">GitHub</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="badge">Documentation</div>
+  <h1>Quickstart &amp; <span>Usage Guide</span></h1>
+  <p>Install any tool in seconds and see it in action. Every CLI command below is a real, working example — copy, paste, and run.</p>
+</section>
+
+<!-- Quick Jump -->
+<div class="quick-jump">
+  <a href="#api-contract-guardian">⚡ API Contract Guardian</a>
+  <a href="#json2sql">↻ json2sql</a>
+  <a href="#deploydiff">☁ DeployDiff</a>
+  <a href="#configdrift">⌘ ConfigDrift</a>
+  <a href="#meta-package">⛁ Revenue Holdings Suite</a>
+  <a href="#ci-pipeline">🔁 CI Pipeline</a>
+</div>
+
+<div class="content">
+
+  <!-- ==================== API CONTRACT GUARDIAN ==================== -->
+  <div class="tool-section" id="api-contract-guardian">
+    <h2><span class="icon icon-acg">⚡</span> API Contract Guardian</h2>
+    <div class="subtitle">v0.1.0 — OpenAPI diff scanner &amp; contract enforcement</div>
+    <p class="desc">Monitors OpenAPI schema diffs across git branches, detects breaking changes, generates migration guides, and gates CI pipelines on contract violations. Works with OpenAPI 3.0 and 3.1 specs in YAML or JSON.</p>
+    <a href="https://github.com/Coding-Dev-Tools/api-contract-guardian" class="gh-link" target="_blank">View on GitHub →</a>
+
+    <div class="install-block">
+      <code>pip install api-contract-guardian</code>
+      <span class="note">Requires Python 3.9+</span>
+    </div>
+
+    <ul class="features">
+      <li>Breaking change detection</li>
+      <li>Auto-generated migration guide</li>
+      <li>Git branch diff comparison</li>
+      <li>CI pipeline integration</li>
+      <li>JSON + YAML spec support</li>
+      <li>Configurable rule severity</li>
+    </ul>
+
+    <p style="font-size:0.82rem;color:#888;font-weight:600;margin-bottom:8px;">Compare two spec files</p>
+    <pre><code class="language-bash">api-contract-guardian check spec-v1.yaml spec-v2.yaml</code></pre>
+
+    <p style="font-size:0.82rem;color:#888;font-weight:600;margin-bottom:8px;">Compare git branches</p>
+    <pre><code class="language-bash">api-contract-guardian check --base main --head feature-api-v2 openapi.yaml</code></pre>
+
+    <p style="font-size:0.82rem;color:#888;font-weight:600;margin-bottom:8px;">Generate migration guide</p>
+    <pre><code class="language-bash">api-contract-guardian migrate spec-v1.yaml spec-v2.yaml --output MIGRATION.md</code></pre>
+
+    <div class="insight">
+      <p><strong>Why you need it:</strong> API breaking changes in production cost teams hours of debugging and incident response. ACG catches them in CI before they merge — the same way a linter catches syntax errors before runtime.</p>
+    </div>
+  </div>
+
+  <!-- ==================== JSON2SQL ==================== -->
+  <div class="tool-section" id="json2sql">
+    <h2><span class="icon icon-j2s">↻</span> json2sql</h2>
+    <div class="subtitle">v0.1.0 — JSON to SQL converter with smart type inference</div>
+    <p class="desc">Convert JSON files and datasets to SQL INSERT statements instantly. Supports PostgreSQL, MySQL, SQLite, and generic SQL dialects with automatic type inference — no schema definition required.</p>
+    <a href="https://github.com/Coding-Dev-Tools/json2sql" class="gh-link" target="_blank">View on GitHub →</a>
+
+    <div class="install-block">
+      <code>pip install json2sql</code>
+      <span class="note">Requires Python 3.9+</span>
+    </div>
+
+    <ul class="features">
+      <li>4 SQL dialects (pg, mysql, sqlite, generic)</li>
+      <li>Automatic type inference</li>
+      <li>Large file streaming support</li>
+      <li>Nested JSON flattening</li>
+      <li>Pretty-print output</li>
+      <li>Stdin pipe support</li>
+    </ul>
+
+    <p style="font-size:0.82rem;color:#888;font-weight:600;margin-bottom:8px;">Basic conversion</p>
+    <pre><code class="language-bash">json2sql convert data.json</code></pre>
+
+    <p style="font-size:0.82rem;color:#888;font-weight:600;margin-bottom:8px;">Specify output dialect</p>
+    <pre><code class="language-bash">json2sql convert data.json --dialect postgres
+json2sql convert data.json --dialect mysql
+json2sql convert data.json --dialect sqlite</code></pre>
+
+    <p style="font-size:0.82rem;color:#888;font-weight:600;margin-bottom:8px;">Pipe from stdin</p>
+    <pre><code class="language-bash">curl -s https://api.example.com/users | json2sql convert --dialect postgres</code></pre>
+
+    <div class="insight">
+      <p><strong>Why you need it:</strong> Writing SQL seed data by hand is error-prone and tedious. json2sql turns hours of manual INSERT statement construction into a one-liner — especially useful for ETL pipelines, database seeding, and test data generation.</p>
+    </div>
+  </div>
+
+  <!-- ==================== DEPLOYDIFF ==================== -->
+  <div class="tool-section" id="deploydiff">
+    <h2><span class="icon icon-dd">☁</span> DeployDiff</h2>
+    <div class="subtitle">v0.1.0 — Infrastructure change preview &amp; cost estimator</div>
+    <p class="desc">Preview infrastructure changes with human-readable diffs, cost impact estimation, and pre-generated rollback commands — before you hit deploy. Supports Terraform plan JSON, CloudFormation change sets, and Pulumi previews.</p>
+    <a href="https://github.com/Coding-Dev-Tools/deploydiff" class="gh-link" target="_blank">View on GitHub →</a>
+
+    <div class="install-block">
+      <code>pip install deploydiff</code>
+      <span class="note">Requires Python 3.9+</span>
+    </div>
+
+    <ul class="features">
+      <li>Terraform plan analysis</li>
+      <li>CloudFormation change sets</li>
+      <li>Pulumi preview support</li>
+      <li>Cost impact estimation</li>
+      <li>Auto-generated rollback commands</li>
+      <li>Blast radius visualization</li>
+    </ul>
+
+    <p style="font-size:0.82rem;color:#888;font-weight:600;margin-bottom:8px;">Preview infrastructure changes</p>
+    <pre><code class="language-bash">deploydiff preview --tf plan.json</code></pre>
+
+    <p style="font-size:0.82rem;color:#888;font-weight:600;margin-bottom:8px;">CloudFormation change set</p>
+    <pre><code class="language-bash">deploydiff preview --cf change-set.json</code></pre>
+
+    <p style="font-size:0.82rem;color:#888;font-weight:600;margin-bottom:8px;">Pulumi diff</p>
+    <pre><code class="language-bash">deploydiff preview --pulumi pulumi-preview.json</code></pre>
+
+    <div class="insight">
+      <p><strong>Why you need it:</strong> Every infrastructure change carries risk — wrong config, unexpected cost, unreachable state. DeployDiff gives you a clear preview <em>before</em> your IaC tool applies it, with rollback commands pre-generated so recovery isn't panic-mode.</p>
+    </div>
+  </div>
+
+  <!-- ==================== CONFIGDRIFT ==================== -->
+  <div class="tool-section" id="configdrift">
+    <h2><span class="icon icon-cd">⌘</span> ConfigDrift</h2>
+    <div class="subtitle">v0.1.0 — Configuration drift detection &amp; compliance</div>
+    <p class="desc">Catch config drift before it breaks production. Compare configs across dev, staging, and prod — flag missing keys, deprecated values, value mismatches, and compliance issues instantly. Supports YAML, JSON, TOML, and .env files.</p>
+    <a href="https://github.com/Coding-Dev-Tools/configdrift" class="gh-link" target="_blank">View on GitHub →</a>
+
+    <div class="install-block">
+      <code>pip install configdrift</code>
+      <span class="note">Requires Python 3.9+</span>
+    </div>
+
+    <ul class="features">
+      <li>YAML / JSON / TOML / .env support</li>
+      <li>Multi-environment comparison</li>
+      <li>Missing key detection</li>
+      <li>Value mismatch highlighting</li>
+      <li>Deprecated value flagging</li>
+      <li>Table, JSON, and silent output modes</li>
+    </ul>
+
+    <p style="font-size:0.82rem;color:#888;font-weight:600;margin-bottom:8px;">Compare two config files</p>
+    <pre><code class="language-bash">configdrift check dev.yaml prod.yaml</code></pre>
+
+    <p style="font-size:0.82rem;color:#888;font-weight:600;margin-bottom:8px;">Environment-style comparison</p>
+    <pre><code class="language-bash">configdrift check --baseline dev --target prod configs/</code></pre>
+
+    <p style="font-size:0.82rem;color:#888;font-weight:600;margin-bottom:8px;">JSON output for CI</p>
+    <pre><code class="language-bash">configdrift check dev.yaml prod.yaml --output json</code></pre>
+
+    <div class="insight">
+      <p><strong>Why you need it:</strong> Config drift is the silent killer of deployments — a missing key in prod that exists in staging, a deprecated value that's still in dev. ConfigDrift automates the comparison so you catch it in CI, not in an incident post-mortem.</p>
+    </div>
+  </div>
+
+  <!-- ==================== META PACKAGE ==================== -->
+  <div class="tool-section" id="meta-package">
+    <h2><span class="icon icon-rh">⛁</span> Revenue Holdings Suite</h2>
+    <div class="subtitle">One install. All four tools.</div>
+    <p class="desc">Install every tool in the Revenue Holdings ecosystem with a single command. Perfect for CI/CD pipelines, dev workstations, or teams that want the full safety net across API contracts, SQL, infrastructure, and configs.</p>
+    <a href="https://github.com/Coding-Dev-Tools/revenueholdings" class="gh-link" target="_blank">View on GitHub →</a>
+
+    <div class="install-block">
+      <code>pip install revenueholdings</code>
+      <span class="note">Installs all 4 tools as dependencies</span>
+    </div>
+
+    <div class="workflow">
+      <p><strong>CI Pipeline Example</strong> — A single script runs all four checks in sequence. If any check fails, the pipeline stops and the developer gets a clear error message telling them exactly what broke and where.</p>
+    </div>
+
+    <pre><code class="language-yaml"># .github/workflows/ci-safety-net.yml
+name: CI Safety Net
+on: [pull_request]
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install revenueholdings
+
+      # 1. API Contract Guardian — detect breaking schema changes
+      - run: api-contract-guardian check --base origin/main --head HEAD openapi.yaml
+
+      # 2. json2sql — validate SQL output from seed data
+      - run: json2sql convert --dialect postgres data/seed.json
+
+      # 3. DeployDiff — preview infra changes
+      - run: deploydiff preview --tf plan.json
+
+      # 4. ConfigDrift — catch environment drift
+      - run: configdrift check dev.yaml prod.yaml --output json</code></pre>
+
+    <div class="insight">
+      <p><strong>Pro tip:</strong> Use the meta-package in CI so your pipeline automatically gets all new tools as they're released. Pin the major version for production stability: <code style="color:#a78bfa;">pip install revenueholdings~=0.1</code></p>
+    </div>
+  </div>
+
+  <!-- ==================== CI PIPELINE ==================== -->
+  <div class="tool-section" id="ci-pipeline">
+    <h2>🔁 CI &amp; Integration Guide</h2>
+    <div class="subtitle">Adding safety checks to your existing pipeline</div>
+
+    <p class="desc">All four tools are designed as stateless CLI commands that fit naturally into CI pipelines. Each returns a non-zero exit code on failure, so they integrate with any CI system that supports shell commands — GitHub Actions, GitLab CI, CircleCI, Jenkins, or raw bash scripts.</p>
+
+    <p style="font-size:0.82rem;color:#888;font-weight:600;margin-bottom:8px;">Per-tool install for minimal dependencies</p>
+    <pre><code class="language-bash"># Install only what you need
+pip install api-contract-guardian  # API contract checks
+pip install deploydiff             # Infra change previews
+pip install json2sql              # SQL validation
+pip install configdrift           # Config drift detection</code></pre>
+
+    <p style="font-size:0.82rem;color:#888;font-weight:600;margin-bottom:8px;">Exit codes (all tools)</p>
+    <pre><code class="language-text">0 — Success (no issues found)
+1 — Issues found (breaking change, drift, mismatch)
+2 — Error (invalid input, file not found)</code></pre>
+
+    <div class="insight">
+      <p><strong>CI best practice:</strong> Start with <code>--output json</code> or <code>--output silent</code> mode on all tools to keep CI logs clean. Gate merges only on breaking changes — use warning-level violations as advisory feedback in PR comments instead of blocking the pipeline.</p>
+    </div>
+  </div>
+
+  <p style="text-align:center;margin-top:40px;font-size:0.85rem;color:#555;">
+    Something missing? <a href="https://github.com/Coding-Dev-Tools/revenueholdings.dev/issues/new" style="color:#6366f1;text-decoration:none;">Open an issue</a> or <a href="mailto:support@revenueholdings.dev" style="color:#6366f1;text-decoration:none;">email us</a>.
+  </p>
+
+</div>
+
+<footer>
+  <span>© 2026 Revenue Holdings. Built autonomously.</span>
+  <a href="https://github.com/Coding-Dev-Tools">GitHub</a>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/prism.min.js"></script>
+</body>
+</html>
