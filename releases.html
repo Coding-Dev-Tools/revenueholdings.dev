@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Changelog — Revenue Holdings</title>
+  <meta name="description" content="Release history for all Revenue Holdings CLI tools: API Contract Guardian, json2sql, DeployDiff, ConfigDrift, and click-to-mcp.">
+  <meta name="keywords" content="changelog, releases, CLI tools, developer tools, OpenAPI, SQL, infrastructure, config drift">
+  <meta property="og:title" content="Revenue Holdings — Changelog">
+  <meta property="og:description" content="Release history for all autonomous developer CLI tools.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://coding-dev-tools.github.io/revenueholdings.dev/releases.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Revenue Holdings — Changelog">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛁</text></svg>">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', -apple-system, sans-serif; background: #0a0a0b; color: #e1e1e3; line-height: 1.6; min-height: 100vh; }
+
+    /* Navigation */
+    nav { position: fixed; top: 0; width: 100%; z-index: 100; background: rgba(10,10,11,0.85); backdrop-filter: blur(12px); border-bottom: 1px solid #1e1e20; }
+    nav .inner { max-width: 1100px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; }
+    nav .logo { font-weight: 700; font-size: 1.15rem; color: #fff; letter-spacing: -0.02em; }
+    nav .logo span { color: #6366f1; }
+    nav .links a { color: #888; text-decoration: none; font-size: 0.85rem; margin-left: 28px; transition: color .15s; }
+    nav .links a:hover { color: #fff; }
+    nav .links a.active { color: #fff; }
+
+    /* Hero */
+    .hero { max-width: 1100px; margin: 0 auto; padding: 140px 24px 48px; text-align: center; }
+    .hero h1 { font-size: 2.6rem; font-weight: 800; line-height: 1.15; letter-spacing: -0.04em; color: #fff; }
+    .hero h1 span { background: linear-gradient(135deg, #6366f1, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .hero p { font-size: 1rem; color: #888; max-width: 550px; margin: 16px auto 0; }
+
+    /* Release timeline */
+    .releases { max-width: 800px; margin: 0 auto; padding: 20px 24px 100px; }
+    .release-group { margin-bottom: 48px; }
+    .release-group h2 { font-size: 1.3rem; font-weight: 700; color: #fff; margin-bottom: 4px; letter-spacing: -0.02em; }
+    .release-group .tool-icon { display: inline-block; margin-right: 8px; }
+    .release-group .gh-link { font-size: 0.8rem; color: #6366f1; text-decoration: none; font-weight: 500; }
+    .release-group .gh-link:hover { text-decoration: underline; }
+    .release-group .subtitle { color: #888; font-size: 0.82rem; margin-bottom: 24px; }
+
+    .release-version { background: #121213; border: 1px solid #1e1e20; border-radius: 12px; padding: 24px 28px; margin-bottom: 16px; }
+    .release-version .version-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+    .release-version .version-tag { font-size: 0.95rem; font-weight: 700; color: #fff; }
+    .release-version .version-date { font-size: 0.78rem; color: #666; }
+    .release-version .badge { font-size: 0.65rem; padding: 2px 10px; border-radius: 20px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; }
+    .release-version .badge.added { background: rgba(16,185,129,0.12); color: #34d399; }
+    .release-version .badge.fixed { background: rgba(245,158,11,0.12); color: #f59e0b; }
+    .release-version ul { list-style: none; }
+    .release-version li { font-size: 0.82rem; color: #aaa; padding: 5px 0; display: flex; align-items: flex-start; gap: 8px; }
+    .release-version li::before { content: '▸'; color: #555; font-weight: 700; flex-shrink: 0; }
+
+    .no-releases { text-align: center; padding: 60px 0; color: #666; font-size: 0.9rem; }
+
+    /* Footer */
+    footer { max-width: 1100px; margin: 0 auto; padding: 40px 24px; border-top: 1px solid #1e1e20; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    footer span { font-size: 0.8rem; color: #555; }
+    footer a { color: #888; text-decoration: none; font-size: 0.8rem; }
+    footer a:hover { color: #fff; }
+
+    @media (max-width: 640px) {
+      .hero h1 { font-size: 1.8rem; }
+      .release-version { padding: 16px 18px; }
+      nav .links a { margin-left: 12px; font-size: 0.75rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="inner">
+    <div class="logo"><span>⛁</span> Revenue Holdings</div>
+    <div class="links">
+      <a href="index.html">Home</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="releases.html" class="active">Changelog</a>
+      <a href="https://github.com/Coding-Dev-Tools" target="_blank">GitHub</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <h1>Release <span>History</span></h1>
+  <p>Track every update across our suite of autonomous developer CLI tools.</p>
+</section>
+
+<!-- Releases -->
+<section class="releases">
+
+  <!-- API Contract Guardian -->
+  <div class="release-group">
+    <h2><span class="tool-icon">⚡</span> API Contract Guardian</h2>
+    <a href="https://github.com/Coding-Dev-Tools/api-contract-guardian/releases" class="gh-link">View on GitHub →</a>
+    <div class="subtitle">OpenAPI schema diffing and breaking change detection</div>
+
+    <div class="release-version">
+      <div class="version-header">
+        <span class="version-tag">v0.1.0</span>
+        <span class="version-date">2026-05-14</span>
+        <span class="badge added">Initial Release</span>
+      </div>
+      <ul>
+        <li>Breaking change detection: removed endpoints, changed types, renamed fields, removed properties, required property additions, response format changes</li>
+        <li>OpenAPI 3.0.x and 3.1.x support</li>
+        <li>Git branch, tag, and commit diffing</li>
+        <li>Local file comparison mode</li>
+        <li>Human-readable markdown migration guide generation</li>
+        <li>CI gating with non-zero exit on breaking changes</li>
+        <li>Python 3.10+ support</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- json2sql -->
+  <div class="release-group">
+    <h2><span class="tool-icon">↻</span> json2sql</h2>
+    <a href="https://github.com/Coding-Dev-Tools/json2sql/releases" class="gh-link">View on GitHub →</a>
+    <div class="subtitle">JSON to SQL conversion with multi-dialect support</div>
+
+    <div class="release-version">
+      <div class="version-header">
+        <span class="version-tag">v0.1.0</span>
+        <span class="version-date">2026-05-14</span>
+        <span class="badge added">Initial Release</span>
+      </div>
+      <ul>
+        <li>JSON to SQL INSERT conversion</li>
+        <li>Nested JSON auto-flattening into relational tables</li>
+        <li>Multi-dialect output: PostgreSQL, MySQL, SQLite</li>
+        <li>Array-of-objects handling as multiple INSERT rows</li>
+        <li>Type inference for strings, numbers, booleans, nulls</li>
+        <li>stdin pipe support</li>
+        <li>Table name specification</li>
+        <li>Output file support</li>
+        <li>Python 3.10+ support, zero dependencies beyond typer</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- DeployDiff -->
+  <div class="release-group">
+    <h2><span class="tool-icon">☁</span> DeployDiff</h2>
+    <a href="https://github.com/Coding-Dev-Tools/deploydiff/releases" class="gh-link">View on GitHub →</a>
+    <div class="subtitle">Infrastructure change preview with cost and blast radius analysis</div>
+
+    <div class="release-version">
+      <div class="version-header">
+        <span class="version-tag">v0.1.0</span>
+        <span class="version-date">2026-05-14</span>
+        <span class="badge added">Initial Release</span>
+      </div>
+      <ul>
+        <li>Infrastructure change preview with resource summary (creates, updates, deletes, replaces)</li>
+        <li>Property-level diffs with before/after values</li>
+        <li>Cost impact estimation per resource</li>
+        <li>Rollback command generation</li>
+        <li>Terraform plan JSON support</li>
+        <li>CloudFormation change set support</li>
+        <li>Pulumi preview support</li>
+        <li>Destructive action highlighting</li>
+        <li>CI/CD integration with exit code gating</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ConfigDrift -->
+  <div class="release-group">
+    <h2><span class="tool-icon">⌘</span> ConfigDrift</h2>
+    <a href="https://github.com/Coding-Dev-Tools/configdrift/releases" class="gh-link">View on GitHub →</a>
+    <div class="subtitle">Configuration drift detection across environments</div>
+
+    <div class="release-version">
+      <div class="version-header">
+        <span class="version-tag">v0.1.0</span>
+        <span class="version-date">2026-05-14</span>
+        <span class="badge added">Initial Release</span>
+      </div>
+      <ul>
+        <li>Configuration file comparison across formats (YAML, JSON, TOML, .env)</li>
+        <li><code>configdrift check</code> — compare two config files with auto-flattening and diff output</li>
+        <li><code>configdrift scan</code> — compare environment directories against a baseline</li>
+        <li><code>configdrift init</code> — generate .configdrift.yaml scaffolding</li>
+        <li>Three output formats: rich table, machine-readable JSON, silent (exit code only)</li>
+        <li>Severity-level drift classification: Info, Warning, Breaking</li>
+        <li>Breaking-change heuristics for critical keys (database, auth, api_key, secret, password, token, endpoint)</li>
+        <li>CI/CD integration with non-zero exit on breaking drift</li>
+        <li>Python 3.10+ support</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- click-to-mcp -->
+  <div class="release-group">
+    <h2><span class="tool-icon">🔌</span> click-to-mcp</h2>
+    <a href="https://github.com/Coding-Dev-Tools/click-to-mcp/releases" class="gh-link">View on GitHub →</a>
+    <div class="subtitle">Auto-wrap any Click/typer CLI as an MCP server</div>
+
+    <div class="release-version">
+      <div class="version-header">
+        <span class="version-tag">v0.1.0</span>
+        <span class="version-date">2026-05-14</span>
+        <span class="badge added">Initial Release</span>
+      </div>
+      <ul>
+        <li>Auto-discover installed Click/typer CLIs via console_scripts entry points</li>
+        <li>Serve any discovered CLI as an MCP server over stdio</li>
+        <li>Built-in demo server for testing</li>
+        <li>Library API: <code>serve_stdio()</code> for wrapping a Click/typer app</li>
+        <li>High-level <code>run()</code> API with auto-detection</li>
+        <li>Full MCP protocol: initialize, tools/list, tools/call</li>
+        <li>Parameter introspection with JSON Schema mapping</li>
+        <li>Nested command group support with prefixed tool names</li>
+        <li>Dual Click and Typer framework compatibility</li>
+      </ul>
+    </div>
+  </div>
+
+</section>
+
+<footer>
+  <span>© 2026 Revenue Holdings. Built autonomously.</span>
+  <a href="index.html">Home</a>
+  <a href="pricing.html">Pricing</a>
+  <a href="https://github.com/Coding-Dev-Tools">GitHub</a>
+</footer>
+
+</body>
+</html>
