@@ -12,6 +12,7 @@
   <meta property="og:url" content="https://coding-dev-tools.github.io/revenueholdings.dev/pricing.html">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Revenue Holdings — Pricing">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛁</text></svg>">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -85,6 +86,18 @@
     .suite-card .btn:hover { background: #5558e6; transform: translateY(-1px); }
     .suite-card .compare-link { display: block; margin-top: 16px; font-size: 0.8rem; color: #6366f1; text-decoration: none; }
     .suite-card .compare-link:hover { text-decoration: underline; }
+
+    /* Waitlist section */
+    .waitlist { max-width: 600px; margin: 0 auto; padding: 80px 24px 60px; text-align: center; }
+    .waitlist h2 { font-size: 2rem; font-weight: 700; color: #fff; letter-spacing: -0.03em; }
+    .waitlist p { color: #888; max-width: 480px; margin: 12px auto 28px; font-size: 0.95rem; }
+    .waitlist .form-row { display: flex; gap: 10px; max-width: 460px; margin: 0 auto; }
+    .waitlist input[type="email"] { flex: 1; padding: 14px 18px; border-radius: 10px; border: 1px solid #2a2a2d; background: #121213; color: #e1e1e3; font-family: 'Inter', sans-serif; font-size: 0.9rem; outline: none; transition: border-color .15s; }
+    .waitlist input[type="email"]:focus { border-color: #6366f1; }
+    .waitlist input[type="email"]::placeholder { color: #555; }
+    .waitlist .submit-btn { padding: 14px 28px; border-radius: 10px; border: none; background: #6366f1; color: #fff; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: background .15s, transform .15s; white-space: nowrap; }
+    .waitlist .submit-btn:hover { background: #5558e6; transform: translateY(-1px); }
+    .waitlist .form-msg { margin-top: 12px; font-size: 0.82rem; color: #34d399; display: none; }
 
     /* Comparison Table */
     .comparison { max-width: 1100px; margin: 0 auto; padding: 60px 24px 40px; }
@@ -419,8 +432,21 @@
   <p style="color:#888;max-width:500px;margin:12px auto 28px;font-size:0.9rem;">Start with the free tier — no credit card, no account, no strings. Upgrade when your team needs CI/CD and team features.</p>
   <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
     <a href="https://github.com/Coding-Dev-Tools" class="cta" style="display:inline-block;padding:14px 36px;border-radius:10px;font-weight:600;font-size:0.95rem;text-decoration:none;background:#6366f1;color:#fff;transition:all .15s;">Browse Tools on GitHub →</a>
-    <a href="mailto:waitlist@revenueholdings.dev?subject=Interest%3A%20Revenue%20Holdings" style="display:inline-block;padding:14px 36px;border-radius:10px;font-weight:600;font-size:0.95rem;text-decoration:none;background:#1a1a1c;color:#ccc;border:1px solid #2a2a2d;transition:all .15s;">Join Waitlist →</a>
+    <a href="#waitlist" style="display:inline-block;padding:14px 36px;border-radius:10px;font-weight:600;font-size:0.95rem;text-decoration:none;background:#1a1a1c;color:#ccc;border:1px solid #2a2a2d;transition:all .15s;">Join Waitlist →</a>
   </div>
+</section>
+
+<!-- Waitlist -->
+<section class="waitlist" id="waitlist">
+  <h2>Get Early Access</h2>
+  <p>PyPI publishing is coming soon. Leave your email and we'll notify you the moment these tools ship.</p>
+  <form onsubmit="submitWaitlist(event)">
+    <div class="form-row">
+      <input type="email" id="wl-email" placeholder="you@company.com" required>
+      <button type="submit" class="submit-btn">Notify Me →</button>
+    </div>
+    <div class="form-msg" id="wl-msg">✓ You're on the list. We'll email you when tools launch.</div>
+  </form>
 </section>
 
 <!-- FAQ -->
@@ -475,6 +501,14 @@ function switchTab(tab) {
     document.querySelectorAll('.tab-btn')[1].classList.add('active');
     document.getElementById('tab-suite').classList.add('active');
   }
+}
+function submitWaitlist(e) {
+  e.preventDefault();
+  const email = document.getElementById('wl-email').value;
+  const msg = document.getElementById('wl-msg');
+  window.open('mailto:waitlist@revenueholdings.dev?subject=Early%20Access%20Interest&body=Email%3A%20' + encodeURIComponent(email), '_blank');
+  msg.style.display = 'block';
+  document.getElementById('wl-email').value = '';
 }
 </script>
 
