@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Alternatives — Revenue Holdings CLI Tools Compared</title>
-<meta name="description" content="Honest feature-by-feature comparisons: API Contract Guardian vs Spectral vs OAS Diff, DeployDiff vs Terraform Plan, ConfigDrift vs Steampipe, json2sql vs csvsql, DeadCode vs knip, click-to-mcp vs FastMCP. Find the right tool for your workflow.">
-  <meta name="keywords" content="api contract guardian vs spectral, openapi diff tool comparison, deploydiff vs terraform, config drift detection tools, json to sql converter alternatives, deadcode vs knip, click-to-mcp vs fastmcp, mcp server alternatives, spectral alternatives, oas diff alternatives">
+<meta name="description" content="Honest feature-by-feature comparisons: API Contract Guardian vs Spectral vs OAS Diff, DeployDiff vs Terraform Plan, ConfigDrift vs Steampipe, json2sql vs csvsql, DeadCode vs knip, click-to-mcp vs FastMCP, APIGhost vs Prism, Envault vs dotenv-vault. Find the right tool for your workflow.">
+  <meta name="keywords" content="api contract guardian vs spectral, openapi diff tool comparison, deploydiff vs terraform, config drift detection tools, json to sql converter alternatives, deadcode vs knip, click-to-mcp vs fastmcp, apighost vs prism, envault vs dotenv-vault, mcp server alternatives, mock server comparison, env management tools, spectral alternatives, oas diff alternatives">
   <meta property="og:title" content="Alternatives — Revenue Holdings CLI Tools Compared">
   <meta property="og:description" content="Feature-by-feature comparisons of Revenue Holdings CLI tools vs popular alternatives. Make an informed choice.">
   <meta property="og:type" content="website">
@@ -132,6 +132,8 @@
   <a href="#json2sql-vs-csvsql">json2sql vs csvsql</a>
 <a href="#deadcode-vs-knip">DeadCode vs knip</a>
   <a href="#clicktomcp-vs-fastmcp">click-to-mcp vs FastMCP</a>
+  <a href="#apighost-vs-prism">APIGhost vs Prism</a>
+  <a href="#envault-vs-dotenv-vault">Envault vs dotenv-vault</a>
 </div>
 
 <div class="comparisons">
@@ -630,6 +632,162 @@
     <div class="cta-row">
       <a href="https://github.com/Coding-Dev-Tools/click-to-mcp">View click-to-mcp on GitHub →</a>
       <a href="blog/click-to-mcp-intro.html" style="background:#2a2a2e;margin-left:10px;">Read the Blog Post</a>
+    </div>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- APIGhost vs Prism -->
+  <!-- ============================================ -->
+  <div class="comparison" id="apighost-vs-prism">
+    <h2>APIGhost <span class="vs">vs</span> Prism</h2>
+    <p class="subtitle">OpenAPI mock servers — spec-first fake data generation vs HTTP transaction mocking.</p>
+
+    <table class="feat-table">
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th class="rh-col">APIGhost</th>
+          <th>Prism (Stoplight)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Spec-first mock server</td>
+          <td class="yes">Yes — from OpenAPI spec</td>
+          <td class="yes">Yes — from OpenAPI spec</td>
+        </tr>
+        <tr>
+          <td>Realistic fake data generation</td>
+          <td class="yes">Yes — Faker-powered, property-name hints</td>
+          <td class="partial">Partial — basic examples only</td>
+        </tr>
+        <tr>
+          <td>VCR recording &amp; deterministic replay</td>
+          <td class="yes">Yes — apighost record + replay</td>
+          <td class="no">No</td>
+        </tr>
+        <tr>
+          <td>Named scenario system</td>
+          <td class="yes">Yes — create/edit/delete scenarios</td>
+          <td class="partial">Partial — CLI flags only</td>
+        </tr>
+        <tr>
+          <td>Error scenario override</td>
+          <td class="yes">Yes — per-endpoint status override</td>
+          <td class="yes">Yes — query params</td>
+        </tr>
+        <tr>
+          <td>OpenAPI 3.0 + 3.1</td>
+          <td class="yes">Yes</td>
+          <td class="yes">Yes</td>
+        </tr>
+        <tr>
+          <td>Docker-free operation</td>
+          <td class="yes">Yes — single pip install</td>
+          <td class="yes">Yes — npm install</td>
+        </tr>
+        <tr>
+          <td>Path parameter resolution</td>
+          <td class="yes">Yes — dynamic URLs</td>
+          <td class="yes">Yes</td>
+        </tr>
+        <tr>
+          <td>CI/CD integration</td>
+          <td class="yes">Yes — exit codes, headless</td>
+          <td class="yes">Yes</td>
+        </tr>
+        <tr>
+          <td>Price</td>
+          <td class="rh-col">Free (OSS, Apache 2.0)</td>
+          <td>Free (OSS) + Pro plan</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="verdict">
+      <div class="label">Verdict</div>
+      <p><strong>Prism</strong> is a mature, well-known mock server with broad community adoption. <strong>APIGhost</strong> differentiates with Faker-powered realistic data generation, VCR recording for deterministic testing, and a flexible scenario system for managing multiple response sets. If your testing needs realistic data and recorded interactions alongside spec-first mocking, APIGhost offers capabilities Prism doesn't have out of the box.</p>
+    </div>
+    <div class="cta-row">
+      <a href="docs.html#apighost">Read APIGhost Docs</a>
+    </div>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- Envault vs dotenv-vault -->
+  <!-- ============================================ -->
+  <div class="comparison" id="envault-vs-dotenv-vault">
+    <h2>Envault <span class="vs">vs</span> dotenv-vault</h2>
+    <p class="subtitle">Environment variable management — team sync, diffing, and secret rotation vs cloud-hosted .env sync.</p>
+
+    <table class="feat-table">
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th class="rh-col">Envault</th>
+          <th>dotenv-vault</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Env diff across environments</td>
+          <td class="yes">Yes — envault diff dev prod</td>
+          <td class="no">No</td>
+        </tr>
+        <tr>
+          <td>Secret rotation</td>
+          <td class="yes">Yes — auto-detect type, rotate in-place</td>
+          <td class="no">No</td>
+        </tr>
+        <tr>
+          <td>Conflict resolution on sync</td>
+          <td class="yes">Yes — interactive merge</td>
+          <td class="no">No</td>
+        </tr>
+        <tr>
+          <td>Backend integrations</td>
+          <td class="yes">Yes — AWS SSM, Vault, Doppler, 1Password</td>
+          <td class="yes">Yes — dotenv-vault cloud</td>
+        </tr>
+        <tr>
+          <td>Local encrypted keystore</td>
+          <td class="yes">Yes — AES-256-GCM local</td>
+          <td class="no">No — cloud-only storage</td>
+        </tr>
+        <tr>
+          <td>Team sharing</td>
+          <td class="yes">Yes — encrypted file sharing</td>
+          <td class="yes">Yes — cloud sharing</td>
+        </tr>
+        <tr>
+          <td>Audit log</td>
+          <td class="yes">Yes — local audit trail</td>
+          <td class="yes">Yes — cloud audit</td>
+        </tr>
+        <tr>
+          <td>CI/CD export</td>
+          <td class="yes">Yes — GitHub Actions, GitLab CI</td>
+          <td class="yes">Yes</td>
+        </tr>
+        <tr>
+          <td>Offline-first</td>
+          <td class="yes">Yes — no cloud dependency</td>
+          <td class="no">No — requires cloud account</td>
+        </tr>
+        <tr>
+          <td>Price</td>
+          <td class="rh-col">Free (OSS, Apache 2.0)</td>
+          <td>Free tier + paid plans</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="verdict">
+      <div class="label">Verdict</div>
+      <p><strong>dotenv-vault</strong> provides a polished cloud sync experience for teams already in the dotenv ecosystem. <strong>Envault</strong> is built for teams that need offline-first operation, environment diffing, secret rotation, and multi-backend support (AWS SSM, Vault, Doppler, 1Password) without a cloud dependency. If you work across multiple environments and need diff/rotation/audit capabilities alongside sync, Envault covers ground dotenv-vault doesn't.</p>
+    </div>
+    <div class="cta-row">
+      <a href="docs.html#envault">Read Envault Docs</a>
     </div>
   </div>
 
