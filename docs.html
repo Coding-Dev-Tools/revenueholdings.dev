@@ -72,6 +72,11 @@
     .install-block code { font-family: 'Fira Code', 'JetBrains Mono', monospace; font-size: 0.82rem; color: #a78bfa; }
     .install-block .note { font-size: 0.75rem; color: #666; }
 
+    /* Notice banner */
+    .notice-banner { max-width: 780px; margin: 0 auto 24px; padding: 12px 20px; background: rgba(99,102,241,0.06); border: 1px solid rgba(99,102,241,0.15); border-radius: 10px; font-size: 0.82rem; color: #a78bfa; }
+    .notice-banner code { color: #34d399; background: rgba(16,185,129,0.1); padding: 1px 6px; border-radius: 4px; font-size: 0.8rem; }
+    .notice-banner strong { color: #c4b5fd; }
+
     /* Code blocks */
     pre { background: #0a0a0b !important; border: 1px solid #1e1e20; border-radius: 10px; padding: 16px 20px !important; margin-bottom: 18px !important; font-size: 0.8rem; }
     pre code { font-family: 'Fira Code', 'JetBrains Mono', monospace; }
@@ -152,6 +157,10 @@
   <a href="#ci-pipeline">🔁 CI Pipeline</a>
 </div>
 
+<div class="notice-banner">
+  <strong>📦</strong> PyPI publishing is coming soon. Until then, tools install via GitHub with <code>pip install git+https://...</code> — no account or token needed.
+</div>
+
 <div class="content">
 
   <!-- ==================== API CONTRACT GUARDIAN ==================== -->
@@ -162,7 +171,7 @@
     <a href="https://github.com/Coding-Dev-Tools/api-contract-guardian" class="gh-link" target="_blank">View on GitHub →</a>
 
     <div class="install-block">
-      <code>pip install api-contract-guardian</code>
+<code>pip install git+https://github.com/Coding-Dev-Tools/api-contract-guardian.git</code>
       <span class="note">Requires Python 3.9+</span>
     </div>
 
@@ -197,7 +206,7 @@
     <a href="https://github.com/Coding-Dev-Tools/json2sql" class="gh-link" target="_blank">View on GitHub →</a>
 
     <div class="install-block">
-      <code>pip install json2sql</code>
+<code>pip install git+https://github.com/Coding-Dev-Tools/json2sql.git</code>
       <span class="note">Requires Python 3.9+</span>
     </div>
 
@@ -234,7 +243,7 @@ json2sql convert data.json --dialect sqlite</code></pre>
     <a href="https://github.com/Coding-Dev-Tools/deploydiff" class="gh-link" target="_blank">View on GitHub →</a>
 
     <div class="install-block">
-      <code>pip install deploydiff</code>
+<code>pip install git+https://github.com/Coding-Dev-Tools/deploydiff.git</code>
       <span class="note">Requires Python 3.9+</span>
     </div>
 
@@ -269,7 +278,7 @@ json2sql convert data.json --dialect sqlite</code></pre>
     <a href="https://github.com/Coding-Dev-Tools/configdrift" class="gh-link" target="_blank">View on GitHub →</a>
 
     <div class="install-block">
-      <code>pip install configdrift</code>
+<code>pip install git+https://github.com/Coding-Dev-Tools/configdrift.git</code>
       <span class="note">Requires Python 3.9+</span>
     </div>
 
@@ -303,7 +312,7 @@ json2sql convert data.json --dialect sqlite</code></pre>
     <a href="https://github.com/Coding-Dev-Tools/apighost" class="gh-link" target="_blank">View on GitHub →</a>
 
     <div class="install-block">
-      <code>pip install apighost</code>
+<code>pip install git+https://github.com/Coding-Dev-Tools/apighost.git</code>
       <span class="note">Requires Python 3.9+</span>
     </div>
 
@@ -334,7 +343,7 @@ apighost replay my-cassette</code></pre>
     <a href="https://github.com/Coding-Dev-Tools/apiauth" class="gh-link" target="_blank">View on GitHub →</a>
 
     <div class="install-block">
-      <code>pip install apiauth</code>
+<code>pip install git+https://github.com/Coding-Dev-Tools/apiauth.git</code>
       <span class="note">Requires Python 3.9+</span>
     </div>
 
@@ -368,7 +377,7 @@ apiauth rotate &lt;key-id&gt;</code></pre>
     <a href="https://github.com/Coding-Dev-Tools/envault" class="gh-link" target="_blank">View on GitHub →</a>
 
     <div class="install-block">
-      <code>pip install envault</code>
+<code>pip install git+https://github.com/Coding-Dev-Tools/envault.git</code>
       <span class="note">Requires Python 3.10+</span>
     </div>
 
@@ -401,7 +410,7 @@ envault rotate JWT_SECRET         # → 256-bit base64 secret</code></pre>
     <a href="https://github.com/Coding-Dev-Tools/schemaforge" class="gh-link" target="_blank">View on GitHub →</a>
 
     <div class="install-block">
-      <code>pip install schemaforge</code>
+<code>pip install git+https://github.com/Coding-Dev-Tools/schemaforge.git</code>
       <span class="note">Requires Python 3.9+</span>
     </div>
 
@@ -432,7 +441,7 @@ envault rotate JWT_SECRET         # → 256-bit base64 secret</code></pre>
     <a href="https://github.com/Coding-Dev-Tools/click-to-mcp" class="gh-link" target="_blank">View on GitHub →</a>
 
     <div class="install-block">
-      <code>pip install click-to-mcp</code>
+<code>pip install git+https://github.com/Coding-Dev-Tools/click-to-mcp.git</code>
       <span class="note">Requires Python 3.9+</span>
     </div>
 
@@ -463,7 +472,7 @@ envault rotate JWT_SECRET         # → 256-bit base64 secret</code></pre>
     <a href="https://github.com/Coding-Dev-Tools/deadcode" class="gh-link" target="_blank">View on GitHub →</a>
 
     <div class="install-block">
-      <code>pip install deadcode</code>
+<code>pip install git+https://github.com/Coding-Dev-Tools/deadcode.git</code>
       <span class="note">Requires Python 3.9+ & Node.js 18+</span>
     </div>
 
@@ -494,7 +503,7 @@ envault rotate JWT_SECRET         # → 256-bit base64 secret</code></pre>
     <a href="https://github.com/Coding-Dev-Tools/revenueholdings" class="gh-link" target="_blank">View on GitHub →</a>
 
     <div class="install-block">
-      <code>pip install revenueholdings</code>
+<code>pip install git+https://github.com/Coding-Dev-Tools/revenueholdings.git</code>
       <span class="note">Installs all 10 tools as dependencies</span>
     </div>
 
@@ -513,7 +522,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - run: pip install revenueholdings
+      - run: pip install git+https://github.com/Coding-Dev-Tools/revenueholdings.git
 
       # 1. API Contract Guardian — detect breaking schema changes
       - run: api-contract-guardian check --base origin/main --head HEAD openapi.yaml
@@ -528,7 +537,7 @@ jobs:
       - run: configdrift check dev.yaml prod.yaml --output json</code></pre>
 
     <div class="insight">
-      <p><strong>Pro tip:</strong> Use the meta-package in CI so your pipeline automatically gets all new tools as they're released. Pin the major version for production stability: <code style="color:#a78bfa;">pip install revenueholdings~=0.1</code></p>
+      <p><strong>Pro tip:</strong> Use the meta-package in CI so your pipeline automatically gets all new tools as they're released. Pin the major version for production stability: <code style="color:#a78bfa;">pip install git+https://github.com/Coding-Dev-Tools/revenueholdings.git@v0.1</code></p>
     </div>
   </div>
 
@@ -541,14 +550,14 @@ jobs:
 
     <p style="font-size:0.82rem;color:#888;font-weight:600;margin-bottom:8px;">Per-tool install for minimal dependencies</p>
     <pre><code class="language-bash"># Install only what you need
-pip install api-contract-guardian  # API contract checks
-pip install deploydiff             # Infra change previews
-pip install json2sql              # SQL validation
-pip install configdrift           # Config drift detection
-pip install apighost             # OpenAPI mock server
-pip install apiauth              # API key &amp; JWT management
-pip install envault               # .env syncing &amp; secret rotation
-pip install schemaforge          # ORM schema converter</code></pre>
+pip install git+https://github.com/Coding-Dev-Tools/api-contract-guardian.git  # API contract checks
+pip install git+https://github.com/Coding-Dev-Tools/deploydiff.git             # Infra change previews
+pip install git+https://github.com/Coding-Dev-Tools/json2sql.git              # SQL validation
+pip install git+https://github.com/Coding-Dev-Tools/configdrift.git           # Config drift detection
+pip install git+https://github.com/Coding-Dev-Tools/apighost.git             # OpenAPI mock server
+pip install git+https://github.com/Coding-Dev-Tools/apiauth.git              # API key &amp; JWT management
+pip install git+https://github.com/Coding-Dev-Tools/envault.git               # .env syncing &amp; secret rotation
+pip install git+https://github.com/Coding-Dev-Tools/schemaforge.git          # ORM schema converter
 
     <p style="font-size:0.82rem;color:#888;font-weight:600;margin-bottom:8px;">Exit codes (all tools)</p>
     <pre><code class="language-text">0 — Success (no issues found)

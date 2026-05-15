@@ -27,7 +27,7 @@
     "description": "Install and run your first CLI tool check in under 5 minutes",
     "totalTime": "PT5M",
     "step": [
-      { "@type": "HowToStep", "name": "Install", "text": "pip install api-contract-guardian" },
+"text": "pip install git+https://github.com/Coding-Dev-Tools/api-contract-guardian.git" },
       { "@type": "HowToStep", "name": "Run your first check", "text": "acg validate openapi.yaml" },
       { "@type": "HowToStep", "name": "Add to CI", "text": "Add acg validate to your GitHub Actions workflow" }
     ],
@@ -158,7 +158,7 @@
       <a href="#install-dc"><span class="icon">🧹</span> DeadCode</a>
     </div>
     <div class="callout">
-      <p><strong>Want all 10?</strong> <code style="color:#34d399;background:rgba(16,185,129,0.1);padding:2px 8px;border-radius:4px;">pip install git+https://github.com/Coding-Dev-Tools/revenueholdings.git</code> installs the entire suite.</p>
+      <p><strong>Want all 10?</strong> <code style="color:#34d399;background:rgba(16,185,129,0.1);padding:2px 8px;border-radius:4px;">pip install git+https://github.com/Coding-Dev-Tools/revenueholdings.git</code> installs the entire suite. PyPI publishing is coming soon — until then, use the <code style="color:#f59e0b;">git+https</code> install method shown below.</p>
     </div>
   </div>
 
@@ -168,25 +168,31 @@
     <h2>Install</h2>
     <p>One command. Python 3.9+ required. Virtual environment recommended.</p>
 
+    <div class="callout">
+      <p><strong>📦 PyPI publishing coming soon.</strong> Until then, all tools install via GitHub. Same <code>pip install</code> command — just with a <code>git+https://</code> prefix. No signup, no token required.</p>
+    </div>
+
     <div class="code-block">
       <div class="header"><span>Terminal</span></div>
       <pre><code><span class="comment"># Create a venv (optional but recommended)</span>
 <span class="cmd">python -m venv .venv && source .venv/bin/activate</span>
 
-<span class="comment"># Install any tool individually</span>
-<span class="cmd">pip install api-contract-guardian</span>     <span class="comment"># API contracts</span>
-<span class="cmd">pip install json2sql</span>                   <span class="comment"># JSON → SQL</span>
-<span class="cmd">pip install deploydiff</span>                 <span class="comment"># Infra diffs</span>
-<span class="cmd">pip install configdrift</span>               <span class="comment"># Config drift</span>
-<span class="cmd">pip install apiauth</span>                   <span class="comment"># API key management</span>
-<span class="cmd">pip install apighost</span>                  <span class="comment"># Mock server</span>
-<span class="cmd">pip install envault</span>                    <span class="comment"># Env sync</span>
-<span class="cmd">pip install schemaforge</span>               <span class="comment"># ORM converter</span>
-<span class="cmd">pip install deadcode</span>                  <span class="comment"># Dead code cleanup</span>
+<span class="comment"># Install the full suite (all 10 tools, one command)</span>
+<span class="cmd">pip install git+https://github.com/Coding-Dev-Tools/revenueholdings.git</span>
 
-<span class="comment"># Or install click-to-mcp from GitHub</span>
-<span class="cmd">pip install git+https://github.com/Coding-Dev-Tools/click-to-mcp.git</span></code></pre>
+<span class="comment"># Or install individual tools</span>
+<span class="cmd">pip install git+https://github.com/Coding-Dev-Tools/api-contract-guardian.git</span>
+<span class="cmd">pip install git+https://github.com/Coding-Dev-Tools/json2sql.git</span>
+<span class="cmd">pip install git+https://github.com/Coding-Dev-Tools/deploydiff.git</span>
+<span class="cmd">pip install git+https://github.com/Coding-Dev-Tools/configdrift.git</span>
+<span class="cmd">pip install git+https://github.com/Coding-Dev-Tools/apiauth.git</span>
+<span class="cmd">pip install git+https://github.com/Coding-Dev-Tools/apighost.git</span>
+<span class="cmd">pip install git+https://github.com/Coding-Dev-Tools/envault.git</span>
+<span class="cmd">pip install git+https://github.com/Coding-Dev-Tools/schemaforge.git</span>
+<span class="cmd">pip install git+https://github.com/Coding-Dev-Tools/click-to-mcp.git</span>
+<span class="cmd">pip install git+https://github.com/Coding-Dev-Tools/deadcode.git</span></code></pre>
     </div>
+    <p style="color:#888;font-size:0.82rem;">All tools are Apache 2.0 open source. Free tier, no license key required.</p>
   </div>
 
   <!-- Step 3: Run your first check -->
@@ -248,7 +254,7 @@
     <span class="cmd">steps:</span>
       - <span class="cmd">uses:</span> actions/checkout@v4
         <span class="cmd">with:</span> { fetch-depth: 0 }
-      - <span class="cmd">run:</span> pip install api-contract-guardian
+      - <span class="cmd">run:</span> pip install git+https://github.com/Coding-Dev-Tools/api-contract-guardian.git
       - <span class="cmd">run:</span> acg validate openapi.yaml --baseline origin/main</code></pre>
     </div>
 

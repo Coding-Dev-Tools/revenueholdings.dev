@@ -219,7 +219,7 @@ paths:
 
   <p>Run the check:</p>
 
-  <div class="cmd-block">$ pip install api-contract-guardian<br>$ api-contract-guardian check spec-v2-breaking.yaml --prev spec-v1.yaml</div>
+  <div class="cmd-block">$ pip install git+https://github.com/Coding-Dev-Tools/api-contract-guardian.git<br>$ api-contract-guardian check spec-v2-breaking.yaml --prev spec-v1.yaml</div>
 
   <p>Expected output:</p>
 
@@ -267,7 +267,7 @@ paths:
 
   <p>Convert it to PostgreSQL INSERT statements:</p>
 
-  <div class="cmd-block">$ pip install json2sql<br>$ json2sql seed.json --dialect postgres</div>
+  <div class="cmd-block">$ pip install git+https://github.com/Coding-Dev-Tools/json2sql.git<br>$ json2sql seed.json --dialect postgres</div>
 
   <p>Expected output includes properly typed SQL:</p>
 
@@ -329,7 +329,7 @@ VALUES
 
   <p>Run DeployDiff analysis:</p>
 
-  <div class="cmd-block">$ pip install deploydiff<br>$ deploydiff diff --plan tfplan.json --format summary</div>
+  <div class="cmd-block">$ pip install git+https://github.com/Coding-Dev-Tools/deploydiff.git<br>$ deploydiff diff --plan tfplan.json --format summary</div>
 
   <p>Expected output:</p>
 
@@ -374,7 +374,7 @@ MAX_UPLOAD_SIZE_MB=50</code></pre>
 
   <p>Run drift check:</p>
 
-  <div class="cmd-block">$ pip install configdrift<br>$ configdrift check --baseline .env.production --target .env.staging</div>
+  <div class="cmd-block">$ pip install git+https://github.com/Coding-Dev-Tools/configdrift.git<br>$ configdrift check --baseline .env.production --target .env.staging</div>
 
   <p>Expected output:</p>
 
@@ -414,28 +414,28 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 2
-      - run: pip install api-contract-guardian
+      - run: pip install git+https://github.com/Coding-Dev-Tools/api-contract-guardian.git
       - run: api-contract-guardian check openapi/*.yaml --prev origin/main --fail-on breaking
 
   seed-data-validation:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: pip install json2sql
+      - run: pip install git+https://github.com/Coding-Dev-Tools/json2sql.git
       - run: json2sql data/seeds/*.json --check-types --output /dev/null
 
   infra-blast-radius:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: pip install deploydiff
+      - run: pip install git+https://github.com/Coding-Dev-Tools/deploydiff.git
       - run: deploydiff diff --plan terraform/tfplan.json --fail-on destruction --format markdown
 
   config-drift-check:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: pip install configdrift
+      - run: pip install git+https://github.com/Coding-Dev-Tools/configdrift.git
       - run: configdrift check --baseline .env.production --target .env.staging --fail-on drift
 
   combined-report:

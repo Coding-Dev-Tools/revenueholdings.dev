@@ -168,7 +168,7 @@
 
   <p>Install DeadCode:</p>
 
-  <pre><code><span class="cmd">pip install deadcode</span></code></pre>
+  <pre><code><span class="cmd">pip install git+https://github.com/Coding-Dev-Tools/deadcode.git</span></code></pre>
 
   <p>Navigate to your project root and run a scan. For a Next.js App Router project, we care about <code>app/</code>, <code>components/</code>, <code>lib/</code>, and <code>utils/</code>:</p>
 
@@ -299,7 +299,7 @@ Estimated savings realized: 327 LOC, 44 KB bundle size</code></div>
       - <span class="cmd">uses:</span> actions/setup-python@v5
         <span class="cmd">with:</span>
           python-version: '3.11'
-      - <span class="cmd">run:</span> pip install deadcode
+      - <span class="cmd">run:</span> pip install git+https://github.com/Coding-Dev-Tools/deadcode.git
       - <span class="cmd">run:</span> deadcode scan -p . --exclude node_modules,.next
         <span class="comment"># Fails (exit 1) if unused exports or dead routes are found</span></code></pre>
 

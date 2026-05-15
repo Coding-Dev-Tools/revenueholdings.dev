@@ -174,7 +174,7 @@
   <pre><code># .github/workflows/seed-check.yml
 - name: Validate seed data
   run: |
-    pip install json2sql
+    pip install git+https://github.com/Coding-Dev-Tools/json2sql.git
     json2sql test/seeds/*.json --dialect postgres \
       --check-types --output /dev/null</code></pre>
 
@@ -206,7 +206,7 @@
   <pre><code># .github/workflows/infra-diff.yml
 - name: Infrastructure diff
   run: |
-    pip install deploydiff
+    pip install git+https://github.com/Coding-Dev-Tools/deploydiff.git
     terraform plan -out=tfplan
     deploydiff diff --plan tfplan \
       --format markdown \
@@ -236,7 +236,7 @@
   <pre><code># .github/workflows/drift-check.yml
 - name: Check config drift
   run: |
-    pip install configdrift
+    pip install git+https://github.com/Coding-Dev-Tools/configdrift.git
     configdrift check \
       --baseline .env.production \
       --target .env.staging \
