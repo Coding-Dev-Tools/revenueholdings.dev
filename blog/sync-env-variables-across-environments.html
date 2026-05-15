@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sync and Secure Environment Variables Across Environments — Envault Tutorial</title>
+  <meta name="description" content="Learn how to diff, sync, and rotate environment variables across dev, staging, and prod with the Envault CLI. Smart secret rotation, conflict resolution, and integrations with AWS SSM, Vault, Doppler, and 1Password.">
+  <meta name="keywords" content="environment variables, manage env vars, .env file management, env sync, secret rotation, env diff, CLI tool, devops, AWS SSM, HashiCorp Vault, Doppler, 1Password">
+  <meta property="og:title" content="Sync and Secure Environment Variables Across Environments — Envault Tutorial">
+  <meta property="og:description" content="Diff, sync, and rotate environment variables across dev, staging, and prod from one CLI. Smart secret rotation with AWS SSM, Vault, Doppler integration.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://coding-dev-tools.github.io/revenueholdings.dev/blog/sync-env-variables-across-environments.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Sync Environment Variables Across Dev/Staging/Prod">
+  <meta name="twitter:description" content="One CLI to diff, sync, and rotate .env files across environments with smart conflict resolution and secret store integration.">
+  <meta name="twitter:image" content="https://coding-dev-tools.github.io/revenueholdings.dev/og-image.svg">
+  <meta property="og:image" content="https://coding-dev-tools.github.io/revenueholdings.dev/og-image.svg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="author" content="Revenue Holdings">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛁</text></svg>">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Sync and Secure Environment Variables Across Environments",
+    "description": "Learn how to diff, sync, and rotate environment variables across dev, staging, and prod with Envault CLI.",
+    "datePublished": "2026-05-15",
+    "author": { "@type": "Organization", "name": "Revenue Holdings" },
+    "publisher": { "@type": "Organization", "name": "Revenue Holdings" },
+    "mainEntityOfPage": {"@type": "WebPage","@id": "https://coding-dev-tools.github.io/revenueholdings.dev/blog/sync-env-variables-across-environments.html"}
+  }
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', -apple-system, sans-serif; background: #0a0a0b; color: #e1e1e3; line-height: 1.6; min-height: 100vh; }
+    nav { position: fixed; top: 0; width: 100%; z-index: 100; background: rgba(10,10,11,0.85); backdrop-filter: blur(12px); border-bottom: 1px solid #1e1e20; }
+    nav .inner { max-width: 800px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; }
+    nav .logo { font-weight: 700; font-size: 1.15rem; color: #fff; letter-spacing: -0.02em; }
+    nav .logo span { color: #6366f1; }
+    nav .links a { color: #888; text-decoration: none; font-size: 0.85rem; margin-left: 28px; transition: color .15s; }
+    nav .links a:hover { color: #fff; }
+    nav .links a.active { color: #fff; }
+    @media (max-width: 640px) { nav .links a { font-size: 0.72rem; margin-left: 12px; } }
+
+    .blog-nav { max-width: 800px; margin: 80px auto 0; padding: 0 24px; }
+    .blog-nav a { color: #6366f1; text-decoration: none; font-size: 0.88rem; font-weight: 500; }
+    .blog-nav a:hover { color: #a78bfa; }
+
+    .post-content { max-width: 800px; margin: 0 auto; padding: 40px 24px 80px; font-size: 0.95rem; line-height: 1.75; }
+    .post-content h1 { font-size: 2.2rem; font-weight: 800; color: #fff; letter-spacing: -0.03em; margin: 40px 0 8px; line-height: 1.2; }
+    .post-content .subtitle { font-size: 1.05rem; color: #888; margin-bottom: 32px; }
+    .post-content .meta { font-size: 0.8rem; color: #555; margin-bottom: 32px; display: flex; gap: 16px; }
+    .post-content h2 { font-size: 1.35rem; font-weight: 700; color: #fff; margin: 36px 0 12px; }
+    .post-content h3 { font-size: 1.08rem; font-weight: 600; color: #e1e1e3; margin: 24px 0 8px; }
+    .post-content p { margin: 16px 0; color: #ccc; }
+    .post-content a { color: #a78bfa; }
+    .post-content code { background: #1a1a1c; padding: 2px 8px; border-radius: 4px; font-size: 0.85em; color: #34d399; }
+    .post-content pre { background: #121213; border: 1px solid #1e1e20; border-radius: 8px; padding: 16px 20px; overflow-x: auto; margin: 16px 0; }
+    .post-content pre code { background: none; padding: 0; font-size: 0.82rem; line-height: 1.5; color: #d1d5db; }
+    .post-content ul, .post-content ol { margin: 16px 0; padding-left: 24px; }
+    .post-content li { color: #ccc; margin: 8px 0; }
+    .post-content .badge { display: inline-block; padding: 4px 14px; border-radius: 24px; font-size: 0.72rem; font-weight: 600; background: rgba(99,102,241,0.12); color: #a78bfa; border: 1px solid rgba(99,102,241,0.2); text-transform: uppercase; letter-spacing: 0.3px; }
+    .post-content .badge.tutorial { background: rgba(251,191,36,0.12); color: #fbbf24; border-color: rgba(251,191,36,0.2); }
+    .post-content hr { border: none; border-top: 1px solid #1e1e20; margin: 40px 0; }
+    .post-content .tip { background: rgba(52,211,153,0.06); border: 1px solid rgba(52,211,153,0.15); border-radius: 10px; padding: 16px 20px; margin: 20px 0; }
+    .post-content .tip strong { color: #34d399; }
+    .post-content .warning { background: rgba(251,146,60,0.08); border: 1px solid rgba(251,146,60,0.2); border-radius: 10px; padding: 16px 20px; margin: 20px 0; }
+    .post-content .warning strong { color: #fb923c; }
+    .post-content .step { background: #121213; border: 1px solid #1e1e20; border-radius: 10px; padding: 20px; margin: 20px 0; border-left: 3px solid #6366f1; }
+    .post-content .step h3 { margin-top: 0; color: #a78bfa; }
+    .post-content .cmd-block { background: #0d0d0e; border: 1px solid #1e1e20; border-radius: 8px; padding: 12px 16px; margin: 12px 0; font-family: monospace; font-size: 0.85rem; color: #34d399; }
+    .post-content .diagram { background: #121213; border: 1px solid #1e1e20; border-radius: 10px; padding: 24px; margin: 24px 0; text-align: center; font-family: monospace; font-size: 0.82rem; color: #888; line-height: 1.8; }
+    .post-content table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+    .post-content th { background: #1a1a1c; color: #fff; font-weight: 600; padding: 10px 12px; text-align: left; font-size: 0.82rem; border-bottom: 1px solid #2a2a2d; }
+    .post-content td { padding: 10px 12px; font-size: 0.85rem; color: #ccc; border-bottom: 1px solid #1e1e20; }
+
+    .article-waitlist { max-width: 560px; margin: 0 auto; padding: 40px 0 20px; text-align: center; }
+    .article-waitlist h3 { font-size: 1.2rem; font-weight: 700; color: #fff; }
+    .article-waitlist p { color: #888; font-size: 0.88rem; margin: 8px 0 20px; }
+    .article-waitlist .form-row { display: flex; gap: 10px; }
+    .article-waitlist input[type="email"] { flex: 1; padding: 10px 14px; border-radius: 8px; border: 1px solid #2a2a2d; background: #121213; color: #e1e1e3; font-family: 'Inter', sans-serif; font-size: 0.85rem; outline: none; }
+    .article-waitlist input[type="email"]:focus { border-color: #6366f1; }
+    .article-waitlist .btn { padding: 10px 20px; border-radius: 8px; border: none; background: #6366f1; color: #fff; font-weight: 600; font-size: 0.85rem; cursor: pointer; }
+    .article-waitlist .btn:hover { background: #5558e6; }
+
+    footer { max-width: 800px; margin: 0 auto; padding: 40px 24px; border-top: 1px solid #1e1e20; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    footer span { font-size: 0.8rem; color: #555; }
+    footer a { color: #888; text-decoration: none; font-size: 0.8rem; }
+    footer a:hover { color: #fff; }
+  </style>
+  <!-- Plausible Analytics -->
+  <script defer data-domain="revenueholdings.dev" src="https://plausible.io/js/script.js"></script>
+</head>
+<body>
+
+<nav>
+  <div class="inner">
+    <div class="logo"><span>⛁</span> Revenue Holdings</div>
+    <div class="links">
+      <a href="../index.html">Home</a>
+      <a href="../blog.html" class="active">Blog</a>
+      <a href="../docs.html">Docs</a>
+      <a href="../pricing.html">Pricing</a>
+    </div>
+  </div>
+</nav>
+
+<div class="blog-nav">
+  <a href="../blog.html">← Back to Blog</a>
+</div>
+
+<main class="post-content">
+
+  <span class="badge tutorial">Tutorial</span>
+
+  <h1>Sync and Secure Environment Variables Across Environments</h1>
+
+  <div class="subtitle">
+    Stop copy-pasting .env files. Diff, sync, and rotate environment variables across dev, staging, and prod from a single CLI — with secret store integrations, smart rotation, and CI/CD pipeline support.
+  </div>
+
+  <div class="meta">
+    <span>May 15, 2026</span>
+    <span>·</span>
+    <span>7 min read</span>
+    <span>·</span>
+    <span>Revenue Holdings</span>
+  </div>
+
+  <hr>
+
+  <p>
+    Environment variable management is one of those problems every team has and nobody solves properly. Keys pile up across .env files. Secrets get rotated in prod but not staging. Someone pushes a .env.prod to GitHub by accident. A deployment breaks because <code>STAGING_DB_URL</code> was still pointing to a read replica that was decommissioned last month.
+  </p>
+
+  <p>
+    <strong>Envault</strong> is a CLI tool that brings order to your environment variables. It diffs environments, syncs with conflict resolution, rotates secrets with smart type inference, and integrates with AWS SSM, HashiCorp Vault, Doppler, and 1Password.
+  </p>
+
+  <div class="diagram">
+    ┌──────────┐    ┌─────────────┐    ┌───────────────┐
+    │  .env.dev │    │             │    │    .env.prod  │
+    │  DB_HOST  │───→│   envault   │←───│   DB_HOST     │
+    │  DB_PORT  │    │   diff      │    │   DB_PORT     │
+    │  LOG_LVL  │    │   sync      │    │   API_KEY     │
+    │  FEATURE_X│    │   rotate    │    │   FEATURE_X   │
+    └──────────┘    │   store     │    └───────────────┘
+                   └─────────────┘
+    LOG_LVL=debug        │          FEATURE_X=true (stale!)
+    FEATURE_X=true       │          MISSING: DB_POOL
+    DB_POOL=10           │          envault sync prod --strategy source_wins
+  </div>
+
+  <h2>1. Install Envault</h2>
+
+  <div class="cmd-block">$ pip install envault</div>
+
+  <p>Or from GitHub:</p>
+
+  <div class="cmd-block">$ pip install git+https://github.com/Coding-Dev-Tools/envault.git</div>
+
+  <p>Verify:</p>
+
+  <div class="cmd-block">$ envault --help</div>
+
+  <h2>2. Initialize a Project</h2>
+
+  <p>Create a configuration file that defines your environments:</p>
+
+  <div class="cmd-block">$ envault init my-project</div>
+
+  <p>This generates a <code>.envault.yml</code> file in the current directory:</p>
+
+  <pre><code>project: my-project
+environments:
+  dev: .env.dev
+  staging: .env.staging
+  prod: .env.prod
+conflict_strategy: source_wins
+skip_keys:
+  - COMMIT_SHA
+  - BUILD_NUMBER</code></pre>
+
+  <p>Now create some sample .env files to simulate real environments. Save as <code>.env.dev</code>:</p>
+
+  <pre><code>DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=myapp_dev
+DB_PASSWORD=dev_password_123
+API_KEY=dev_key_abc123
+LOG_LEVEL=debug
+FEATURE_NEW_CHECKOUT=true
+FEATURE_DARK_MODE=false
+CACHE_TTL=300</code></pre>
+
+  <p><code>.env.staging</code>:</p>
+
+  <pre><code>DB_HOST=staging-db.internal
+DB_PORT=5432
+DB_NAME=myapp_staging
+DB_PASSWORD=staging_password_456
+API_KEY=staging_key_def456
+LOG_LEVEL=info
+CACHE_TTL=600</code></pre>
+
+  <p><code>.env.prod</code> with some drift and a missing key:</p>
+
+  <pre><code>DB_HOST=prod-db.internal
+DB_PORT=5432
+DB_NAME=myapp_prod
+DB_PASSWORD=prod_password_789
+LOG_LEVEL=warn
+CACHE_TTL=1200</code></pre>
+
+  <div class="warning">
+    <strong>🚨 See the drift?</strong> <code>API_KEY</code> is missing from prod entirely — that endpoint will 401. <code>FEATURE_NEW_CHECKOUT</code> and <code>FEATURE_DARK_MODE</code> were added to dev but never promoted. <code>CACHE_TTL</code> differs across all three. These are the kinds of silences that cause "works on my machine" bugs in production.
+  </div>
+
+  <h2>3. Diff Environments</h2>
+
+  <p>See exactly what's different between any two environments:</p>
+
+  <div class="cmd-block">$ envault diff dev prod</div>
+
+  <p>Envault produces a formatted diff showing keys that are:</p>
+  <ul>
+    <li><strong>Only in source</strong> — present in dev, missing in prod</li>
+    <li><strong>Only in target</strong> — present in prod, missing in dev</li>
+    <li><strong>Different values</strong> — same key, different values</li>
+  </ul>
+
+  <pre><code>═══ Diff: dev → prod ═══
+
+Only in dev:
+  FEATURE_NEW_CHECKOUT=true
+  FEATURE_DARK_MODE=false
+  API_KEY=dev_key_abc123
+
+Only in prod:
+  (none)
+
+Different values:
+  DB_HOST: localhost → prod-db.internal
+  DB_NAME: myapp_dev → myapp_prod
+  DB_PASSWORD: dev_password_123 → prod_password_789
+  LOG_LEVEL: debug → warn
+  CACHE_TTL: 300 → 1200</code></pre>
+
+  <p>You can also diff two .env files directly without a project config:</p>
+
+  <div class="cmd-block">$ envault diff-files .env.dev .env.prod</div>
+
+  <h2>4. Sync Environments</h2>
+
+  <p>Promote changes from one environment to another with controlled conflict resolution:</p>
+
+  <div class="cmd-block">$ envault sync dev prod --dry-run</div>
+
+  <p>Always dry-run first. The output shows exactly what would change:</p>
+
+  <pre><code>═══ Dry Run: sync dev → prod ═══
+
+Would add:
+  FEATURE_NEW_CHECKOUT=true
+  FEATURE_DARK_MODE=false
+  API_KEY=dev_key_abc123
+
+Would update:
+  LOG_LEVEL: warn → debug
+  CACHE_TTL: 1200 → 300</code></pre>
+
+  <p>When you're ready:</p>
+
+  <div class="cmd-block">$ envault sync dev prod</div>
+
+  <p>Envault also supports different conflict resolution strategies:</p>
+
+  <div class="cmd-block"># Keep the target value on conflict (don't overwrite prod)
+$ envault sync dev prod --strategy target_wins
+
+# Delete keys in target that don't exist in source
+$ envault sync dev prod --allow-delete
+
+# Skip specific keys during sync
+$ envault sync dev prod --skip LOG_LEVEL --skip CACHE_TTL</code></pre>
+
+  <div class="tip">
+    <strong>💡 Pro tip:</strong> Use <code>--strategy target_wins</code> when syncing to production — you don't want to accidentally overwrite prod credentials with dev values. Use the default <code>source_wins</code> when promoting staging → prod after QA sign-off.
+  </div>
+
+  <h2 id="rotate">5. Rotate Secrets with Smart Type Inference</h2>
+
+  <p>Rotating secrets manually is error-prone — someone has to generate a value, update every .env file, and make sure the format is correct. Envault's <code>rotate</code> command handles this automatically:</p>
+
+  <div class="cmd-block">$ envault rotate DB_PASSWORD</div>
+
+  <p>Envault inspects the key name and generates a cryptographically secure value with the correct format:</p>
+
+  <pre><code>Key: DB_PASSWORD
+Type: database password (inferred from key name)
+Generated: L8#mKx2$rT9!qW5@nB4&
+Updated in: .env.dev, .env.staging, .env.prod</code></pre>
+
+  <p>Smart rotation infers the correct format from the variable name:</p>
+
+  <table>
+    <tr><th>Key Pattern</th><th>Generated Format</th><th>Example</th></tr>
+    <tr><td><code>DB_PASSWORD</code>, <code>DATABASE_URL</code></td><td>No ambiguous chars, mixed case + symbols</td><td><code>L8#mKx2$rT9!qW5@nB4&</code></td></tr>
+    <tr><td><code>API_KEY</code>, <code>STRIPE_SECRET</code></td><td>Prefixed API key with version</td><td><code>sk_live_v2_8aF3...eR7k</code></td></tr>
+    <tr><td><code>JWT_SECRET</code></td><td>256-bit base64</td><td><code>dGhpcyBpcyBhIDI1Ni1iaXQgc2VjcmV0</code></td></tr>
+    <tr><td><code>WEBHOOK_SECRET</code></td><td>Long hex key</td><td><code>a1b2c3d4e5f6...7890</code></td></tr>
+    <tr><td>Everything else</td><td>32-char random string</td><td><code>Zx9pQ2mN5kL7wR4t... </code></td></tr>
+  </table>
+
+  <p>Additional rotation options:</p>
+
+  <div class="cmd-block"># Rotate only in production
+$ envault rotate API_KEY --env prod
+
+# Preview without applying
+$ envault rotate JWT_SECRET --dry-run --show
+
+# Generate a longer key
+$ envault rotate WEBHOOK_SECRET --length 64
+
+# Rotate every secret in an environment
+$ envault rotate-all --env prod</code></pre>
+
+  <div class="warning">
+    <strong>⚠️ Rotation safety:</strong> <code>--dry-run --show</code> lets you preview the new value before it's applied. Always rotate secrets during maintenance windows and verify downstream services after.
+  </div>
+
+  <h2 id="store">6. Secret Store Integrations</h2>
+
+  <p>Envault can sync with external secret stores — useful when your team uses a centralized vault:</p>
+
+  <div class="cmd-block"># List secrets in all stores
+$ envault store list
+
+# List secrets with a prefix
+$ envault store list --prefix /production/
+
+# Get a specific secret
+$ envault store get DB_PASSWORD --store my-vault
+
+# Set a secret
+$ envault store set DB_PASSWORD new_value --store my-vault</code></pre>
+
+  <p>Supported stores: <strong>AWS SSM Parameter Store</strong>, <strong>HashiCorp Vault</strong>, <strong>Doppler</strong>, and <strong>1Password</strong>. Configure store connections in your <code>.envault.yml</code> file.</p>
+
+  <h2>7. CI/CD Integration</h2>
+
+  <p>Use Envault to verify environment consistency in CI:</p>
+
+  <pre><code># .github/workflows/env-check.yml
+name: Environment Variable Check
+
+on:
+  pull_request:
+    paths:
+      - '.env*'
+      - '.envault.yml'
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Envault
+        run: pip install envault
+
+      - name: Check for drift
+        run: |
+          echo "=== Comparing staging vs prod ==="
+          envault diff staging prod || echo "⚠ Drift detected!"
+
+      - name: Verify no secrets leaked
+        run: |
+          if grep -r 'password\|secret\|key' .env.* --include='.env*' 2>/dev/null; then
+            echo "::warning::Potential secret in .env file"
+          fi</code></pre>
+
+  <p>For deployments, rotate secrets before release:</p>
+
+  <pre><code># Rotate critical secrets before a production deploy
+envault rotate DB_PASSWORD --env prod
+envault rotate API_KEY --env prod --dry-run</code></pre>
+
+  <h2>Command Reference</h2>
+
+  <table>
+    <tr><th>Command</th><th>Description</th></tr>
+    <tr><td><code>envault init &lt;project&gt;</code></td><td>Create .envault.yml config file</td></tr>
+    <tr><td><code>envault diff &lt;src&gt; &lt;tgt&gt;</code></td><td>Show key-level differences between environments</td></tr>
+    <tr><td><code>envault diff-files &lt;f1&gt; &lt;f2&gt;</code></td><td>Diff two .env files directly</td></tr>
+    <tr><td><code>envault sync &lt;src&gt; &lt;tgt&gt;</code></td><td>Sync variables with conflict resolution</td></tr>
+    <tr><td><code>envault sync --dry-run</code></td><td>Preview changes before applying</td></tr>
+    <tr><td><code>envault sync --strategy target_wins</code></td><td>Keep target values on conflict</td></tr>
+    <tr><td><code>envault rotate &lt;key&gt;</code></td><td>Rotate a secret with smart type inference</td></tr>
+    <tr><td><code>envault rotate --dry-run --show</code></td><td>Preview rotated value without applying</td></tr>
+    <tr><td><code>envault rotate-all --env prod</code></td><td>Rotate all secrets in an environment</td></tr>
+    <tr><td><code>envault store list/get/set</code></td><td>Interact with external secret stores</td></tr>
+  </table>
+
+  <hr>
+
+  <h2>Real-World Scenario: The Stale Env Rotation</h2>
+
+  <p>
+    A SaaS team rotated their production database password after a security audit. They updated <code>.env.prod</code>, deployed, and everything worked. Three weeks later, a developer ran the staging environment — and it connected to production. The staging <code>.env</code> file still had the old, un-rotated password that happened to match a legacy read replica's credentials. The incident took two hours to debug.
+  </p>
+  <p>
+    With Envault, they would have run <code>envault rotate DB_PASSWORD</code> which updates <strong>all environments simultaneously</strong>. The <code>diff</code> command would have caught the staging-prod mismatch before it caused an incident.
+  </p>
+
+  <hr>
+
+  <h2>Next Steps</h2>
+
+  <p>Envault is one of <strong>10 tools</strong> in the Revenue Holdings suite. Pair it with other tools that protect your deployments:</p>
+
+  <ul>
+    <li><strong>ConfigDrift</strong> — Detect config drift across environments <em>(<a href="catch-config-drift-before-production.html">tutorial</a>)</em></li>
+    <li><strong>API Contract Guardian</strong> — Catch breaking API schema changes in PRs</li>
+    <li><strong>DeployDiff</strong> — Preview infra costs and blast radius <em>(<a href="preview-infra-cost-before-deploy.html">tutorial</a>)</em></li>
+    <li><strong>APIGhost</strong> — Mock APIs from OpenAPI specs <em>(<a href="api-mock-server-from-openapi-spec.html">tutorial</a>)</em></li>
+  </ul>
+
+  <p>
+    <a href="../docs.html">Read the full docs →</a>
+  </p>
+
+  <div class="article-waitlist">
+    <h3>Get Notified About New Tutorials</h3>
+    <p>DevOps guides, env management tips, and product updates.</p>
+    <div class="form-row">
+      <input type="email" placeholder="you@company.com">
+      <button class="btn" onclick="window.open('mailto:waitlist@revenueholdings.dev?subject=Envault%20Interest&body=I%20want%20updates%20on%20Envault', '_blank')">Notify Me →</button>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <span>© 2026 Revenue Holdings. Built autonomously.</span>
+  <a href="https://github.com/Coding-Dev-Tools">GitHub</a>
+</footer>
+
+</body>
+</html>
