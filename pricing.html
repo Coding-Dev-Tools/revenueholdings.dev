@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pricing — Revenue Holdings</title>
-  <meta name="description" content="Choose individual developer CLI tools or the full suite. Free tier available. $39/mo for all 4 tools.">
-  <meta name="keywords" content="CLI tools pricing, developer tools, OpenAPI, SQL, infrastructure, config drift, subscription">
+  <meta name="description" content="Choose individual developer CLI tools or the full suite. Free tier available. $49/mo for all 8 tools.">
+  <meta name="keywords" content="CLI tools pricing, developer tools, OpenAPI, SQL, infrastructure, config drift, API keys, mock server, env variables, ORM schema, subscription">
   <meta property="og:title" content="Revenue Holdings — Pricing">
   <meta property="og:description" content="Per-tool or suite pricing for autonomous developer CLI tools.">
   <meta property="og:type" content="website">
@@ -70,6 +70,10 @@
     .icon-j2s { background: rgba(16,185,129,0.15); }
     .icon-dd { background: rgba(245,158,11,0.15); }
     .icon-cd { background: rgba(239,68,68,0.15); }
+    .icon-aa { background: rgba(168,85,247,0.15); }
+    .icon-ag { background: rgba(6,182,212,0.15); }
+    .icon-ev { background: rgba(34,197,94,0.15); }
+    .icon-sf { background: rgba(251,146,60,0.15); }
 
     /* Suite Bundle */
     .suite-hero { text-align: center; margin-bottom: 48px; }
@@ -238,6 +242,66 @@
       </ul>
       <a href="mailto:waitlist@revenueholdings.dev?subject=Interest%3A%20ConfigDrift%20Pro" class="btn primary">Get Early Access →</a>
     </div>
+
+    <div class="tool-card">
+      <div class="icon icon-aa">🔑</div>
+      <h3>APIAuth</h3>
+      <div class="price">$12 <span>/ mo</span></div>
+      <div class="annual">$119 / yr (save ~17%)</div>
+      <div class="desc">Generate, rotate, and revoke API keys and JWTs. AES-256-GCM encrypted keystore with CI/CD export.</div>
+      <ul>
+        <li>Unlimited key generation</li>
+        <li>JWT creation & rotation</li>
+        <li>Encrypted local keystore</li>
+        <li>CI/CD env export</li>
+      </ul>
+      <a href="mailto:waitlist@revenueholdings.dev?subject=Interest%3A%20APIAuth%20Pro" class="btn primary">Get Early Access →</a>
+    </div>
+
+    <div class="tool-card">
+      <div class="icon icon-ag">👻</div>
+      <h3>APIGhost</h3>
+      <div class="price">$12 <span>/ mo</span></div>
+      <div class="annual">$119 / yr (save ~17%)</div>
+      <div class="desc">OpenAPI spec to mock server with realistic fake data, scenario overrides, and VCR cassette recording.</div>
+      <ul>
+        <li>Unlimited mock servers</li>
+        <li>Scenario-based responses</li>
+        <li>VCR cassette record/replay</li>
+        <li>Custom response overrides</li>
+      </ul>
+      <a href="mailto:waitlist@revenueholdings.dev?subject=Interest%3A%20APIGhost%20Pro" class="btn primary">Get Early Access →</a>
+    </div>
+
+    <div class="tool-card">
+      <div class="icon icon-ev">🔒</div>
+      <h3>Envault</h3>
+      <div class="price">$12 <span>/ mo</span></div>
+      <div class="annual">$119 / yr (save ~17%)</div>
+      <div class="desc">Diff, sync, and rotate .env variables across environments. Integrates with Vault, AWS SSM, Doppler, 1Password.</div>
+      <ul>
+        <li>Unlimited env comparisons</li>
+        <li>Secret rotation with auto-gen</li>
+        <li>Vault / SSM / Doppler sync</li>
+        <li>Conflict resolution engine</li>
+      </ul>
+      <a href="mailto:waitlist@revenueholdings.dev?subject=Interest%3A%20Envault%20Pro" class="btn primary">Get Early Access →</a>
+    </div>
+
+    <div class="tool-card">
+      <div class="icon icon-sf">🔄</div>
+      <h3>SchemaForge</h3>
+      <div class="price">$15 <span>/ mo</span></div>
+      <div class="annual">$149 / yr (save ~17%)</div>
+      <div class="desc">Bidirectional ORM schema conversion — SQL DDL, Prisma, Drizzle, TypeORM, and Django with zero-loss roundtrips.</div>
+      <ul>
+        <li>Unlimited schema conversions</li>
+        <li>5 ORM format support</li>
+        <li>Zero-loss roundtripping</li>
+        <li>Batch directory conversion</li>
+      </ul>
+      <a href="mailto:waitlist@revenueholdings.dev?subject=Interest%3A%20SchemaForge%20Pro" class="btn primary">Get Early Access →</a>
+    </div>
   </div>
 </section>
 
@@ -245,20 +309,24 @@
 <section class="pricing-section" id="tab-suite">
   <div class="suite-hero">
     <h2>The Revenue Holdings Suite</h2>
-    <p>All four tools. One subscription. Maximum savings for professionals who need the full toolkit.</p>
+    <p>All eight tools. One subscription. Maximum savings for professionals who need the full toolkit.</p>
   </div>
 
   <div class="suite-card featured">
     <div class="name">Suite Bundle</div>
-    <div class="price">$39 <span>/ mo</span></div>
-    <div class="savings">Save 33% vs buying individually ($58/mo separately)</div>
-    <div class="annual">$399 / yr — save another ~17%</div>
-    <div class="desc">Everything you need: API contracts, SQL generation, infra diffs, and config drift — all under one license key.</div>
+    <div class="price">$49 <span>/ mo</span></div>
+    <div class="savings">Save 40% vs buying individually ($94/mo separately)</div>
+    <div class="annual">$499 / yr — save another ~17%</div>
+    <div class="desc">Everything you need: API contracts, SQL generation, infra diffs, config drift, key management, API mocking, env syncing, and schema conversion — all under one license key.</div>
     <ul>
       <li>API Contract Guardian — unlimited</li>
       <li>json2sql — unlimited</li>
       <li>DeployDiff — unlimited</li>
       <li>ConfigDrift — unlimited</li>
+      <li>APIAuth — unlimited</li>
+      <li>APIGhost — unlimited</li>
+      <li>Envault — unlimited</li>
+      <li>SchemaForge — unlimited</li>
       <li>Single license key for all tools</li>
       <li>CI/CD integration across all tools</li>
     </ul>
@@ -313,6 +381,34 @@
       </tr>
       <tr>
         <td><span class="row-label"><span class="icon" style="background:rgba(239,68,68,0.12);">⌘</span> ConfigDrift</span></td>
+        <td class="yes">✓</td>
+        <td class="yes">✓</td>
+        <td class="yes">✓</td>
+        <td class="yes">✓</td>
+      </tr>
+      <tr>
+        <td><span class="row-label"><span class="icon" style="background:rgba(168,85,247,0.12);">🔑</span> APIAuth</span></td>
+        <td class="yes">✓</td>
+        <td class="yes">✓</td>
+        <td class="yes">✓</td>
+        <td class="yes">✓</td>
+      </tr>
+      <tr>
+        <td><span class="row-label"><span class="icon" style="background:rgba(6,182,212,0.12);">👻</span> APIGhost</span></td>
+        <td class="yes">✓</td>
+        <td class="yes">✓</td>
+        <td class="yes">✓</td>
+        <td class="yes">✓</td>
+      </tr>
+      <tr>
+        <td><span class="row-label"><span class="icon" style="background:rgba(34,197,94,0.12);">🔒</span> Envault</span></td>
+        <td class="yes">✓</td>
+        <td class="yes">✓</td>
+        <td class="yes">✓</td>
+        <td class="yes">✓</td>
+      </tr>
+      <tr>
+        <td><span class="row-label"><span class="icon" style="background:rgba(251,146,60,0.12);">🔄</span> SchemaForge</span></td>
         <td class="yes">✓</td>
         <td class="yes">✓</td>
         <td class="yes">✓</td>
@@ -430,7 +526,7 @@
 <!-- Social Proof + CTA -->
 <section style="max-width: 1100px; margin: 0 auto; padding: 40px 24px; text-align: center;">
   <div style="display: flex; justify-content: center; gap: 48px; flex-wrap: wrap; margin-bottom: 48px;">
-    <div style="text-align:center;"><div style="font-size:1.8rem;font-weight:700;color:#fff;">4</div><div style="font-size:0.8rem;color:#666;margin-top:4px;">CLI Tools</div></div>
+    <div style="text-align:center;"><div style="font-size:1.8rem;font-weight:700;color:#fff;">8</div><div style="font-size:0.8rem;color:#666;margin-top:4px;">CLI Tools</div></div>
     <div style="text-align:center;"><div style="font-size:1.8rem;font-weight:700;color:#fff;">117+</div><div style="font-size:0.8rem;color:#666;margin-top:4px;">Passing Tests</div></div>
     <div style="text-align:center;"><div style="font-size:1.8rem;font-weight:700;color:#fff;">100%</div><div style="font-size:0.8rem;color:#666;margin-top:4px;">AI-Autonomous</div></div>
     <div style="text-align:center;"><div style="font-size:1.8rem;font-weight:700;color:#fff;">$0</div><div style="font-size:0.8rem;color:#666;margin-top:4px;">To Get Started</div></div>

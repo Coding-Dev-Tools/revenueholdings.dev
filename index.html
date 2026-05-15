@@ -4,15 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Revenue Holdings — Autonomous Developer CLI Tools</title>
-  <meta name="description" content="Four production-ready CLI tools for API contracts, SQL generation, infrastructure diffs, and config drift — built entirely by autonomous AI agents.">
-  <meta name="keywords" content="CLI tools, developer tools, OpenAPI, SQL, infrastructure, config drift, autonomous AI">
+  <meta name="description" content="Eight production-ready CLI tools for API contracts, SQL generation, infrastructure diffs, config drift, key management, API mocking, env syncing, and schema conversion — built entirely by autonomous AI agents.">
+  <meta name="keywords" content="CLI tools, developer tools, OpenAPI, SQL, infrastructure, config drift, API keys, mock server, env variables, ORM schema, autonomous AI">
   <meta property="og:title" content="Revenue Holdings — Developer CLI Tools">
-  <meta property="og:description" content="CLI utilities for API contracts, SQL generation, infrastructure diffs, and config drift — built by autonomous AI.">
+  <meta property="og:description" content="8 CLI utilities for API contracts, SQL generation, infra diffs, config drift, key management, API mocking, env syncing, and schema conversion — built by autonomous AI.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://coding-dev-tools.github.io/revenueholdings.dev/">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Revenue Holdings — Developer CLI Tools">
-  <meta name="twitter:description" content="Four CLI utilities for API contracts, SQL generation, infrastructure diffs, and config drift — built entirely by autonomous AI agents.">
+  <meta name="twitter:description" content="Eight CLI utilities for API contracts, SQL, infra diffs, config drift, key management, mocking, env sync, and schema conversion — built by autonomous AI.">
   <meta name="twitter:image" content="https://coding-dev-tools.github.io/revenueholdings.dev/og-image.svg">
   <meta property="og:image" content="https://coding-dev-tools.github.io/revenueholdings.dev/og-image.svg">
   <meta property="og:image:width" content="1200">
@@ -76,6 +76,10 @@
     .icon-j2s { background: rgba(16,185,129,0.15); }
     .icon-dd { background: rgba(245,158,11,0.15); }
     .icon-cd { background: rgba(239,68,68,0.15); }
+    .icon-aa { background: rgba(168,85,247,0.15); }
+    .icon-ag { background: rgba(6,182,212,0.15); }
+    .icon-ev { background: rgba(34,197,94,0.15); }
+    .icon-sf { background: rgba(251,146,60,0.15); }
 
     /* Pricing */
     .pricing { max-width: 1100px; margin: 0 auto; padding: 80px 24px; }
@@ -155,13 +159,13 @@
 <section class="hero">
   <div class="badge">Autonomous Revenue Generation</div>
   <h1>Developer CLI Tools<br>that <span>ship revenue</span></h1>
-  <p>Four production-ready CLI utilities for API contracts, SQL generation, infrastructure diffs, and config drift — built 100% by autonomous AI. <a href="https://github.com/Coding-Dev-Tools/revenueholdings" style="color:#a78bfa;text-decoration:none;font-weight:500;">Install the suite with one command →</a></p>
+  <p>Eight production-ready CLI utilities covering API contracts, SQL, infra diffs, config drift, key management, API mocking, env syncing, and schema conversion — built 100% by autonomous AI. <a href="https://github.com/Coding-Dev-Tools/revenueholdings" style="color:#a78bfa;text-decoration:none;font-weight:500;">Install the suite with one command →</a></p>
   <div class="ctas">
     <a href="#products" class="cta primary">Browse Tools →</a>
     <a href="#pricing" class="cta secondary">See Pricing</a>
   </div>
   <div class="stats">
-    <div class="stat"><div class="num">4</div><div class="label">CLI Tools</div></div>
+    <div class="stat"><div class="num">8</div><div class="label">CLI Tools</div></div>
     <div class="stat"><div class="num">117</div><div class="label">Passing Tests</div></div>
     <div class="stat"><div class="num">100%</div><div class="label">Autonomous Build</div></div>
     <div class="stat"><div class="num" id="star-count">—</div><div class="label">GitHub Stars</div></div>
@@ -239,6 +243,70 @@
         <span>Status: <strong style="color:#34d399;">Ready</strong></span>
       </div>
       <a href="https://github.com/Coding-Dev-Tools/configdrift" class="view-on-gh" target="_blank">View on GitHub →</a>
+    </div>
+
+    <div class="product">
+      <div class="icon icon-aa">🔑</div>
+      <h3>APIAuth</h3>
+      <p>Generate, rotate, and revoke API keys and JWTs from the terminal. AES-256-GCM encrypted keystore with CI/CD export — your secret lifecycle in one CLI.</p>
+      <div class="tags">
+        <span class="tag prod">v0.1.0</span>
+        <span class="tag revenue">Free + Pro</span>
+        <span class="tag">secrets</span>
+        <span class="tag">jwt</span>
+      </div>
+      <div class="stat-row">
+        <span>Status: <strong style="color:#34d399;">Ready</strong></span>
+      </div>
+      <a href="https://github.com/Coding-Dev-Tools/apiauth" class="view-on-gh" target="_blank">View on GitHub →</a>
+    </div>
+
+    <div class="product">
+      <div class="icon icon-ag">👻</div>
+      <h3>APIGhost</h3>
+      <p>Turn any OpenAPI spec into a running mock server with realistic fake data. Scenario-based responses and VCR-style cassette recording for replay in tests.</p>
+      <div class="tags">
+        <span class="tag prod">v0.1.0</span>
+        <span class="tag revenue">Free + Pro</span>
+        <span class="tag">mock</span>
+        <span class="tag">testing</span>
+      </div>
+      <div class="stat-row">
+        <span>Status: <strong style="color:#34d399;">Ready</strong></span>
+      </div>
+      <a href="https://github.com/Coding-Dev-Tools/apighost" class="view-on-gh" target="_blank">View on GitHub →</a>
+    </div>
+
+    <div class="product">
+      <div class="icon icon-ev">🔒</div>
+      <h3>Envault</h3>
+      <p>Diff, sync, and rotate .env variables across environments. Integrates with AWS SSM, Vault, Doppler, and 1Password — no more copy-pasting secrets.</p>
+      <div class="tags">
+        <span class="tag prod">v0.1.0</span>
+        <span class="tag revenue">Free + Pro</span>
+        <span class="tag">env</span>
+        <span class="tag">secrets</span>
+      </div>
+      <div class="stat-row">
+        <span>Status: <strong style="color:#34d399;">Ready</strong></span>
+      </div>
+      <a href="https://github.com/Coding-Dev-Tools/envault" class="view-on-gh" target="_blank">View on GitHub →</a>
+    </div>
+
+    <div class="product">
+      <div class="icon icon-sf">🔄</div>
+      <h3>SchemaForge</h3>
+      <p>Convert between SQL DDL, Prisma, Drizzle, TypeORM, and Django models with zero-loss roundtripping. The only bidirectional ORM schema converter.</p>
+      <div class="tags">
+        <span class="tag prod">v0.1.0</span>
+        <span class="tag revenue">Free + Pro</span>
+        <span class="tag">orm</span>
+        <span class="tag">migration</span>
+      </div>
+      <div class="stat-row">
+        <span>Status: <strong style="color:#34d399;">Ready</strong></span>
+      </div>
+      <a href="https://github.com/Coding-Dev-Tools/schemaforge" class="view-on-gh" target="_blank">View on GitHub →</a>
     </div>
 
   </div>
@@ -457,7 +525,7 @@ function submitWaitlist(e) {
 }
 
 async function loadStars() {
-  const repos = ['api-contract-guardian', 'json2sql', 'deploydiff', 'configdrift'];
+  const repos = ['api-contract-guardian', 'json2sql', 'deploydiff', 'configdrift', 'apiauth', 'apighost', 'envault', 'schemaforge'];
   try {
     const results = await Promise.allSettled(
       repos.map(r => fetch('https://api.github.com/repos/Coding-Dev-Tools/' + r).then(res => res.json()))
