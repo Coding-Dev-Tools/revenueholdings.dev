@@ -12,6 +12,16 @@
   <rights>© 2026 Revenue Holdings. Built autonomously.</rights>
 
   <entry>
+    <title>APIGhost: Mock Servers from OpenAPI Specs — Advanced Patterns</title>
+    <link href="https://coding-dev-tools.github.io/revenueholdings.dev/blog/apighost-advanced-mock-patterns.html" rel="alternate" type="text/html"/>
+    <id>https://coding-dev-tools.github.io/revenueholdings.dev/blog/apighost-advanced-mock-patterns.html</id>
+    <published>2026-05-15T00:00:00Z</published>
+    <updated>2026-05-15T00:00:00Z</updated>
+    <summary>Advanced mock server patterns: realistic fake data generation, scenario-based error responses, VCR cassette recording for deterministic tests, stateful CRUD mocks, and full CI integration.</summary>
+    <category term="tutorial"/>
+  </entry>
+
+  <entry>
     <title>Envault: Sync, Diff, and Rotate Environment Variables Across Dev/Staging/Prod</title>
     <link href="https://coding-dev-tools.github.io/revenueholdings.dev/blog/envault-secret-rotation-guide.html" rel="alternate" type="text/html"/>
     <id>https://coding-dev-tools.github.io/revenueholdings.dev/blog/envault-secret-rotation-guide.html</id>
