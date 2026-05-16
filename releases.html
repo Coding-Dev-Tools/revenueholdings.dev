@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Changelog — Revenue Holdings</title>
-  <meta name="description" content="Release history for all Revenue Holdings CLI tools: API Contract Guardian, json2sql, DeployDiff, ConfigDrift, and click-to-mcp.">
+  <meta name="description" content="Release history for all 10 Revenue Holdings CLI tools: API Contract Guardian, json2sql, DeployDiff, ConfigDrift, APIAuth, APIGhost, Envault, Datamorph, DeadCode, click-to-mcp, and SchemaForge.">
   <meta name="keywords" content="changelog, releases, CLI tools, developer tools, OpenAPI, SQL, infrastructure, config drift">
   <meta property="og:title" content="Revenue Holdings — Changelog">
   <meta property="og:description" content="Release history for all autonomous developer CLI tools.">
@@ -205,11 +205,170 @@
     </div>
   </div>
 
+  <!-- APIAuth -->
+  <div class="release-group">
+    <h2><span class="tool-icon">🔑</span> APIAuth</h2>
+    <a href="https://github.com/Coding-Dev-Tools/apiauth/releases" class="gh-link">View on GitHub →</a>
+    <div class="subtitle">API key and JWT lifecycle management with encrypted local store</div>
+
+    <div class="release-version">
+      <div class="version-header">
+        <span class="version-tag">v0.2.0</span>
+        <span class="version-date">2026-05-15</span>
+        <span class="badge added">Verify, Audit, GitHub Actions Export</span>
+      </div>
+      <ul>
+        <li>Generate, store, verify, rotate, and revoke API keys and JWTs</li>
+        <li>AES-256-GCM encrypted local keystore</li>
+        <li>Smart key type detection (API keys, JWTs, OAuth tokens)</li>
+        <li>GitHub Actions CI/CD export with one command</li>
+        <li>Full audit trail of all key operations</li>
+        <li>Python 3.10+ support, zero core dependencies</li>
+      </ul>
+    </div>
+
+    <div class="release-version">
+      <div class="version-header">
+        <span class="version-tag">v0.1.0</span>
+        <span class="version-date">2026-05-14</span>
+        <span class="badge added">Initial Release</span>
+      </div>
+      <ul>
+        <li>API key generation with configurable prefixes and lengths</li>
+        <li>JWT creation with claims, expiry, and custom signing</li>
+        <li>Encrypted local keystore (AES-256-GCM)</li>
+        <li>Key rotation and revocation</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- APIGhost -->
+  <div class="release-group">
+    <h2><span class="tool-icon">👻</span> APIGhost</h2>
+    <a href="https://github.com/Coding-Dev-Tools/apighost/releases" class="gh-link">View on GitHub →</a>
+    <div class="subtitle">Zero-config mock API server from any OpenAPI spec</div>
+
+    <div class="release-version">
+      <div class="version-header">
+        <span class="version-tag">v0.1.0</span>
+        <span class="version-date">2026-05-15</span>
+        <span class="badge added">Initial Release</span>
+      </div>
+      <ul>
+        <li>Spin up a mock server from any OpenAPI 3.0/3.1 spec with one command</li>
+        <li>Realistic fake data generation from schema types and examples</li>
+        <li>Scenario-based error responses for testing edge cases</li>
+        <li>VCR cassette recording for deterministic CI test suites</li>
+        <li>Zero configuration required — no Docker, no config files</li>
+        <li>Python 3.10+ support</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Envault -->
+  <div class="release-group">
+    <h2><span class="tool-icon">🔒</span> Envault</h2>
+    <a href="https://github.com/Coding-Dev-Tools/envault/releases" class="gh-link">View on GitHub →</a>
+    <div class="subtitle">Environment variable syncing, diffing, and secret rotation</div>
+
+    <div class="release-version">
+      <div class="version-header">
+        <span class="version-tag">v0.1.0</span>
+        <span class="version-date">2026-05-15</span>
+        <span class="badge added">Initial Release</span>
+      </div>
+      <ul>
+        <li>Diff environment variables across environments (dev, staging, prod)</li>
+        <li>Smart secret detection — auto-classifies keys as secret or config</li>
+        <li>Sync with conflict resolution (keep-existing, source-wins, config-from-source, interactive)</li>
+        <li>Secret store integrations: AWS SSM, HashiCorp Vault, Doppler, 1Password</li>
+        <li>Secret rotation with cryptographically random values</li>
+        <li>CI/CD integration with <code>--fail-on</code> flags for env parity gating</li>
+        <li>Python 3.10+ support</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Datamorph -->
+  <div class="release-group">
+    <h2><span class="tool-icon">⤵</span> Datamorph</h2>
+    <a href="https://github.com/Coding-Dev-Tools/datamorph/releases" class="gh-link">View on GitHub →</a>
+    <div class="subtitle">Batch data format conversion (CSV, JSON, YAML, Parquet, Avro, Protobuf)</div>
+
+    <div class="release-version">
+      <div class="version-header">
+        <span class="version-tag">v0.1.0</span>
+        <span class="version-date">2026-05-15</span>
+        <span class="badge added">Initial Release</span>
+      </div>
+      <ul>
+        <li>Batch conversion between CSV, JSON, YAML, Parquet, Avro, and Protobuf</li>
+        <li>Streaming for large files — handles datasets too big for memory</li>
+        <li>Schema inference and type mapping between formats</li>
+        <li>Directory-wide batch processing</li>
+        <li>stdin/stdout pipe support for Unix workflows</li>
+        <li>Python 3.10+ support</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- DeadCode -->
+  <div class="release-group">
+    <h2><span class="tool-icon">✂</span> DeadCode</h2>
+    <a href="https://github.com/Coding-Dev-Tools/deadcode/releases" class="gh-link">View on GitHub →</a>
+    <div class="subtitle">Dead code detection for React/Next.js/TypeScript projects</div>
+
+    <div class="release-version">
+      <div class="version-header">
+        <span class="version-tag">v0.1.1</span>
+        <span class="version-date">2026-05-15</span>
+        <span class="badge added">Bug Fix + Config File + CI Gating</span>
+      </div>
+      <ul>
+        <li>Config file support (<code>.deadcoderc</code> / <code>deadcode.config.yaml</code>)</li>
+        <li>CI gating with <code>--fail-on unused</code> flag</li>
+        <li>Bug fix: barrel file re-export resolution (false positive fix)</li>
+        <li>Improved CSS class reference tracking accuracy</li>
+      </ul>
+    </div>
+
+    <div class="release-version">
+      <div class="version-header">
+        <span class="version-tag">v0.1.0</span>
+        <span class="version-date">2026-05-14</span>
+        <span class="badge added">Initial Release</span>
+      </div>
+      <ul>
+        <li>Unused export detection with AST parsing</li>
+        <li>Tree-shaking-aware export resolution with barrel file unwrapping</li>
+        <li>Dead Next.js App Router page detection</li>
+        <li>Orphaned CSS class reference tracking</li>
+        <li>Cross-file reference graph for accurate dependency tracking</li>
+        <li>TypeScript, JSX, and TSX support via tree-sitter grammars</li>
+        <li>Parallel file parsing for large codebases</li>
+      </ul>
+    </div>
+  </div>
+
   <!-- click-to-mcp -->
   <div class="release-group">
     <h2><span class="tool-icon">🔌</span> click-to-mcp</h2>
     <a href="https://github.com/Coding-Dev-Tools/click-to-mcp/releases" class="gh-link">View on GitHub →</a>
     <div class="subtitle">Auto-wrap any Click/typer CLI as an MCP server</div>
+
+    <div class="release-version">
+      <div class="version-header">
+        <span class="version-tag">v0.4.0</span>
+        <span class="version-date">2026-05-15</span>
+        <span class="badge added">Streamable HTTP Transport</span>
+      </div>
+      <ul>
+        <li>Streamable HTTP transport support (<code>click-to-mcp serve-http</code>)</li>
+        <li>Improved error handling and type mapping</li>
+        <li>Better JSON Schema mapping for complex types</li>
+        <li>Demo mode: <code>click-to-mcp demo</code> and <code>click-to-mcp demo-http</code></li>
+      </ul>
+    </div>
 
     <div class="release-version">
       <div class="version-header">
@@ -236,6 +395,21 @@
     <h2><span class="tool-icon">🔄</span> SchemaForge</h2>
     <a href="https://github.com/Coding-Dev-Tools/schemaforge/releases" class="gh-link">View on GitHub →</a>
     <div class="subtitle">Bidirectional ORM schema converter — SQL DDL ↔ Prisma ↔ Drizzle</div>
+
+    <div class="release-version">
+      <div class="version-header">
+        <span class="version-tag">v1.7.0</span>
+        <span class="version-date">2026-05-15</span>
+        <span class="badge added">VS Code Extension</span>
+      </div>
+      <ul>
+        <li>VS Code extension with live schema preview</li>
+        <li>Quick convert: right-click → convert with SchemaForge</li>
+        <li>Diff view for schema comparison</li>
+        <li>Format detection from file extension</li>
+        <li>11 format pairs: SQL, Prisma, Drizzle, TypeORM, Django, SQLAlchemy, JSON Schema, Knex.js, Sequelize, Mongoose, Zod</li>
+      </ul>
+    </div>
 
     <div class="release-version">
       <div class="version-header">

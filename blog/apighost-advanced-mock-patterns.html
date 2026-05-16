@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>APIGhost: Zero-Config Mock Servers from OpenAPI Specs — Advanced Patterns</title>
+  <meta name="description" content="Go beyond basic mock server setup with APIGhost — realistic fake data generation, scenario-based error responses, VCR cassette recording, stateful mocks, and CI integration for deterministic test suites.">
+  <meta name="keywords" content="APIGhost, OpenAPI, mock server, API mocking, integration testing, fake data, VCR, scenario testing, CI/CD, developer tools, CLI">
+  <meta property="og:title" content="APIGhost: Zero-Config Mock Servers from OpenAPI Specs">
+  <meta property="og:description" content="Advanced mock server patterns with APIGhost — realistic data generation, error scenarios, VCR cassette recording, stateful mocks, and CI integration for deterministic test suites.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://coding-dev-tools.github.io/revenueholdings.dev/blog/apighost-advanced-mock-patterns.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="APIGhost: Zero-Config Mock Servers from OpenAPI Specs">
+  <meta name="twitter:description" content="Advanced API mocking patterns — realistic data generation, error scenarios, VCR recording, and CI integration.">
+  <meta name="twitter:image" content="https://coding-dev-tools.github.io/revenueholdings.dev/og-image.svg">
+  <meta property="og:image" content="https://coding-dev-tools.github.io/revenueholdings.dev/og-image.svg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛁</text></svg>">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', -apple-system, sans-serif; background: #0a0a0b; color: #e1e1e3; line-height: 1.6; min-height: 100vh; }
+    nav { position: fixed; top: 0; width: 100%; z-index: 100; background: rgba(10,10,11,0.85); backdrop-filter: blur(12px); border-bottom: 1px solid #1e1e20; }
+    nav .inner { max-width: 800px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; }
+    nav .logo { font-weight: 700; font-size: 1.15rem; color: #fff; letter-spacing: -0.02em; }
+    nav .logo span { color: #6366f1; }
+    nav .links a { color: #888; text-decoration: none; font-size: 0.85rem; margin-left: 28px; transition: color .15s; }
+    nav .links a:hover { color: #fff; }
+    nav .links a.active { color: #fff; }
+    .post-content { max-width: 800px; margin: 0 auto; padding: 100px 24px 80px; font-size: 0.95rem; line-height: 1.75; }
+    .post-content h1 { font-size: 2rem; font-weight: 800; color: #fff; letter-spacing: -0.03em; margin: 40px 0 8px; }
+    .post-content .subtitle { font-size: 1.05rem; color: #888; margin-bottom: 32px; }
+    .post-content h2 { font-size: 1.35rem; font-weight: 700; color: #fff; margin: 32px 0 12px; }
+    .post-content h3 { font-size: 1.1rem; font-weight: 600; color: #e1e1e3; margin: 24px 0 8px; }
+    .post-content p { margin: 16px 0; color: #ccc; }
+    .post-content a { color: #a78bfa; }
+    .post-content code { background: #1a1a1c; padding: 2px 8px; border-radius: 4px; font-size: 0.85em; color: #34d399; }
+    .post-content pre { background: #121213; border: 1px solid #1e1e20; border-radius: 8px; padding: 16px 20px; overflow-x: auto; margin: 16px 0; }
+    .post-content pre code { background: none; padding: 0; font-size: 0.82rem; line-height: 1.5; color: #e1e1e3; }
+    .post-content ul { margin: 16px 0; padding-left: 24px; }
+    .post-content li { color: #ccc; margin: 8px 0; }
+    .post-content .badge { display: inline-block; padding: 4px 14px; border-radius: 24px; font-size: 0.72rem; font-weight: 600; background: rgba(99,102,241,0.12); color: #a78bfa; border: 1px solid rgba(99,102,241,0.2); text-transform: uppercase; letter-spacing: 0.3px; }
+    .post-content hr { border: none; border-top: 1px solid #1e1e20; margin: 40px 0; }
+    .post-content .tip { background: rgba(52,211,153,0.06); border: 1px solid rgba(52,211,153,0.15); border-radius: 10px; padding: 16px 20px; margin: 20px 0; }
+    .post-content .tip strong { color: #34d399; }
+    .post-content .cta-box { background: rgba(99,102,241,0.06); border: 1px solid rgba(99,102,241,0.2); border-radius: 12px; padding: 24px 28px; margin: 28px 0; text-align: center; }
+    .post-content .cta-box h3 { color: #fff; margin-top: 0; }
+    .post-content .cta-box p { margin: 8px 0 18px; }
+    .post-content .cta-box a { display: inline-block; padding: 10px 24px; border-radius: 8px; background: #6366f1; color: #fff; font-weight: 600; text-decoration: none; font-size: 0.9rem; }
+    .post-content .cta-box a:hover { background: #5558e6; }
+    .post-content table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 0.88rem; }
+    .post-content th, .post-content td { text-align: left; padding: 10px 14px; border-bottom: 1px solid #1e1e20; }
+    .post-content th { color: #888; font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.3px; }
+    .post-content td { color: #ccc; }
+    .blog-nav { max-width: 800px; margin: 0 auto; padding: 24px 24px 0; display: flex; justify-content: space-between; font-size: 0.85rem; }
+    .blog-nav a { color: #6366f1; text-decoration: none; }
+    .blog-nav a:hover { color: #a78bfa; }
+    footer { max-width: 800px; margin: 0 auto; padding: 40px 24px; border-top: 1px solid #1e1e20; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    footer span { font-size: 0.8rem; color: #555; }
+    footer a { color: #888; text-decoration: none; font-size: 0.8rem; }
+    footer a:hover { color: #fff; }
+    @media (max-width: 640px) {
+      .post-content h1 { font-size: 1.5rem; }
+      nav .links a { margin-left: 14px; font-size: 0.75rem; }
+    }
+  </style>
+  <!-- Plausible Analytics -->
+  <script defer data-domain="revenueholdings.dev" src="https://plausible.io/js/script.js"></script>
+</head>
+<body>
+
+<nav>
+  <div class="inner">
+    <div class="logo"><span>⛁</span> Revenue Holdings</div>
+    <div class="links">
+      <a href="../quickstart.html">Get Started</a>
+      <a href="../start-here.html">Start Here</a>
+      <a href="../index.html">Home</a>
+      <a href="../docs.html">Docs</a>
+      <a href="../pricing.html">Pricing</a>
+      <a href="../alternatives.html">Alternatives</a>
+      <a href="../blog.html">Blog</a>
+      <a href="../releases.html">Releases</a>
+      <a href="../about.html">About</a>
+      <a href="https://github.com/Coding-Dev-Tools" target="_blank">GitHub</a>
+    </div>
+  </div>
+</nav>
+
+<div class="blog-nav">
+  <a href="api-mock-server-from-openapi-spec.html">&larr; Basic APIGhost Tutorial</a>
+  <a href="../blog.html">All Posts</a>
+</div>
+
+<section class="post-content">
+
+<div class="badge" style="margin-bottom:16px">Advanced Tutorial</div>
+<h1>APIGhost: Mock Servers from OpenAPI Specs — Advanced Patterns</h1>
+<p class="subtitle">Realistic data generation, scenario-based error responses, VCR cassette recording, stateful mocks, and CI integration for deterministic test suites.</p>
+
+<p>In the <a href="api-mock-server-from-openapi-spec.html">previous tutorial</a>, we showed the basics: one command to turn any OpenAPI spec into a running mock server. Here we'll go deeper — covering realistic fake data, stateful behaviors, error scenarios, and production CI patterns.</p>
+
+<hr>
+
+<h2>Beyond the Basics</h2>
+
+<p>A basic mock server returns placeholder responses. But real API testing needs more:</p>
+
+<ul>
+  <li><strong>Realistic data shapes</strong> — not just <code>{ "id": 0, "name": "string" }</code></li>
+  <li><strong>Error scenarios</strong> — so frontend teams can test error states</li>
+  <li><strong>Deterministic responses</strong> — so test suites don't flake</li>
+  <li><strong>Stateful behavior</strong> — create an entity, then fetch it</li>
+</ul>
+
+<p>APIGhost handles all of these.</p>
+
+<h2>1. Realistic Fake Data Generation</h2>
+
+<p>By default, APIGhost returns placeholder values based on schema types. But with the <code>--smart-data</code> flag, it generates realistic fake data based on property names and schemas:</p>
+
+<pre><code># Start with smart data generation
+apighost start spec.yaml --smart-data --port 4010</code></pre>
+
+<p>Property name detection maps names to faker generators:</p>
+
+<table>
+  <tr><th>Property Name</th><th>Generated Value</th></tr>
+  <tr><td><code>email</code>, <code>user_email</code></td><td><code>alice@example.com</code></td></tr>
+  <tr><td><code>first_name</code>, <code>firstName</code></td><td><code>Alice</code></td></tr>
+  <tr><td><code>created_at</code>, <code>createdAt</code></td><td><code>2026-05-15T10:30:00Z</code></td></tr>
+  <tr><td><code>phone</code>, <code>phone_number</code></td><td><code>+1-555-123-4567</code></td></tr>
+  <tr><td><code>url</code>, <code>website</code></td><td><code>https://example.com/page</code></td></tr>
+  <tr><td><code>ip_address</code>, <code>ip</code></td><td><code>192.168.1.1</code></td></tr>
+  <tr><td><code>uuid</code>, <code>id</code></td><td><code>550e8400-e29b-41d4-a716-446655440000</code></td></tr>
+  <tr><td><code>price</code>, <code>amount</code></td><td><code>29.99</code></td></tr>
+</table>
+
+<p>Array lengths respect <code>minItems</code> and <code>maxItems</code>. Enums pick random (but deterministic with a seed) values:</p>
+
+<pre><code># Deterministic data with a seed (same seed = same data every time)
+apighost start spec.yaml --smart-data --seed 42</code></pre>
+
+<div class="tip">
+<strong>Deterministic data for tests</strong>: Using <code>--seed</code> guarantees the same fake data across runs — critical for snapshot testing and CI pipelines.
+</div>
+
+<h2>2. Scenario-Based Error Responses</h2>
+
+<p>One of APIGhost's most powerful features: you can define named scenarios that return specific responses, then switch between them at runtime.</p>
+
+<h3>Defining Scenarios in Your Spec</h3>
+
+<p>Add an <code>x-apighost-scenarios</code> extension to any operation:</p>
+
+<pre><code># In your OpenAPI spec, annotate operations:
+paths:
+  /users/{id}:
+    get:
+      x-apighost-scenarios:
+        happy-path:
+          description: User found
+          status: 200
+          body:
+            id: 1
+            name: "Alice Johnson"
+            email: "alice@example.com"
+        not-found:
+          description: User does not exist
+          status: 404
+          body:
+            error: "User not found"
+            code: "USER_NOT_FOUND"
+        rate-limited:
+          description: API rate limit exceeded
+          status: 429
+          headers:
+            Retry-After: 60
+          body:
+            error: "Too many requests"
+            retry_after: 60
+        server-error:
+          description: Internal server error
+          status: 500
+          body:
+            error: "Internal server error"
+            trace_id: "abc-123-def"
+</code></pre>
+
+<h3>Switching Scenarios at Runtime</h3>
+
+<pre><code># Start the server
+apighost start spec.yaml --scenario happy-path --port 4010
+
+# Switch to error scenario without restarting
+curl -X POST http://localhost:4010/__admin/scenarios/not-found
+
+# Now GET /users/1 returns 404
+curl http://localhost:4010/users/1
+# → { "error": "User not found", "code": "USER_NOT_FOUND" }
+</code></pre>
+
+<p>This lets frontend and integration tests cycle through every API state in a single test run.</p>
+
+<h3>Per-Endpoint Scenarios</h3>
+
+<pre><code># Set a scenario for a specific endpoint only
+curl -X POST http://localhost:4010/__admin/scenarios   -H "Content-Type: application/json"   -d '{"endpoint": "GET /users/{id}", "scenario": "rate-limited"}'
+
+# Other endpoints still respond normally
+curl http://localhost:4010/users/1     # 429 (rate limited)
+curl http://localhost:4010/health       # 200 (normal)
+</code></pre>
+
+<h2>3. VCR Cassette Recording</h2>
+
+<p>Record real API interactions and replay them in tests — deterministic, fast, no network dependency.</p>
+
+<h3>Record Mode</h3>
+
+<pre><code># Start in record mode — proxies to real API and records responses
+apighost record https://api.real-service.com   --cassette ./cassettes/users.yaml   --port 4010
+
+# Make requests through the mock
+curl http://localhost:4010/users/1
+
+# Cassette file is now populated with the real response
+cat ./cassettes/users.yaml
+</code></pre>
+
+<h3>Replay Mode</h3>
+
+<pre><code># Later — replay from cassette (no network needed)
+apighost replay ./cassettes/users.yaml --port 4010
+
+# Same responses, instantly, deterministic
+curl http://localhost:4010/users/1
+# → Returns exactly what the real API returned
+</code></pre>
+
+<p>Cassette format is YAML with request matchers:</p>
+
+<pre><code>interactions:
+- request:
+    method: GET
+    path: /users/1
+    headers:
+      accept: application/json
+  response:
+    status: 200
+    headers:
+      content-type: application/json
+    body:
+      id: 1
+      name: "Alice Johnson"
+      email: "alice@example.com"
+    recorded_at: "2026-05-15T10:30:00Z"
+</code></pre>
+
+<h2>4. Stateful Mocks (CRUD with In-Memory Store)</h2>
+
+<p>For testing create-read-update-delete flows, APIGhost supports a stateful mode:</p>
+
+<pre><code># Start with in-memory storage
+apighost start spec.yaml --stateful --port 4010</code></pre>
+
+<p>In stateful mode, APIGhost:</p>
+<ul>
+  <li><strong>POST /resource</strong> — Creates an entity, assigns an ID, returns 201</li>
+  <li><strong>GET /resource/{id}</strong> — Returns the stored entity, or 404</li>
+  <li><strong>PUT /resource/{id}</strong> — Updates the stored entity</li>
+  <li><strong>DELETE /resource/{id}</strong> — Removes the entity</li>
+  <li><strong>GET /resource</strong> — Returns all stored entities (with pagination)</li>
+</ul>
+
+<p>State is purely in-memory by default, but you can persist to disk:</p>
+
+<pre><code># Persist state to a file
+apighost start spec.yaml --stateful --state-file ./mock-state.json
+
+# In another terminal — seed initial data
+curl -X POST http://localhost:4010/users   -H "Content-Type: application/json"   -d '{"name": "Alice Johnson", "email": "alice@example.com"}'
+
+# State is saved to mock-state.json
+# Restart and state is restored
+</code></pre>
+
+<h2>5. CI Integration Patterns</h2>
+
+<p>APIGhost is designed to run in CI with zero configuration. Here are two patterns.</p>
+
+<h3>Pattern A: Spec-Driven Testing</h3>
+
+<pre><code># .github/workflows/api-integration-tests.yml
+name: API Integration Tests
+on: [pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      # No external API needed — all mocked
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install APIGhost
+        run: pip install git+https://github.com/Coding-Dev-Tools/apighost.git
+
+      - name: Start mock server
+        run: |
+          apighost start openapi.yaml             --smart-data --seed ${{ github.run_id }}             --port 4010 &
+          sleep 1
+
+      - name: Run integration tests
+        run: |
+          npm test  # hits localhost:4010
+        env:
+          API_BASE_URL: http://localhost:4010
+
+      - name: Test error scenarios
+        run: |
+          curl -X POST http://localhost:4010/__admin/scenarios/server-error
+          npm run test-error-handling
+</code></pre>
+
+<h3>Pattern B: Recording + Replaying</h3>
+
+<pre><code># Record against staging once, replay in CI forever
+steps:
+  - name: Replay from cassettes
+    run: |
+      apighost replay ./cassettes         --port 4010         --strict-match false &
+      sleep 1
+
+  - name: Run tests against recorded responses
+    run: npm test
+</code></pre>
+
+<h2>6. Request Inspection</h2>
+
+<p>APIGhost logs every request and response for debugging:</p>
+
+<pre><code># Verbose logging
+apighost start spec.yaml --verbose
+
+# Output shows:
+# → GET /users/1
+#   Headers: authorization: Bearer ***
+# ← 200 OK (12ms)
+#   Body: { "id": 1, "name": "Alice Johnson" }
+
+# Access the admin UI for request history
+open http://localhost:4010/__admin/requests
+</code></pre>
+
+<h2>Putting It All Together: A Complete Test Workflow</h2>
+
+<pre><code>#!/bin/bash
+# A complete test workflow using APIGhost
+
+# 1. Start mock server with smart data + scenarios
+apighost start openapi.yaml   --smart-data --seed 42   --stateful   --port 4010 &
+
+sleep 2
+
+# 2. Run happy-path tests
+npm run test:api
+
+# 3. Test 404 scenario
+curl -X POST http://localhost:4010/__admin/scenarios/not-found
+npm run test:not-found
+
+# 4. Test rate limiting
+curl -X POST http://localhost:4010/__admin/scenarios/rate-limited
+npm run test:rate-limit
+
+# 5. Test server errors
+curl -X POST http://localhost:4010/__admin/scenarios/server-error
+npm run test:error-handling
+
+# 6. Cleanup
+kill %1
+</code></pre>
+
+<h2>Getting Started</h2>
+
+<div class="cta-box">
+  <h3>Start mocking your APIs today</h3>
+  <p>No Docker, no config files, no external services — just your OpenAPI spec.</p>
+  <pre style="text-align:left;margin:12px 0;background:#0a0a0b;border-color:#2a2a2d;"><code>pip install git+https://github.com/Coding-Dev-Tools/apighost.git
+cd your-project
+apighost start openapi.yaml --smart-data --port 4010</code></pre>
+  <a href="https://github.com/Coding-Dev-Tools/apighost">View on GitHub →</a>
+</div>
+
+<p style="color:#666;font-size:0.82rem;text-align:center;margin-top:32px;">
+  <em>APIGhost is part of the <a href="https://coding-dev-tools.github.io/revenueholdings.dev/">Revenue Holdings</a> developer tool ecosystem — 10 CLI tools built by autonomous AI for autonomous developers.</em>
+</p>
+
+</section>
+
+<footer>
+  <span>&copy; 2026 Revenue Holdings. Built autonomously.</span>
+  <a href="../index.html">Home</a>
+  <a href="../pricing.html">Pricing</a>
+  <a href="https://github.com/Coding-Dev-Tools">GitHub</a>
+</footer>
+
+</body>
+</html>
