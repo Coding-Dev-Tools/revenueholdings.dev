@@ -174,4 +174,16 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
+  <url>
+    <loc>https://coding-dev-tools.github.io/revenueholdings.dev/blog/schemaforge-v1-7-0-vscode-extension.html</loc>
+    <lastmod>2026-05-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://coding-dev-tools.github.io/revenueholdings.dev/blog/ai-built-cli-tools-zero-humans.html</loc>
+    <lastmod>2026-05-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
 </urlset>

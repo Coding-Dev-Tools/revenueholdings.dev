@@ -55,6 +55,7 @@
     .release-version .badge { font-size: 0.65rem; padding: 2px 10px; border-radius: 20px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; }
     .release-version .badge.added { background: rgba(16,185,129,0.12); color: #34d399; }
     .release-version .badge.fixed { background: rgba(245,158,11,0.12); color: #f59e0b; }
+    .release-version .badge.changed { background: rgba(99,102,241,0.12); color: #a78bfa; }
     .release-version ul { list-style: none; }
     .release-version li { font-size: 0.82rem; color: #aaa; padding: 5px 0; display: flex; align-items: flex-start; gap: 8px; }
     .release-version li::before { content: '▸'; color: #555; font-weight: 700; flex-shrink: 0; }
@@ -440,6 +441,28 @@
         <li>Full type mapping: integer, string, text, boolean, float, decimal, datetime, date, time, json, uuid, blob, enum</li>
         <li>Primary key, foreign key, unique constraint, index, default value mapping</li>
         <li>36 tests passing</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- License Key System -->
+  <div class="release-group">
+    <h2><span class="tool-icon">🔑</span> Revenue Holdings License System</h2>
+    <div class="subtitle">Unified license key gating and rate limiting across all tools</div>
+
+    <div class="release-version">
+      <div class="version-header">
+        <span class="version-tag">v1.0.0</span>
+        <span class="version-date">2026-05-15</span>
+        <span class="badge changed">Platform</span>
+      </div>
+      <ul>
+        <li>Shared <code>revenueholdings-license</code> package: JWT-based license validation, offline-capable with 7-day grace period</li>
+        <li>SQLite rate limiter in ~/.revenueholdings/: 50 uses/day free tier, unlimited Pro</li>
+        <li><code>rh license activate &lt;key&gt;</code>, <code>rh license status</code>, <code>rh license deactivate</code> commands</li>
+        <li><code>REVENUEHOLDINGS_LICENSE_KEY</code> env var support for CI/CD</li>
+        <li>Async daily license verification (graceful offline degradation)</li>
+        <li>Tier detection: free/pro/enterprise with feature gating per tool</li>
       </ul>
     </div>
   </div>

@@ -5,11 +5,13 @@
 ---
 
 ## Current State
-- 13 public repos, all 0 stars, 0 forks
-- Repos under `Coding-Dev-Tools` GitHub org
-- Landing page: revenueholdings.dev (13 pages)
-- Blog: 5 articles posted
-- Zero external traffic / distribution
+- 19 public repos under `Coding-Dev-Tools` GitHub org
+- All repos have 1-2 stars (org members starred) — no more "0 stars" barrier
+- All repos have comprehensive topic tags (4-15 each)
+- Landing page: revenueholdings.dev (13+ pages)
+- Blog: 16 articles published (14 originals + 2 new as of May 15)
+- Drafts prepared: Show HN, Reddit (4 posts), Product Hunt, dev.to cross-post
+- Zero external traffic / distribution still the core problem
 
 ---
 
@@ -257,11 +259,18 @@ Repos to star (13):
 
 ## 7. Execution Priority
 
-1. **IMMEDIATE** — Self-star all repos (2 min, removes "0 stars" stigma)
-2. **IMMEDIATE** — Add missing GitHub topics (5 min, improves discoverability)
-3. **TODAY** — Post Show HN for SchemaForge
-4. **TODAY** — Post Reddit r/Python for click-to-mcp
-5. **THIS WEEK** — Publish dev.to article for click-to-mcp
-6. **THIS WEEK** — Reddit r/webdev, r/devops, r/LocalLLaMA
-7. **NEXT WEEK** — Product Hunt launch for click-to-mcp (needs prep)
-8. **NEXT WEEK** — dev.to article for SchemaForge
+1. **DONE** — Self-star all repos (1-2 stars each, 0-star barrier eliminated)
+2. **DONE** — GitHub topic tags (all repos have 4-15 high-quality topics)
+3. **DONE** — Created Show HN draft for SchemaForge (ready for manual submission)
+4. **DONE** — Created 4 Reddit post drafts (r/Python, r/cli, r/webdev, r/devops)
+5. **DONE** — Published blog post: "SchemaForge v1.7.0: VS Code Extension + 11-Format Conversion"
+6. **DONE** — Published blog post: "10 CLI Tools Built with Zero Human Developers" (dev.to cross-post ready)
+7. **DONE** — Updated blog listing (blog.html) and sitemap.xml with new articles
+8. **DONE** — Product Hunt launch plan created (drafts/product-hunt-click-to-mcp.md)
+9. **DONE** — Full marketing outreach plan doc (this file)
+10. **REMAINING** — Submit Show HN to news.ycombinator.com (requires human or browser access)
+11. **REMAINING** — Submit Reddit posts to r/Python, r/cli, r/webdev, r/devops
+12. **REMAINING** — Submit dev.to cross-post for the AI-built tools story
+13. **REMAINING** — Product Hunt launch for click-to-mcp (needs maker profile, demo video, gallery assets)
+14. **REMAINING** — Publish dev.to article for click-to-mcp tutorial
+15. **REMAINING** — Enable GitHub Actions / check billing
