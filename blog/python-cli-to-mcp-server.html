@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Turn Any Python CLI into an MCP Server for AI Agents</title>
+  <meta name="description" content="Step-by-step guide: wrap Click and typer CLIs as MCP servers so AI coding agents (Claude Code, Cursor, Codex) can invoke your tools directly — no code changes needed.">
+  <meta name="keywords" content="MCP server, Model Context Protocol, Python CLI, Click, typer, AI agent, Claude Code, Cursor, MCP tools, click-to-mcp">
+  <meta property="og:title" content="How to Turn Any Python CLI into an MCP Server for AI Agents">
+  <meta property="og:description" content="Wrap Click and typer CLIs as MCP servers — zero code changes. AI agents invoke your tools directly.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://coding-dev-tools.github.io/revenueholdings.dev/blog/python-cli-to-mcp-server.html">
+  <meta name="twitter:site" content="@RevenueHolds">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="How to Turn Any Python CLI into an MCP Server for AI Agents">
+  <meta name="twitter:description" content="Wrap Click and typer CLIs as MCP servers — zero code changes. AI agents invoke your tools directly.">
+  <meta name="twitter:image" content="https://coding-dev-tools.github.io/revenueholdings.dev/og-image.svg">
+  <meta property="og:image" content="https://coding-dev-tools.github.io/revenueholdings.dev/og-image.svg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛁</text></svg>">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', -apple-system, sans-serif; background: #0a0a0b; color: #e1e1e3; line-height: 1.7; min-height: 100vh; }
+    nav { position: fixed; top: 0; width: 100%; z-index: 100; background: rgba(10,10,11,0.85); backdrop-filter: blur(12px); border-bottom: 1px solid #1e1e20; }
+    nav .inner { max-width: 800px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; }
+    nav .logo { font-weight: 700; font-size: 1.15rem; color: #fff; letter-spacing: -0.02em; text-decoration: none; }
+    nav .logo span { color: #6366f1; }
+    nav .links a { color: #888; text-decoration: none; font-size: 0.85rem; margin-left: 28px; transition: color .15s; }
+    nav .links a:hover { color: #fff; }
+    article { max-width: 800px; margin: 0 auto; padding: 100px 24px 80px; }
+    h1 { font-size: 2.4rem; font-weight: 800; color: #fff; letter-spacing: -0.03em; line-height: 1.2; margin-bottom: 16px; }
+    h1 span { background: linear-gradient(135deg, #6366f1, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .meta { font-size: 0.85rem; color: #666; margin-bottom: 40px; }
+    .meta a { color: #6366f1; text-decoration: none; }
+    h2 { font-size: 1.5rem; font-weight: 700; color: #fff; margin-top: 48px; margin-bottom: 16px; letter-spacing: -0.02em; }
+    h3 { font-size: 1.15rem; font-weight: 600; color: #ccc; margin-top: 32px; margin-bottom: 12px; }
+    p { margin-bottom: 18px; color: #b0b0b4; }
+    a { color: #6366f1; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    code { color: #a78bfa; background: #0d0d0e; padding: 2px 7px; border-radius: 4px; font-size: 0.88em; font-family: 'Fira Code', 'SF Mono', monospace; }
+    pre { background: #0d0d0e; border: 1px solid #1e1e20; border-radius: 10px; padding: 20px; margin: 20px 0 28px; overflow-x: auto; }
+    pre code { background: none; padding: 0; font-size: 0.85rem; line-height: 1.7; color: #d1d5db; }
+    .keyword { color: #c084fc; }
+    .string { color: #34d399; }
+    .comment { color: #555; }
+    .output { color: #666; font-style: italic; }
+    ul, ol { margin: 12px 0 20px 24px; color: #b0b0b4; }
+    li { margin-bottom: 8px; }
+    strong { color: #e1e1e3; }
+    em { color: #a78bfa; font-style: normal; }
+    table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+    th { text-align: left; padding: 10px 14px; font-size: 0.8rem; color: #666; border-bottom: 1px solid #1e1e20; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+    td { padding: 10px 14px; font-size: 0.9rem; border-bottom: 1px solid #1e1e20; color: #b0b0b4; }
+    .cta-box { background: linear-gradient(135deg, rgba(99,102,241,0.08), rgba(167,139,250,0.08)); border: 1px solid rgba(99,102,241,0.2); border-radius: 12px; padding: 24px; margin: 40px 0; text-align: center; }
+    .cta-box a { display: inline-block; padding: 12px 28px; border-radius: 10px; font-weight: 600; font-size: 0.9rem; background: #6366f1; color: #fff; text-decoration: none; margin-top: 8px; }
+    .cta-box a:hover { background: #5558e6; }
+    .cta-box p { margin-bottom: 0; color: #999; }
+    .tag { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; background: rgba(99,102,241,0.12); color: #a78bfa; border: 1px solid rgba(99,102,241,0.2); margin-right: 6px; margin-bottom: 16px; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="inner">
+    <a href="../" class="logo"><span>⛁</span> Revenue Holdings</a>
+    <div class="links">
+      <a href="../docs.html">Docs</a>
+      <a href="../blog.html">Blog</a>
+      <a href="https://github.com/Coding-Dev-Tools" target="_blank">GitHub</a>
+    </div>
+  </div>
+</nav>
+
+<article>
+  <span class="tag">MCP</span> <span class="tag">Python</span> <span class="tag">AI Agents</span>
+  <h1>How to Turn Any Python CLI<br>into an <span>MCP Server</span></h1>
+  <div class="meta">May 2026 · 8 min read · <a href="https://github.com/Coding-Dev-Tools/click-to-mcp">click-to-mcp on GitHub</a></div>
+
+  <p>MCP (Model Context Protocol) is how AI coding agents talk to tools. Claude Code, Cursor, Codex, Cline — they all use it. But if your team already has Python CLI tools built with Click or typer, you'd normally need to write a separate MCP server for each one.</p>
+
+  <p>That means duplicate code, duplicate maintenance, and a new server for every tool. Not sustainable.</p>
+
+  <p>Here's how to skip all of that and turn your <em>existing</em> Python CLI into an MCP server with zero code changes.</p>
+
+  <h2>The Three Ways to Make an MCP Server</h2>
+
+  <table>
+    <tr><th>Approach</th><th>Effort</th><th>Best For</th></tr>
+    <tr><td>Write from scratch (FastMCP)</td><td>Medium</td><td>New tools, greenfield</td></tr>
+    <tr><td>Manual wrapper per CLI</td><td>High</td><td>1-2 CLIs with custom logic</td></tr>
+    <tr><td><strong>Auto-wrap with click-to-mcp</strong></td><td><strong>Low</strong></td><td><strong>Existing Click/typer CLIs</strong></td></tr>
+  </table>
+
+  <p>If you're building something new, FastMCP is great. But most teams have existing tools. That's where click-to-mcp shines — it introspects your CLI at runtime and serves it as an MCP server automatically.</p>
+
+  <h2>Step 1: Install click-to-mcp</h2>
+
+  <pre><code><span class="keyword">pip install</span> git+https://github.com/Coding-Dev-Tools/click-to-mcp.git</code></pre>
+
+  <p>If you want HTTP+SSE transport (for web-based clients like Cursor), install with the <code>http</code> extra:</p>
+
+  <pre><code><span class="keyword">pip install</span> "click-to-mcp[http] @ git+https://github.com/Coding-Dev-Tools/click-to-mcp.git"</code></pre>
+
+  <h2>Step 2: Discover Your CLIs</h2>
+
+  <pre><code><span class="keyword">$</span> click-to-mcp discover
+<span class="output">Scanning environment for Click/typer CLIs...
+
+Found 3 CLIs:
+  • my-database-tool (6 commands)
+  • my-api-validator (4 commands)
+  • my-deploy-helper (3 commands)</span></code></pre>
+
+  <p>click-to-mcp scans your Python environment and finds every installed Click or typer CLI. No configuration needed — it detects them automatically.</p>
+
+  <h2>Step 3: Serve as MCP Server</h2>
+
+  <pre><code><span class="keyword">$</span> click-to-mcp serve my-database-tool
+<span class="output">MCP server starting on stdio...
+  Tool: db_query (2 params)
+  Tool: db_migrate (1 param)
+  Tool: db_seed (1 param)
+  Tool: db_dump (1 param)
+  Tool: db_stats (0 params)
+  Tool: db_reset (0 params)
+Ready — 6 tools exposed</span></code></pre>
+
+  <p>Every command in your CLI becomes an MCP tool. Arguments become required input properties. Options become optional properties with defaults. <code>click.Choice</code> becomes a JSON Schema enum. Nested groups become prefixed tools.</p>
+
+  <h3>How Click Maps to MCP</h3>
+
+  <table>
+    <tr><th>Click Concept</th><th>MCP Mapping</th></tr>
+    <tr><td><code>@click.command()</code></td><td>MCP tool</td></tr>
+    <tr><td><code>@click.argument()</code></td><td>Required input property</td></tr>
+    <tr><td><code>@click.option()</code></td><td>Optional input with default</td></tr>
+    <tr><td><code>click.Choice</code></td><td>JSON Schema <code>enum</code></td></tr>
+    <tr><td><code>click.INT</code> / <code>click.FLOAT</code></td><td><code>integer</code> / <code>number</code></td></tr>
+    <tr><td><code>click.BOOL</code> / <code>is_flag</code></td><td><code>boolean</code></td></tr>
+    <tr><td>Nested <code>click.Group</code></td><td>Prefixed tools (e.g. <code>config_show</code>)</td></tr>
+  </table>
+
+  <p>The mapping is automatic because Click's type system already carries everything MCP needs. No annotations. No decorators. No boilerplate.</p>
+
+  <h2>Step 4: Connect to Your AI Agent</h2>
+
+  <h3>Claude Code</h3>
+  <p>Add to <code>.claude/settings.json</code>:</p>
+  <pre><code>{
+  <span class="string">"mcpServers"</span>: {
+    <span class="string">"my-database-tool"</span>: {
+      <span class="string">"command"</span>: <span class="string">"click-to-mcp"</span>,
+      <span class="string">"args"</span>: [<span class="string">"serve"</span>, <span class="string">"my-database-tool"</span>]
+    }
+  }
+}</code></pre>
+
+  <h3>Cursor</h3>
+  <p>Add to <code>.cursor/mcp.json</code>:</p>
+  <pre><code>{
+  <span class="string">"mcpServers"</span>: {
+    <span class="string">"my-database-tool"</span>: {
+      <span class="string">"command"</span>: <span class="string">"click-to-mcp"</span>,
+      <span class="string">"args"</span>: [<span class="string">"serve"</span>, <span class="string">"my-database-tool"</span>]
+    }
+  }
+}</code></pre>
+
+  <h3>Cline / VS Code</h3>
+  <p>Add to <code>.vscode/mcp.json</code>:</p>
+  <pre><code>{
+  <span class="string">"servers"</span>: {
+    <span class="string">"my-database-tool"</span>: {
+      <span class="string">"command"</span>: <span class="string">"click-to-mcp"</span>,
+      <span class="string">"args"</span>: [<span class="string">"serve"</span>, <span class="string">"my-database-tool"</span>]
+    }
+  }
+}</code></pre>
+
+  <h2>Step 5: Use It</h2>
+
+  <p>Now when you ask your AI agent a question about your tool, it will automatically invoke the MCP tool:</p>
+
+  <pre><code><span class="comment">You:</span> What tables are in my database?
+
+<span class="comment">Claude Code:</span> <span class="output">*calls db_stats tool*</span>
+→ Database: production_db
+→ 23 tables, 1.2M rows total
+→ Largest: orders (450K rows), users (180K rows)</code></pre>
+
+  <p>No manual command invocation. The AI agent picks the right tool and arguments automatically.</p>
+
+  <h2>stdio vs HTTP+SSE: Which Transport?</h2>
+
+  <table>
+    <tr><th>Transport</th><th>Command</th><th>Use With</th></tr>
+    <tr><td><strong>stdio</strong> (default)</td><td><code>click-to-mcp serve my-cli</code></td><td>Claude Code, Cline, terminal agents</td></tr>
+    <tr><td><strong>HTTP+SSE</strong></td><td><code>click-to-mcp serve-http my-cli --port 8000</code></td><td>Cursor, web clients, remote agents</td></tr>
+  </table>
+
+  <p>Most local development uses stdio. If your AI tool connects over HTTP (like Cursor does for some configurations), use the HTTP+SSE transport.</p>
+
+  <h2>Multiple CLIs at Once</h2>
+
+  <p>The real power is exposing your entire toolkit:</p>
+
+  <pre><code>{
+  <span class="string">"mcpServers"</span>: {
+    <span class="string">"database-tool"</span>: {
+      <span class="string">"command"</span>: <span class="string">"click-to-mcp"</span>,
+      <span class="string">"args"</span>: [<span class="string">"serve"</span>, <span class="string">"my-database-tool"</span>]
+    },
+    <span class="string">"api-validator"</span>: {
+      <span class="string">"command"</span>: <span class="string">"click-to-mcp"</span>,
+      <span class="string">"args"</span>: [<span class="string">"serve"</span>, <span class="string">"my-api-validator"</span>]
+    },
+    <span class="string">"deploy-helper"</span>: {
+      <span class="string">"command"</span>: <span class="string">"click-to-mcp"</span>,
+      <span class="string">"args"</span>: [<span class="string">"serve"</span>, <span class="string">"my-deploy-helper"</span>]
+    }
+  }
+}</code></pre>
+
+  <p>Now your AI agent has access to all three tools — database operations, API validation, and deployment commands — in a single conversation.</p>
+
+  <h2>What click-to-mcp Is NOT</h2>
+
+  <ul>
+    <li><strong>Not a replacement for FastMCP.</strong> Building a new MCP server from scratch? Use FastMCP. click-to-mcp is for <em>existing</em> CLIs.</li>
+    <li><strong>Not limited to our tools.</strong> Any Click/typer CLI works — your internal tools, open-source packages, anything pip-installable.</li>
+    <li><strong>Not a runtime proxy.</strong> It introspects at startup, then serves directly. Zero per-request overhead.</li>
+    <li><strong>Not a code generator.</strong> Your CLI code stays untouched. click-to-mcp reads the Click registry at runtime.</li>
+  </ul>
+
+  <h2>Who Should Use This</h2>
+
+  <ul>
+    <li><strong>Teams with multiple Python CLIs</strong> — wrap them all as MCP servers in minutes, not days</li>
+    <li><strong>DevOps teams</strong> — expose deployment, monitoring, and infrastructure CLIs to AI agents</li>
+    <li><strong>API developers</strong> — let AI agents validate specs, run checks, and diff contracts</li>
+    <li><strong>Anyone using AI coding agents</strong> — give your agent access to your actual tools, not just file editing</li>
+  </ul>
+
+  <div class="cta-box">
+    <p><strong>Try it now — your CLI becomes an MCP server in 10 seconds</strong></p>
+    <a href="https://github.com/Coding-Dev-Tools/click-to-mcp">Star on GitHub →</a>
+  </div>
+
+  <h2>Further Reading</h2>
+
+  <ul>
+    <li><a href="click-to-mcp-intro.html">From CLI to MCP in One Command</a> — the original click-to-mcp announcement</li>
+    <li><a href="https://modelcontextprotocol.io/" target="_blank">Model Context Protocol spec</a> — official MCP documentation</li>
+    <li><a href="https://pypi.org/project/fastmcp/" target="_blank">FastMCP on PyPI</a> — for building new MCP servers from scratch</li>
+    <li><a href="../alternatives.html#clicktomcp-vs-fastmcp">click-to-mcp vs FastMCP comparison</a></li>
+  </ul>
+
+</article>
+
+</body>
+</html>
