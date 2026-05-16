@@ -176,9 +176,7 @@
 
   <h2>1. Install DeployDiff</h2>
 
-  <div class="cmd-block">$ pip install deploydiff</div>
-
-  <p>Or from GitHub:</p>
+  <div class="cmd-block">$ pip install git+https://github.com/Coding-Dev-Tools/deploydiff.git</div>
 
   <div class="cmd-block">$ pip install git+https://github.com/Coding-Dev-Tools/deploydiff.git</div>
 
@@ -354,7 +352,7 @@ jobs:
           terraform show -json plan.tfplan > plan.json
 
       - name: Install DeployDiff
-        run: pip install deploydiff
+        run: pip install git+https://github.com/Coding-Dev-Tools/deploydiff.git
 
       - name: Preview infrastructure changes
         run: deploydiff preview --tf plan.json

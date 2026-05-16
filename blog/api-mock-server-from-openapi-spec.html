@@ -173,9 +173,7 @@
 
   <h2>1. Install APIGhost</h2>
 
-  <div class="cmd-block">$ pip install apighost</div>
-
-  <p>Or from GitHub:</p>
+  <div class="cmd-block">$ pip install git+https://github.com/Coding-Dev-Tools/apighost.git</div>
 
   <div class="cmd-block">$ pip install git+https://github.com/Coding-Dev-Tools/apighost.git</div>
 
@@ -327,7 +325,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Install APIGhost
-        run: pip install apighost
+        run: pip install git+https://github.com/Coding-Dev-Tools/apighost.git
 
       - name: Start mock API
         run: |
