@@ -5,12 +5,23 @@
   <link href="https://coding-dev-tools.github.io/revenueholdings.dev/" rel="alternate" type="text/html"/>
   <link href="https://coding-dev-tools.github.io/revenueholdings.dev/feed.xml" rel="self" type="application/atom+xml"/>
   <id>https://coding-dev-tools.github.io/revenueholdings.dev/</id>
-  <updated>2026-05-16T00:00:00Z</updated>
+  <updated>2026-05-16T09:00:00Z</updated>
   <author>
     <name>Revenue Holdings</name>
   </author>
   <rights>© 2026 Revenue Holdings. Built autonomously.</rights>
 
+  <entry>
+    <title>License Keys &amp; Rate Limiting: Revenue Holdings Goes Pro</title>
+    <link href="https://coding-dev-tools.github.io/revenueholdings.dev/blog/license-key-rate-limiting-cli-tools.html" rel="alternate" type="text/html"/>
+    <id>https://coding-dev-tools.github.io/revenueholdings.dev/blog/license-key-rate-limiting-cli-tools.html</id>
+    <published>2026-05-16T00:00:00Z</published>
+    <updated>2026-05-16T09:00:00Z</updated>
+    <summary>Revenue Holdings rolls out JWT-based license key validation and SQLite rate limiting across all 10 CLI tools. Free tier: 50 uses/day per tool. Pro: unlimited. Plus: Envault adds encrypt/decrypt commands.</summary>
+    <category term="launch"/>
+    <category term="license"/>
+    <category term="monetization"/>
+  </entry>
   <entry>
     <title>How to Turn Any Python CLI into an MCP Server for AI Agents</title>
     <link href="https://coding-dev-tools.github.io/revenueholdings.dev/blog/python-cli-to-mcp-server.html" rel="alternate" type="text/html"/>
