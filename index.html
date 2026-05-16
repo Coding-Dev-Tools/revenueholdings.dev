@@ -180,6 +180,7 @@
       <a href="docs.html">Docs</a>
       <a href="#pricing">Pricing</a>
       <a href="alternatives.html">Alternatives</a>
+      <a href="#faq">FAQ</a>
       <a href="releases.html">Changelog</a>
       <a href="blog.html">Blog</a>
       <a href="about.html">About</a>
@@ -198,7 +199,7 @@
     <a href="#pricing" class="cta secondary">See Pricing</a>
   </div>
   <p style="margin-top:20px;font-size:0.85rem;color:#666;">
-    <a href="blog/api-key-management-from-terminal.html" style="color:#6366f1;text-decoration:none;font-weight:500;">📖 Starting with API key management?</a> — or <a href="blog.html" style="color:#6366f1;text-decoration:none;font-weight:500;">browse all 14 tutorials</a>
+    <a href="blog/api-key-management-from-terminal.html" style="color:#6366f1;text-decoration:none;font-weight:500;">📖 Starting with API key management?</a> — or <a href="blog.html" style="color:#6366f1;text-decoration:none;font-weight:500;">browse all 15 tutorials</a>
   </p>
 
   <!-- GitHub Install Banner -->
@@ -209,9 +210,9 @@
   </div>
   <div class="stats">
     <div class="stat"><div class="num">10</div><div class="label">CLI Tools</div></div>
-    <div class="stat"><div class="num">13</div><div class="label">Tutorials &amp; Articles</div></div>
-    <div class="stat"><div class="num">117</div><div class="label">Passing Tests</div></div>
-    <div class="stat"><div class="num">100%</div><div class="label">Autonomous Build</div></div>
+    <div class="stat"><div class="num">15</div><div class="label">Tutorials &amp; Articles</div></div>
+    <div class="stat"><div class="num">300+</div><div class="label">Passing Tests</div></div>
+    <div class="stat"><div class="num">11</div><div class="label">Schema Formats</div></div>
     <div class="stat"><div class="num" id="star-count">—</div><div class="label">GitHub Stars</div></div>
   </div>
 </section>
@@ -586,6 +587,37 @@
     </div>
     <div class="form-msg" id="wl-msg">✓ You're on the list. We'll email you when tools launch.</div>
   </form>
+</section>
+
+<!-- FAQ -->
+<section id="faq" style="max-width:760px;margin:0 auto;padding:40px 24px 60px;">
+  <h2 style="font-size:1.6rem;font-weight:700;color:#fff;letter-spacing:-0.03em;text-align:center;margin-bottom:36px;">Frequently Asked Questions</h2>
+  <div style="display:flex;flex-direction:column;gap:16px;">
+    <div style="background:#121213;border:1px solid #1e1e20;border-radius:12px;padding:20px 24px;">
+      <div style="font-size:0.95rem;font-weight:600;color:#fff;margin-bottom:8px;">Are these tools ready for production?</div>
+      <div style="font-size:0.85rem;color:#888;">Yes. Every tool ships with tests, CI pipelines, and documentation. SchemaForge alone has 270+ passing tests. We use these tools internally every day.</div>
+    </div>
+    <div style="background:#121213;border:1px solid #1e1e20;border-radius:12px;padding:20px 24px;">
+      <div style="font-size:0.95rem;font-weight:600;color:#fff;margin-bottom:8px;">Why install from GitHub instead of PyPI?</div>
+      <div style="font-size:0.85rem;color:#888;">PyPI packages are coming. For now, <code style="color:#a78bfa;background:#0d0d0e;padding:2px 6px;border-radius:4px;font-size:0.8rem;">pip install git+URL</code> works perfectly and always gives you the latest version. No compiled wheels needed — these are pure Python.</div>
+    </div>
+    <div style="background:#121213;border:1px solid #1e1e20;border-radius:12px;padding:20px 24px;">
+      <div style="font-size:0.95rem;font-weight:600;color:#fff;margin-bottom:8px;">What does "built by autonomous AI" mean?</div>
+      <div style="font-size:0.85rem;color:#888;">The code was designed, written, tested, and documented by AI agents — no human wrote the implementation. The architecture, features, and quality were all determined by specialized agent roles (CEO, Engineer, Researcher, Marketer) running in a continuous loop.</div>
+    </div>
+    <div style="background:#121213;border:1px solid #1e1e20;border-radius:12px;padding:20px 24px;">
+      <div style="font-size:0.95rem;font-weight:600;color:#fff;margin-bottom:8px;">Is click-to-mcp the only way to make MCP servers?</div>
+      <div style="font-size:0.85rem;color:#888;">No. <a href="https://pypi.org/project/fastmcp/" style="color:#a78bfa;text-decoration:none;">FastMCP</a> is great for building new MCP servers from scratch. click-to-mcp is specifically for wrapping <em>existing</em> Click/typer CLIs — zero code changes, zero boilerplate. Use the right tool for your use case.</div>
+    </div>
+    <div style="background:#121213;border:1px solid #1e1e20;border-radius:12px;padding:20px 24px;">
+      <div style="font-size:0.95rem;font-weight:600;color:#fff;margin-bottom:8px;">How is SchemaForge different from prisma-import or drizzle-kit?</div>
+      <div style="font-size:0.85rem;color:#888;">Those tools are one-way and format-specific. Prisma introspects SQL but can't export back. SchemaForge does <em>bidirectional</em> conversion across 11 formats — Prisma ↔ Drizzle ↔ SQL ↔ Django ↔ SQLAlchemy ↔ GraphQL ↔ JSON Schema ↔ TypeORM ↔ EF Core ↔ Scala ↔ Alembic.</div>
+    </div>
+    <div style="background:#121213;border:1px solid #1e1e20;border-radius:12px;padding:20px 24px;">
+      <div style="font-size:0.95rem;font-weight:600;color:#fff;margin-bottom:8px;">Is there a free tier?</div>
+      <div style="font-size:0.85rem;color:#888;">Every tool is free and open source under the MIT license. Revenue Holdings adds optional paid features like license key enforcement and priority support. See <a href="pricing.html" style="color:#a78bfa;text-decoration:none;">pricing</a> for details.</div>
+    </div>
+  </div>
 </section>
 
 <!-- About / How We Build -->
