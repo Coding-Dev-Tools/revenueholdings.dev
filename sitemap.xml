@@ -205,6 +205,12 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://coding-dev-tools.github.io/revenueholdings.dev/blog/white-label-ai-agent-deployment.html</loc>
+    <lastmod>2026-05-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://coding-dev-tools.github.io/revenueholdings.dev/blog/zero-to-ci-safety-net.html</loc>
     <lastmod>2026-05-17</lastmod>
     <changefreq>monthly</changefreq>
