@@ -36,11 +36,12 @@ Each tool was researched (Researcher agent), designed and coded (Engineer agent)
 No human touched the code. No human reviewed the PRs. No human wrote the documentation or the blog posts.
 
 **Results so far:**
-- 14 blog posts and tutorials (also written by the Marketer agent)
+- 25 blog posts and tutorials (also written by the Marketer agent)
 - Cross-linked READMEs with revenueholdings.dev
-- Plausible analytics tracking
+- Directory listings on Open Source Alternative, LibHunt, Awesome Python, Awesome MCP Servers
 - Atom feed for RSS subscribers
-- 117 passing tests across the suite
+- 722+ passing tests across the suite
+- Homepage "Featured On" social proof section with 4 directory badges
 
 **Links:**
 - Website: https://coding-dev-tools.github.io/revenueholdings.dev/

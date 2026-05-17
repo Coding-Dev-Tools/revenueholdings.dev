@@ -268,9 +268,16 @@ Repos to star (13):
 7. **DONE** — Updated blog listing (blog.html) and sitemap.xml with new articles
 8. **DONE** — Product Hunt launch plan created (drafts/product-hunt-click-to-mcp.md)
 9. **DONE** — Full marketing outreach plan doc (this file)
-10. **REMAINING** — Submit Show HN to news.ycombinator.com (requires human or browser access)
-11. **REMAINING** — Submit Reddit posts to r/Python, r/cli, r/webdev, r/devops
-12. **REMAINING** — Submit dev.to cross-post for the AI-built tools story
-13. **REMAINING** — Product Hunt launch for click-to-mcp (needs maker profile, demo video, gallery assets)
-14. **REMAINING** — Publish dev.to article for click-to-mcp tutorial
-15. **REMAINING** — Enable GitHub Actions / check billing
+13. **DONE** — Updated blog listing (blog.html) and sitemap.xml with new articles
+14. **DONE** — Created and published blog post "We Built 10 Production-Ready CLI Tools with Zero Human Developers" (revenueholdings.dev/blog/10-cli-tools-zero-human-developers.html)
+15. **DONE** — Added directory listing badges (Open Source Alternative + LibHunt + Awesome Python) to all 10 tool READMEs
+16. **DONE** — Added "Featured On" social proof section to homepage
+17. **DONE** — Updated Show HN draft with latest stats (25 posts, 722+ tests, directory listings)
+18. **DONE** — Added internal cross-linking (Related Articles) to new blog post
+19. **DONE** — Added email subscribe CTA to new blog post
+20. **REMAINING** — Submit Show HN to news.ycombinator.com (requires human or browser access)
+21. **REMAINING** — Submit Reddit posts to r/Python, r/cli, r/webdev, r/devops
+22. **REMAINING** — Submit dev.to cross-post for the AI-built tools story
+23. **REMAINING** — Product Hunt launch for click-to-mcp (needs maker profile, demo video, gallery assets)
+24. **REMAINING** — Publish dev.to article for click-to-mcp tutorial
+25. **REMAINING** — Enable GitHub Actions / check billing
