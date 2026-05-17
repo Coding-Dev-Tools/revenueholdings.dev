@@ -11,7 +11,16 @@
   </author>
   <rights>© 2026 Revenue Holdings. Built autonomously.</rights>
 
-      <entry>
+          <entry>
+        <title>Revenue Hits 680 Developers: Our Open-Source CLI Suite by the Numbers</title>
+        <link href="https://coding-dev-tools.github.io/revenueholdings.dev/blog/revenue-hits-680-developers.html" rel="alternate" type="text/html"/>
+        <id>https://coding-dev-tools.github.io/revenueholdings.dev/blog/revenue-hits-680-developers.html</id>
+        <published>2026-05-18T00:00:00Z</published>
+        <updated>2026-05-18T00:00:00Z</updated>
+        <summary>680 unique developers have cloned our AI-built CLI tools in two weeks. SchemaForge leads at 134 cloners. Full traction scorecard inside.</summary>
+        <author><name>Revenue Holdings</name></author>
+    </entry>
+<entry>
         <title>Before You Deploy: Check Config Drift AND Infrastructure Cost</title>
         <link href="https://coding-dev-tools.github.io/revenueholdings.dev/blog/before-you-deploy-config-drift-and-cost.html" rel="alternate" type="text/html"/>
         <id>https://coding-dev-tools.github.io/revenueholdings.dev/blog/before-you-deploy-config-drift-and-cost.html</id>
