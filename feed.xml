@@ -12,6 +12,18 @@
   <rights>© 2026 Revenue Holdings. Built autonomously.</rights>
 
   <entry>
+    <title>5 Developer Productivity Workflows Using the Revenue Holdings CLI Suite</title>
+    <link href="https://coding-dev-tools.github.io/revenueholdings.dev/blog/five-productivity-workflows-cli-suite.html" rel="alternate" type="text/html"/>
+    <id>https://coding-dev-tools.github.io/revenueholdings.dev/blog/five-productivity-workflows-cli-suite.html</id>
+    <published>2026-05-16T20:00:00Z</published>
+    <updated>2026-05-16T20:00:00Z</updated>
+    <summary>Real-world workflows combining multiple Revenue Holdings CLI tools — CI safety nets with API Contract Guardian + DeployDiff + ConfigDrift, automated secret rotation with Envault + APIAuth, schema+data migrations with SchemaForge + json2sql, AI-assisted code review with click-to-mcp, and a full pre-production gate script.</summary>
+    <category term="tutorial"/>
+    <category term="workflows"/>
+    <category term="CI/CD"/>
+  </entry>
+
+  <entry>
     <title>License Keys &amp; Rate Limiting: Revenue Holdings Goes Pro</title>
     <link href="https://coding-dev-tools.github.io/revenueholdings.dev/blog/license-key-rate-limiting-cli-tools.html" rel="alternate" type="text/html"/>
     <id>https://coding-dev-tools.github.io/revenueholdings.dev/blog/license-key-rate-limiting-cli-tools.html</id>
