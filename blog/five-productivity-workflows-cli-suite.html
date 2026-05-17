@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -166,14 +166,14 @@ apiauth generate --type=hmac-sha256 --name="deploy-key-q3"
 # Output: rh_key_deploy_key_q3_a1b2c3d4e5f6...
 
 # Step 2: Compare current .env across environments
-envault diff dev staging prod
+rh-envault diff dev staging prod
 
 # Step 3: Sync the new key across all environments
-envault sync --from=dev --to=staging,prod \
+rh-envault sync --from=dev --to=staging,prod \
   --include=DEPLOY_KEY,API_KEY,JWT_SECRET
 
 # Step 4: Rotate the database password (auto-generates)
-envault rotate DB_PASSWORD --sync --env=dev,staging,prod</code></pre>
+rh-envault rotate DB_PASSWORD --sync --env=dev,staging,prod</code></pre>
 
     <p>Combined, these two tools automate what most teams do manually once a quarter (or forget to do entirely). APIAuth generates cryptographically sound keys; Envault distributes them — no Vault UI, no shared spreadsheets.</p>
   </div>
@@ -198,7 +198,7 @@ print(json.dumps(data))
 " > users.json
 
 # Step 2: Convert ORM schema (Prisma → Drizzle)
-schemaforge convert schema.prisma --to drizzle
+rh-schemaforge convert schema.prisma --to drizzle
 # Output: schema.drizzle.ts
 
 # Step 3: Generate SQL for the new schema from JSON data
@@ -233,7 +233,7 @@ click-to-mcp serve --tools=acg,deadcode --transport=stdio
 
 # Step 3: In Claude Code or Cursor, the AI can now:
 # - Run "acg diff --old=openapi.yaml --new=pr.yaml" to check your API changes
-# - Run "deadcode scan src/ --threshold=5" to find unused exports
+# - Run "rh-deadcode scan src/ --threshold=5" to find unused exports
 # - Gate its own code generation on real tool output</code></pre>
 
     <p>This is the most futuristic workflow: your AI coding assistant validates its own output using your production CLI tools, all through the MCP protocol. No manual context switching, no copy-pasting terminal output.</p>
@@ -258,13 +258,13 @@ echo "🔍 Pre-flight check starting..."
 acg diff --old=latest --new=current --gate
 
 # 2. Scan for dead code
-deadcode scan src/ --threshold=10
+rh-deadcode scan src/ --threshold=10
 
 # 3. Check config drift
 configdrift diff --env=staging --env=production
 
 # 4. Validate .env files across environments
-envault diff staging production
+rh-envault diff staging production
 
 # 5. Check for exposed secrets
 apiauth audit --check-committed

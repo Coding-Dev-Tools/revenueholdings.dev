@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -177,7 +177,7 @@ export const users = pgTable('users', {
 });</code></pre>
 
   <p>Convert to SQL with:</p>
-  <pre><code>schemaforge convert --from drizzle --to sql --input schema.ts</code></pre>
+  <pre><code>rh-schemaforge convert --from drizzle --to sql --input schema.ts</code></pre>
 
   <p>Result:</p>
   <pre><code>CREATE TABLE users (
@@ -190,7 +190,7 @@ export const users = pgTable('users', {
 
   <h2>Converting SQL to Drizzle</h2>
   <p>The reverse also works:</p>
-  <pre><code>schemaforge convert --from sql --to drizzle --input schema.sql</code></pre>
+  <pre><code>rh-schemaforge convert --from sql --to drizzle --input schema.sql</code></pre>
 
   <p>Generates a complete Drizzle TypeScript schema with correct dialect imports, type functions, and chained methods (.notNull(), .primaryKey(), .unique(), .default()).</p>
 

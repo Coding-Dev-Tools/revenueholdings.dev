@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -112,11 +112,11 @@
     <p>Every CLI command now calls <code>require_license()</code> before executing. Here's what that means in practice:</p>
 
     <pre><code><span class="comment"># On a fresh install — free tier, no setup needed</span>
-$ schemaforge convert input.prisma --to drizzle
+$ rh-schemaforge convert input.prisma --to drizzle
 <span class="string">✓ Schema converted (42 uses remaining today)</span>
 
 <span class="comment"># Free tier limit hit — upgrade prompt</span>
-$ schemaforge convert input.prisma --to drizzle
+$ rh-schemaforge convert input.prisma --to drizzle
 <span class="comment">Free tier limit reached (50/50 uses today).
 Upgrade to Pro: revenueholdings.dev/pricing.html
 Or wait until tomorrow when your free tier resets.</span>
@@ -164,16 +164,16 @@ $ deploydiff plan main..feature
       <li>Community support</li>
     </ul>
 
-    <h2>Also Shipping Today: Envault Encrypt/Decrypt</h2>
+    <h2>Also Shipping Today: rh-envault Encrypt/Decrypt</h2>
 
     <p>Alongside the license rollout, <strong>Envault</strong> (<code>envault 0.5.0+</code>) now includes <code>encrypt</code> and <code>decrypt</code> commands — letting you encrypt individual environment values with AES-256 before committing them to version control:</p>
 
     <pre><code><span class="comment"># Encrypt a sensitive value</span>
-$ envault encrypt DB_PASSWORD
+$ rh-envault encrypt DB_PASSWORD
 <span class="string">✓ Encrypted: enc:A5G8...</span>
 
 <span class="comment"># View encrypted .env with a decryption helper</span>
-$ envault decrypt --inline</code></pre>
+$ rh-envault decrypt --inline</code></pre>
 
     <p>This pairs naturally with the license system — CI pipelines can use Pro-tier license keys to automatically decrypt environment variables during deployment.</p>
 

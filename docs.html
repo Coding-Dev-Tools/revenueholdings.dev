@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -402,12 +402,12 @@ apiauth rotate &lt;key-id&gt;</code></pre>
     </ul>
 
     <p style="font-size:0.82rem;color:#888;font-weight:600;margin-bottom:8px;">Diff environments</p>
-    <pre><code class="language-bash">envault diff dev prod</code></pre>
+    <pre><code class="language-bash">rh-envault diff dev prod</code></pre>
 
     <p style="font-size:0.82rem;color:#888;font-weight:600;margin-bottom:8px;">Rotate a secret (smart type inference)</p>
-    <pre><code class="language-bash">envault rotate DB_PASSWORD        # → database-safe password
-envault rotate API_KEY            # → prefixed API key
-envault rotate JWT_SECRET         # → 256-bit base64 secret</code></pre>
+    <pre><code class="language-bash">rh-envault rotate DB_PASSWORD        # → database-safe password
+rh-envault rotate API_KEY            # → prefixed API key
+rh-envault rotate JWT_SECRET         # → 256-bit base64 secret</code></pre>
 
     <div class="insight">
       <p><strong>Why you need it:</strong> .env drift is how staging works but prod doesn't — a missing variable, a different value, a stale secret. Envault catches the diff, syncs safely, and rotates secrets with one command. Connect it to your secret store and stop managing .env files by hand.</p>
@@ -436,10 +436,10 @@ envault rotate JWT_SECRET         # → 256-bit base64 secret</code></pre>
     </ul>
 
     <p style="font-size:0.82rem;color:#888;font-weight:600;margin-bottom:8px;">Convert Prisma → Drizzle</p>
-    <pre><code class="language-bash">schemaforge convert --from prisma --to drizzle --input schema.prisma</code></pre>
+    <pre><code class="language-bash">rh-schemaforge convert --from prisma --to drizzle --input schema.prisma</code></pre>
 
     <p style="font-size:0.82rem;color:#888;font-weight:600;margin-bottom:8px;">Diff two schemas</p>
-    <pre><code class="language-bash">schemaforge diff schema.prisma schema.drizzle.ts</code></pre>
+    <pre><code class="language-bash">rh-schemaforge diff schema.prisma schema.drizzle.ts</code></pre>
 
     <div class="insight">
       <p><strong>Why you need it:</strong> Every ORM migration is a one-way street — Prisma introspects SQL but can't export back, Drizzle users manually rewrite schemas when switching. SchemaForge is the only tool that goes both ways across 11 formats. Stop rewriting schemas by hand and start converting them.</p>
@@ -500,10 +500,10 @@ envault rotate JWT_SECRET         # → 256-bit base64 secret</code></pre>
     </ul>
 
     <p style="font-size:0.82rem;color:#888;font-weight:600;margin-bottom:8px;">Scan current project</p>
-    <pre><code class="language-bash">deadcode scan</code></pre>
+    <pre><code class="language-bash">rh-deadcode scan</code></pre>
 
     <p style="font-size:0.82rem;color:#888;font-weight:600;margin-bottom:8px;">Preview what can be removed</p>
-    <pre><code class="language-bash">deadcode remove --dry-run</code></pre>
+    <pre><code class="language-bash">rh-deadcode remove --dry-run</code></pre>
 
     <div class="insight">
       <p><strong>Why you need it:</strong> ESLint catches unused variables but misses structural decay — orphaned exports bloat bundles, stale routes confuse teammates, orphaned CSS silently accumulates. DeadCode uses the TypeScript compiler API for whole-project analysis that linters can't match. Scan, preview, then clean with confidence.</p>

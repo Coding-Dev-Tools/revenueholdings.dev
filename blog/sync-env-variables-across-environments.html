@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -175,12 +175,12 @@
                    └─────────────┘
     LOG_LVL=debug        │          FEATURE_X=true (stale!)
     FEATURE_X=true       │          MISSING: DB_POOL
-    DB_POOL=10           │          envault sync prod --strategy source_wins
+    DB_POOL=10           │          rh-envault sync prod --strategy source_wins
   </div>
 
   <h2>1. Install Envault</h2>
 
-  <div class="cmd-block">$ pip install envault</div>
+  <div class="cmd-block">$ pip install rh-envault</div>
 
   <p>Or from GitHub:</p>
 
@@ -247,7 +247,7 @@ CACHE_TTL=1200</code></pre>
 
   <p>See exactly what's different between any two environments:</p>
 
-  <div class="cmd-block">$ envault diff dev prod</div>
+  <div class="cmd-block">$ rh-envault diff dev prod</div>
 
   <p>Envault produces a formatted diff showing keys that are:</p>
   <ul>
@@ -275,13 +275,13 @@ Different values:
 
   <p>You can also diff two .env files directly without a project config:</p>
 
-  <div class="cmd-block">$ envault diff-files .env.dev .env.prod</div>
+  <div class="cmd-block">$ rh-envault diff-files .env.dev .env.prod</div>
 
   <h2>4. Sync Environments</h2>
 
   <p>Promote changes from one environment to another with controlled conflict resolution:</p>
 
-  <div class="cmd-block">$ envault sync dev prod --dry-run</div>
+  <div class="cmd-block">$ rh-envault sync dev prod --dry-run</div>
 
   <p>Always dry-run first. The output shows exactly what would change:</p>
 
@@ -298,18 +298,18 @@ Would update:
 
   <p>When you're ready:</p>
 
-  <div class="cmd-block">$ envault sync dev prod</div>
+  <div class="cmd-block">$ rh-envault sync dev prod</div>
 
   <p>Envault also supports different conflict resolution strategies:</p>
 
   <div class="cmd-block"># Keep the target value on conflict (don't overwrite prod)
-$ envault sync dev prod --strategy target_wins
+$ rh-envault sync dev prod --strategy target_wins
 
 # Delete keys in target that don't exist in source
-$ envault sync dev prod --allow-delete
+$ rh-envault sync dev prod --allow-delete
 
 # Skip specific keys during sync
-$ envault sync dev prod --skip LOG_LEVEL --skip CACHE_TTL</code></pre>
+$ rh-envault sync dev prod --skip LOG_LEVEL --skip CACHE_TTL</code></pre>
 
   <div class="tip">
     <strong>💡 Pro tip:</strong> Use <code>--strategy target_wins</code> when syncing to production — you don't want to accidentally overwrite prod credentials with dev values. Use the default <code>source_wins</code> when promoting staging → prod after QA sign-off.
@@ -319,7 +319,7 @@ $ envault sync dev prod --skip LOG_LEVEL --skip CACHE_TTL</code></pre>
 
   <p>Rotating secrets manually is error-prone — someone has to generate a value, update every .env file, and make sure the format is correct. Envault's <code>rotate</code> command handles this automatically:</p>
 
-  <div class="cmd-block">$ envault rotate DB_PASSWORD</div>
+  <div class="cmd-block">$ rh-envault rotate DB_PASSWORD</div>
 
   <p>Envault inspects the key name and generates a cryptographically secure value with the correct format:</p>
 
@@ -342,16 +342,16 @@ Updated in: .env.dev, .env.staging, .env.prod</code></pre>
   <p>Additional rotation options:</p>
 
   <div class="cmd-block"># Rotate only in production
-$ envault rotate API_KEY --env prod
+$ rh-envault rotate API_KEY --env prod
 
 # Preview without applying
-$ envault rotate JWT_SECRET --dry-run --show
+$ rh-envault rotate JWT_SECRET --dry-run --show
 
 # Generate a longer key
-$ envault rotate WEBHOOK_SECRET --length 64
+$ rh-envault rotate WEBHOOK_SECRET --length 64
 
 # Rotate every secret in an environment
-$ envault rotate-all --env prod</code></pre>
+$ rh-envault rotate-all --env prod</code></pre>
 
   <div class="warning">
     <strong>⚠️ Rotation safety:</strong> <code>--dry-run --show</code> lets you preview the new value before it's applied. Always rotate secrets during maintenance windows and verify downstream services after.
@@ -395,12 +395,12 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Install Envault
-        run: pip install envault
+        run: pip install rh-envault
 
       - name: Check for drift
         run: |
           echo "=== Comparing staging vs prod ==="
-          envault diff staging prod || echo "⚠ Drift detected!"
+          rh-envault diff staging prod || echo "⚠ Drift detected!"
 
       - name: Verify no secrets leaked
         run: |
@@ -411,22 +411,22 @@ jobs:
   <p>For deployments, rotate secrets before release:</p>
 
   <pre><code># Rotate critical secrets before a production deploy
-envault rotate DB_PASSWORD --env prod
-envault rotate API_KEY --env prod --dry-run</code></pre>
+rh-envault rotate DB_PASSWORD --env prod
+rh-envault rotate API_KEY --env prod --dry-run</code></pre>
 
   <h2>Command Reference</h2>
 
   <table>
     <tr><th>Command</th><th>Description</th></tr>
     <tr><td><code>envault init &lt;project&gt;</code></td><td>Create .envault.yml config file</td></tr>
-    <tr><td><code>envault diff &lt;src&gt; &lt;tgt&gt;</code></td><td>Show key-level differences between environments</td></tr>
-    <tr><td><code>envault diff-files &lt;f1&gt; &lt;f2&gt;</code></td><td>Diff two .env files directly</td></tr>
-    <tr><td><code>envault sync &lt;src&gt; &lt;tgt&gt;</code></td><td>Sync variables with conflict resolution</td></tr>
-    <tr><td><code>envault sync --dry-run</code></td><td>Preview changes before applying</td></tr>
-    <tr><td><code>envault sync --strategy target_wins</code></td><td>Keep target values on conflict</td></tr>
-    <tr><td><code>envault rotate &lt;key&gt;</code></td><td>Rotate a secret with smart type inference</td></tr>
-    <tr><td><code>envault rotate --dry-run --show</code></td><td>Preview rotated value without applying</td></tr>
-    <tr><td><code>envault rotate-all --env prod</code></td><td>Rotate all secrets in an environment</td></tr>
+    <tr><td><code>rh-envault diff &lt;src&gt; &lt;tgt&gt;</code></td><td>Show key-level differences between environments</td></tr>
+    <tr><td><code>rh-envault diff-files &lt;f1&gt; &lt;f2&gt;</code></td><td>Diff two .env files directly</td></tr>
+    <tr><td><code>rh-envault sync &lt;src&gt; &lt;tgt&gt;</code></td><td>Sync variables with conflict resolution</td></tr>
+    <tr><td><code>rh-envault sync --dry-run</code></td><td>Preview changes before applying</td></tr>
+    <tr><td><code>rh-envault sync --strategy target_wins</code></td><td>Keep target values on conflict</td></tr>
+    <tr><td><code>rh-envault rotate &lt;key&gt;</code></td><td>Rotate a secret with smart type inference</td></tr>
+    <tr><td><code>rh-envault rotate --dry-run --show</code></td><td>Preview rotated value without applying</td></tr>
+    <tr><td><code>rh-envault rotate-all --env prod</code></td><td>Rotate all secrets in an environment</td></tr>
     <tr><td><code>envault store list/get/set</code></td><td>Interact with external secret stores</td></tr>
   </table>
 
@@ -438,7 +438,7 @@ envault rotate API_KEY --env prod --dry-run</code></pre>
     A SaaS team rotated their production database password after a security audit. They updated <code>.env.prod</code>, deployed, and everything worked. Three weeks later, a developer ran the staging environment — and it connected to production. The staging <code>.env</code> file still had the old, un-rotated password that happened to match a legacy read replica's credentials. The incident took two hours to debug.
   </p>
   <p>
-    With Envault, they would have run <code>envault rotate DB_PASSWORD</code> which updates <strong>all environments simultaneously</strong>. The <code>diff</code> command would have caught the staging-prod mismatch before it caused an incident.
+    With Envault, they would have run <code>rh-envault rotate DB_PASSWORD</code> which updates <strong>all environments simultaneously</strong>. The <code>diff</code> command would have caught the staging-prod mismatch before it caused an incident.
   </p>
 
   <hr>
