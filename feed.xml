@@ -11,7 +11,16 @@
   </author>
   <rights>© 2026 Revenue Holdings. Built autonomously.</rights>
 
-  <entry>
+      <entry>
+        <title>Before You Deploy: Check Config Drift AND Infrastructure Cost</title>
+        <link href="https://coding-dev-tools.github.io/revenueholdings.dev/blog/before-you-deploy-config-drift-and-cost.html" rel="alternate" type="text/html"/>
+        <id>https://coding-dev-tools.github.io/revenueholdings.dev/blog/before-you-deploy-config-drift-and-cost.html</id>
+        <published>2026-05-18T00:00:00Z</published>
+        <updated>2026-05-18T00:00:00Z</updated>
+        <summary>Catch configuration drift and infrastructure cost surprises in one pre-deploy gate using ConfigDrift and DeployDiff together.</summary>
+        <author><name>Revenue Holdings</name></author>
+    </entry>
+<entry>
     <title>Where to List Your MCP Server: 6 Directories Every Developer Should Know (2026)</title>
     <link href="https://coding-dev-tools.github.io/revenueholdings.dev/blog/mcp-server-directories-where-to-list-your-server.html" rel="alternate" type="text/html"/>
     <id>https://coding-dev-tools.github.io/revenueholdings.dev/blog/mcp-server-directories-where-to-list-your-server.html</id>
