@@ -61,6 +61,12 @@
     .cta-box a:hover { background: #5558e6; }
     .cta-box p { margin-bottom: 0; color: #999; }
     .tag { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; background: rgba(99,102,241,0.12); color: #a78bfa; border: 1px solid rgba(99,102,241,0.2); margin-right: 6px; margin-bottom: 16px; }
+    .share-buttons { display: flex; gap: 10px; margin: 24px 0 32px; flex-wrap: wrap; align-items: center; }
+    .share-buttons a { display: inline-flex; align-items: center; gap: 5px; padding: 7px 16px; border-radius: 8px; font-size: 0.8rem; font-weight: 500; text-decoration: none; color: #fff; transition: opacity .15s; }
+    .share-buttons a:hover { opacity: 0.85; text-decoration: none; }
+    .share-buttons .tw { background: #1d9bf0; }
+    .share-buttons .li { background: #0a66c2; }
+    .share-buttons .hn { background: #ff6600; }
   </style>
 </head>
 <body>
@@ -81,7 +87,14 @@
   <h1>How to Turn Any Python CLI<br>into an <span>MCP Server</span></h1>
   <div class="meta">May 2026 · 8 min read · <a href="https://github.com/Coding-Dev-Tools/click-to-mcp">click-to-mcp on GitHub</a></div>
 
-  <p>MCP (Model Context Protocol) is how AI coding agents talk to tools. Claude Code, Cursor, Codex, Cline — they all use it. But if your team already has Python CLI tools built with Click or typer, you'd normally need to write a separate MCP server for each one.</p>
+  <div class="share-buttons">
+    <span style="font-size:0.8rem;color:#666;font-weight:500;">Share:</span>
+    <a class="tw" href="https://twitter.com/intent/tweet?text=Turn%20any%20Python%20CLI%20into%20an%20MCP%20server%20for%20AI%20agents&url=https://coding-dev-tools.github.io/revenueholdings.dev/blog/python-cli-to-mcp-server.html&via=RevenueHolds" target="_blank" rel="noopener">𝕏 Twitter</a>
+    <a class="li" href="https://www.linkedin.com/sharing/share-offsite/?url=https://coding-dev-tools.github.io/revenueholdings.dev/blog/python-cli-to-mcp-server.html" target="_blank" rel="noopener">in LinkedIn</a>
+    <a class="hn" href="https://news.ycombinator.com/submitlink?u=https://coding-dev-tools.github.io/revenueholdings.dev/blog/python-cli-to-mcp-server.html&t=Turn%20Any%20Python%20CLI%20into%20an%20MCP%20Server%20for%20AI%20Agents" target="_blank" rel="noopener">Y HN</a>
+  </div>
+
+  <p>MCP
 
   <p>That means duplicate code, duplicate maintenance, and a new server for every tool. Not sustainable.</p>
 

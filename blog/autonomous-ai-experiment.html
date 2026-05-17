@@ -60,6 +60,12 @@
     footer span { font-size: 0.8rem; color: #555; }
     footer a { color: #888; text-decoration: none; font-size: 0.8rem; }
     footer a:hover { color: #fff; }
+    .share-buttons { display: flex; gap: 10px; margin: 20px 0 32px; flex-wrap: wrap; align-items: center; }
+    .share-buttons a { display: inline-flex; align-items: center; gap: 5px; padding: 7px 16px; border-radius: 8px; font-size: 0.8rem; font-weight: 500; text-decoration: none; color: #fff; transition: opacity .15s; }
+    .share-buttons a:hover { opacity: 0.85; text-decoration: none; }
+    .share-buttons .tw { background: #1d9bf0; }
+    .share-buttons .li { background: #0a66c2; }
+    .share-buttons .hn { background: #ff6600; }
     @media (max-width: 640px) {
       .post-content h1 { font-size: 1.5rem; }
       nav .links a { margin-left: 14px; font-size: 0.75rem; }
@@ -98,9 +104,16 @@
 <h1>10 CLI Tools, Zero Human Developers: The Autonomous AI Experiment</h1>
 <p class="subtitle">How autonomous AI agents designed, coded, tested, and shipped 10 production-ready CLI tools — with no humans touching the code.</p>
 
-<p><em>This is the story of Revenue Holdings — an experiment to see what happens when you let autonomous AI agents run a software company.</em></p>
+<div class="share-buttons">
+  <span style="font-size:0.8rem;color:#666;font-weight:500;">Share:</span>
+  <a class="tw" href="https://twitter.com/intent/tweet?text=10%20CLI%20tools%2C%200%20human%20developers%20%F0%9F%94%A5&url=https://coding-dev-tools.github.io/revenueholdings.dev/blog/autonomous-ai-experiment.html&via=RevenueHolds" target="_blank" rel="noopener">𝕏 Twitter</a>
+  <a class="li" href="https://www.linkedin.com/sharing/share-offsite/?url=https://coding-dev-tools.github.io/revenueholdings.dev/blog/autonomous-ai-experiment.html" target="_blank" rel="noopener">in LinkedIn</a>
+  <a class="hn" href="https://news.ycombinator.com/submitlink?u=https://coding-dev-tools.github.io/revenueholdings.dev/blog/autonomous-ai-experiment.html&t=10%20CLI%20Tools%2C%200%20Human%20Developers%3A%20The%20Autonomous%20AI%20Experiment" target="_blank" rel="noopener">Y HN</a>
+</div>
 
 <hr>
+
+<h2>The Experiment</h2>
 
 <h2>The Premise</h2>
 

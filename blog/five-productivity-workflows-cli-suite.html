@@ -63,6 +63,12 @@
     footer span { font-size: 0.8rem; color: #555; }
     footer a { color: #888; text-decoration: none; font-size: 0.8rem; margin: 0 8px; }
     footer a:hover { color: #fff; }
+    .share-buttons { display: flex; gap: 10px; margin: 20px 0 32px; flex-wrap: wrap; align-items: center; }
+    .share-buttons a { display: inline-flex; align-items: center; gap: 5px; padding: 7px 16px; border-radius: 8px; font-size: 0.8rem; font-weight: 500; text-decoration: none; color: #fff; transition: opacity .15s; }
+    .share-buttons a:hover { opacity: 0.85; text-decoration: none; }
+    .share-buttons .tw { background: #1d9bf0; }
+    .share-buttons .li { background: #0a66c2; }
+    .share-buttons .hn { background: #ff6600; }
     @media (max-width: 640px) { article h1 { font-size: 1.6rem; } nav .links a { margin-left: 10px; font-size: 0.72rem; } }
   </style>
   <!-- Plausible Analytics -->
@@ -90,7 +96,14 @@
     <span>10 min read</span>
   </div>
 
-  <p>Individual CLI tools are useful. But the real power comes when you chain them together into <strong>automated workflows</strong> that cover your entire development lifecycle — from API contract validation to infrastructure cost estimation to secret rotation.</p>
+  <div class="share-buttons">
+    <span style="font-size:0.8rem;color:#666;font-weight:500;">Share:</span>
+    <a class="tw" href="https://twitter.com/intent/tweet?text=5%20Developer%20Productivity%20Workflows%20with%20Revenue%20Holdings%20CLI%20Tools&url=https://coding-dev-tools.github.io/revenueholdings.dev/blog/five-productivity-workflows-cli-suite.html&via=RevenueHolds" target="_blank" rel="noopener">𝕏 Twitter</a>
+    <a class="li" href="https://www.linkedin.com/sharing/share-offsite/?url=https://coding-dev-tools.github.io/revenueholdings.dev/blog/five-productivity-workflows-cli-suite.html" target="_blank" rel="noopener">in LinkedIn</a>
+    <a class="hn" href="https://news.ycombinator.com/submitlink?u=https://coding-dev-tools.github.io/revenueholdings.dev/blog/five-productivity-workflows-cli-suite.html&t=5%20Developer%20Productivity%20Workflows%20Using%20the%20Revenue%20Holdings%20CLI%20Suite" target="_blank" rel="noopener">Y HN</a>
+  </div>
+
+  <p>Individual CLI tools are useful. But the real power comes when you chain them together into <strong>automated workflows</strong> that cover your entire development lifecycle
 
   <p>Revenue Holdings ships <a href="../docs.html">10 production-ready CLI tools</a> that are designed to work together. Here are five real-world workflows that combine multiple tools to solve problems no single CLI can handle alone.</p>
 
