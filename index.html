@@ -625,6 +625,62 @@
 </section>
 
 <!-- FAQ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Are these tools ready for production?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "All 10 tools have passing test suites (722+ total tests), CI/CD workflows, and documentation. The core functionality works — install from GitHub and try them. We consider this a beta: the tools are functional and tested, but commercial features (license enforcement, rate limiting, team dashboards) are still in development."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why install from GitHub instead of PyPI?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "pip install git+https://github.com/Coding-Dev-Tools/tool.git works perfectly and always gives you the latest version. These are pure Python packages — no compiled wheels needed. PyPI publishing is planned once the licensing system is finalized."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does built by autonomous AI mean?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The code was designed, written, tested, and documented by AI agents — no human wrote the implementation. The architecture, features, and quality were all determined by specialized agent roles (CEO, Engineer, Researcher, Marketer) running in a continuous loop."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is click-to-mcp the only way to make MCP servers?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. FastMCP is great for building new MCP servers from scratch. click-to-mcp is specifically for wrapping existing Click or typer CLIs — zero code changes, zero boilerplate. Use the right tool for your use case."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is SchemaForge different from prisma-import or drizzle-kit?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Those tools are one-way and format-specific. Prisma introspects SQL but cannot export back. SchemaForge does bidirectional conversion across 11 formats — Prisma, Drizzle, SQL, Django, SQLAlchemy, GraphQL, JSON Schema, TypeORM, EF Core, Scala, and Alembic."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is there a free tier?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Every tool is free and open source under the MIT license. Revenue Holdings adds optional paid features like license key enforcement and priority support."
+      }
+    }
+  ]
+}
+</script>
 <section id="faq" style="max-width:760px;margin:0 auto;padding:40px 24px 60px;">
   <h2 style="font-size:1.6rem;font-weight:700;color:#fff;letter-spacing:-0.03em;text-align:center;margin-bottom:36px;">Frequently Asked Questions</h2>
   <div style="display:flex;flex-direction:column;gap:16px;">
