@@ -12,6 +12,18 @@
   <rights>© 2026 Revenue Holdings. Built autonomously.</rights>
 
   <entry>
+    <title>Where to List Your MCP Server: 6 Directories Every Developer Should Know (2026)</title>
+    <link href="https://coding-dev-tools.github.io/revenueholdings.dev/blog/mcp-server-directories-where-to-list-your-server.html" rel="alternate" type="text/html"/>
+    <id>https://coding-dev-tools.github.io/revenueholdings.dev/blog/mcp-server-directories-where-to-list-your-server.html</id>
+    <published>2026-05-17T11:00:00Z</published>
+    <updated>2026-05-17T11:00:00Z</updated>
+    <summary>The definitive guide to MCP server directories — awesome-mcp-servers, mcp.so, Glama.ai, Smithery, and more. Where to submit, what each one offers, and how to get listed.</summary>
+    <category term="guide"/>
+    <category term="MCP"/>
+    <category term="directories"/>
+  </entry>
+
+  <entry>
     <title>White-Label AI Agent Deployment: Launch Under Your Brand in 48 Hours</title>
     <link href="https://coding-dev-tools.github.io/revenueholdings.dev/blog/white-label-ai-agent-deployment.html" rel="alternate" type="text/html"/>
     <id>https://coding-dev-tools.github.io/revenueholdings.dev/blog/white-label-ai-agent-deployment.html</id>
@@ -29,6 +41,18 @@
     <updated>2026-05-17T08:00:00Z</updated>
     <summary>A practical guide to getting your open-source CLI tool listed in developer directories — awesome lists, OpenSourceAlternative.to, LibHunt, Product Hunt, and more. Includes submission tips, effort estimates, and real results.</summary>
     <category term="guide"/>
+  </entry>
+
+  <entry>
+    <title>10 Open-Source CLI Tools for AI-Powered Development (2026)</title>
+    <link href="https://coding-dev-tools.github.io/revenueholdings.dev/blog/10-open-source-cli-tools-ai-development.html" rel="alternate" type="text/html"/>
+    <id>https://coding-dev-tools.github.io/revenueholdings.dev/blog/10-open-source-cli-tools-ai-development.html</id>
+    <published>2026-05-17T09:00:00Z</published>
+    <updated>2026-05-17T09:00:00Z</updated>
+    <summary>Discover the complete Revenue Holdings ecosystem: 10 open-source CLI tools for API contracts, database schemas, secret management, dead code removal, MCP integration, data transformation, config monitoring, deployment diffs, and more.</summary>
+    <category term="guide"/>
+    <category term="ecosystem"/>
+    <category term="CLI tools"/>
   </entry>
 
   <entry>

@@ -24,8 +24,21 @@ There's a better way.
 
 ### Step 1: Install
 
+**Via pip (GitHub):**
 ```bash
 pip install git+https://github.com/Coding-Dev-Tools/click-to-mcp.git
+```
+
+**Via Homebrew (macOS/Linux):**
+```bash
+brew tap Coding-Dev-Tools/tap
+brew install click-to-mcp
+```
+
+**Via Scoop (Windows):**
+```bash
+scoop bucket add Coding-Dev-Tools https://github.com/Coding-Dev-Tools/scoop-bucket
+scoop install click-to-mcp
 ```
 
 For HTTP transport (needed by web-based MCP clients):
